@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+        Role::firstOrCreate(['name' => 'admin_Liga']);
+        Role::firstOrCreate(['name' => 'admin_Equipo']);
+        Role::firstOrCreate(['name' => 'usuario']);
         return view('auth.register');
     }
 
@@ -28,11 +32,11 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -44,8 +48,12 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        $user->assignRole('admin_Liga');
+        if (auth()->user()) {
+            return redirect()->route('dashboard')->with('success', 'Usuario ingresado correctamente.');
+        } else {
+            Auth::login($user);
+            return redirect()->route('dashboard')->with('success', 'Bienvenido a la sesión.');
+        }
     }
 }
