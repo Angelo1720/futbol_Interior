@@ -1,0 +1,224 @@
+php artisan serve --host=(ipv4->ipconfig)// iniciar el server
+ctrl + c // para parar el server
+
+//para cuando hago cambios de configuracion
+php artisan optimize
+php artisan cache:clear
+php artisan route:clear
+php artisan route:list //MUESTRA TODAS LAS RUTAS Y QUE METODO
+
+
+--------------CREDENCIALES------------------
+Productor
+pepe@gmail.com
+12345678
+Cliente
+sofia@gmail.com
+12345678
+Admin
+angelofestino5@gmail.com
+12345678
+
+----------------Manejo de Migraciones-------------------------
+
+Modificando la migracion ya existente:
+
+php artisan migrate
+
+php artisan migrate:reset --> devuelve todas las migraciones que fueron
+ejecutadas pero en orden inverso
+
+php artisan migrate --> ahi queda el cambio en phpmyadmin
+
+
+php artisan migrate:refresh // borra todas las migraciones y 
+ejecuta de nuevo las mismas.
+
+php artisan make:migration nombre // crea nuevas migraciones
+
+----------------Controladores--------------------------------------
+
+php artisan make:controller nombre
+
+---------Modelos-------------------------------------------
+
+php artisan make:model nombre
+
+-----------Rutas-----------------------------------------------
+
+Route::view('/nombre en la URL', "nombre del archivo .blade.php")->name('nombreRuta');
+
+-------cuando hago una ruta asi---------------------
+Route::get('/', function () {
+    return view('homePS');
+});
+
+uso este:
+
+return redirect('/');
+
+------cuando hago la ruta de esta otra forma------------------------
+
+Route::view('/home', "home")->name('home');
+
+uso este:
+
+return redirect(route('home'));
+
+--------API DE DIVISAS----------------------------
+http://cambio.today/members/dashboard
+
+
+-----LARALVEL SPATIE PERMISSION--------------------------------
+
+https://spatie.be/docs/laravel-permission/v6/basic-usage/basic-usage
+
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan optimize:clear
+php artisan migrate
+
+DIRECTIVAS DE BLADE
+
+@role('admin')
+    {{-- Contenido para usuarios con el rol 'admin' --}}
+@elserole('editor')
+    {{-- Contenido para usuarios con el rol 'editor' --}}
+@else
+    {{-- Contenido para usuarios sin los roles especificados --}}
+@endrole
+
+2. @hasrole:
+
+Similar a @role, pero puedes proporcionar un array de roles.
+
+blade
+
+@hasrole(['admin', 'editor'])
+    {{-- Contenido visible para usuarios con el rol 'admin' o 'editor' --}}
+@endhasrole
+
+--------SEEDERS----------------------------------------------------
+php artisan make:seeder rolesSeeder
+php artisan migrate:fresh --seed
+___________________________________________________
+@forelse ($usuarios as $usuario)
+                        <tr>
+                            <th>{{ $usuario->cedula }}</th>
+                            <th>{{ $usuario->name }}</th>
+                            <th>{{ $usuario->email }}</th>
+                            <th>{{ $usuario->georreferencia }}</th>
+                            <th>+598 {{ $usuario->celular }}</th>
+                            @forelse ($tipos_usuarios as $tipo_usuario)
+                                @if ($tipo_usuario->id == $usuario->tipo_usuario_id)
+                                    <th>{{ $tipo_usuario->nombre }}</th>
+                                @endif
+                                    @empty
+                                    <tr> Sin tipo de usuario</tr>
+                                @endforelse
+                                    @forelse ($localidades as $localidad)
+                                        @if ($localidad->id == $usuario->localidad_id)
+                                            <th>{{ $localidad->nombre }}</th>
+                                        @endif
+                                            @empty
+                                            <tr> Sin localidad</tr>
+                                    @endforelse
+                        </tr>
+                        @empty
+                        <tr> Sin usuarios</tr>
+                    @endforelse
+
+https://makitweb.com/datatables-ajax-pagination-with-search-and-sort-laravel/
+
+//CORREO .env
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+----------------------------------------
+verificar acceso a las rutas en funciones
+
+
+
+ <label for="productos">Producto </label>
+                                <select name="productos" id="productos" class="form-select mb-3">
+                                    @foreach ($productos as $producto)
+                                        <option value="{{ $producto->id }}">{{ $producto->nombre }} {{ $producto->cantidad }} {{ $producto->precio }}</option>
+                                        @endforeach
+                                </select>
+-------------------------------------------------------------
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+// Crear un rol
+$role = Role::create(['name' => 'admin']);
+
+// Crear un permiso
+$permission = Permission::create(['name' => 'edit articles']);
+
+// Asignar permisos a un rol
+$role->givePermissionTo($permission);
+
+// Asignar roles a un usuario
+$user->assignRole('admin');
+
+// Proteger una ruta con el middleware de Spatie
+Route::get('/admin', function () {
+    // Este código solo se ejecutará si el usuario tiene el rol 'admin'
+})->middleware('role:admin');
+
+
+---------------------------------------------------------
+
+<div class="container">
+        <h1>Lista de Usuarios</h1>
+        <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo electrónico</th>
+                    <th>Georreferencia</th>
+                    <th>Celular</th>
+                    <th>Localidad</th>
+                    <th>Tipo de usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($usuarios as $usuario)
+                    <tr>
+                        <th>{{$usuario->cedula}}</th>
+                        <th>{{$usuario->name}}</th>
+                        <th>{{$usuario->apellido}}</th>
+                        <th>{{$usuario->email}}</th>
+                        <th>{{$usuario->georreferencia}}</th>
+                        <th>{{$usuario->celular}}</th>
+                        @forelse ($localidades as $localidad)
+                                    @if ($localidad->id == $usuario->localidad_id)
+                                        <th>{{ $localidad->nombre }}</th>
+                                    @endif
+                                        @empty
+                                        <tr> Sin localidad</tr>
+                                @endforelse
+                                @forelse ($tipos_usuarios as $tipo_usuario)
+                                @if ($tipo_usuario->id == $usuario->tipo_usuario_id)
+                                    <th>{{ $tipo_usuario->nombre }}</th>
+                                @endif
+                                @empty
+                            @endforelse
+                    </tr>
+
+                @empty
+                @endforelse
+
+            </tbody>
+        </table>
+    </div>
