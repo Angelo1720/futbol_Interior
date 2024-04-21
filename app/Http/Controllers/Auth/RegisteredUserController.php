@@ -21,9 +21,6 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        Role::firstOrCreate(['name' => 'admin_Liga']);
-        Role::firstOrCreate(['name' => 'admin_Equipo']);
-        Role::firstOrCreate(['name' => 'usuario']);
         return view('auth.register');
     }
 
@@ -48,7 +45,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        $user->assignRole('admin_Liga');
+        $user->assignRole('usuario');
         if (auth()->user()) {
             return redirect()->route('dashboard')->with('success', 'Usuario ingresado correctamente.');
         } else {
