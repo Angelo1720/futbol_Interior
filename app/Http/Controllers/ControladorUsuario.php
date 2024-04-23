@@ -37,7 +37,7 @@ class ControladorUsuario extends Controller
         // Fetch records
         $records = User::orderBy($columnName, $columnSortOrder)
             ->where('name', 'like', '%' . $searchValue . '%')->where('email', 'like', '%' . $searchValue . '%')
-            //->select('users.*')
+            ->select('users.*')
             ->skip($start)
             ->take($rowperpage)
             ->get();
