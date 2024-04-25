@@ -24,11 +24,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::get('/usuarios', [ControladorUsuario::class, 'index'])->middleware('auth')->name('usuarios');
-Route::get('/users/getUsers/', [ControladorUsuario::class, 'getUsers'])->middleware('auth')->name('usuarios.getUsers');
+Route::get('/usuarios/admin/listado/', [ControladorUsuario::class, 'getUsers'])->middleware('auth')->name('usuarios.getUsers');
+Route::get('/usuarios/admin/crear', [controladorUsuario::class, 'create'])->name('usuarios.create');
+Route::post('/usuarios/admin/guardar', [controladorUsuario::class, 'store'])->name('usuarios.store');
+Route::get('/usuarios/admin/{id}/editar', [controladorUsuario::class, 'edit'])->middleware('auth')->name('usuarios.edit');
+
 
 require __DIR__ . '/auth.php';

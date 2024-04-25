@@ -2,8 +2,8 @@
 
     <body>
         <div id="divBotonCrear">
-            <button type="submit" class="btn btn-primary"><a class="dropdown-item text-white" href="#">Crear
-                    Usuario</a></button>
+            <button type="submit" class="btn btn-primary"><a class="dropdown-item text-white"
+                    href="{{ route('usuarios.create') }}">Crear Usuario</a></button>
         </div>
 
         <div class="table-responsive" style="overflow-x:auto;">
@@ -95,6 +95,32 @@
                         {
                             data: 'email'
                         },
+                        {
+                            data: 'roles'
+                        },
+                        {
+                            "data": null,
+                            "render": function(data, type, row) {
+                                var eliminarUrl = "#";
+                                eliminarUrl = eliminarUrl.replace(':id', row.id);
+                                var editarUrl = "{{ route('usuarios.edit', ':id') }}";
+                                editarUrl = editarUrl.replace(':id', row.id);
+                                return '<div id="divAcciones"><form id="formEditarUsuario_' + row.id +
+                                    '" method="POST" action="' + editarUrl +
+                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este usuario?\')">' +
+                                    '<input type="hidden" name="_method" value="GET">' +
+                                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                                    '<button class="btn btn-primary">Editar</button>' +
+                                    '</form>' +
+                                    '<form id="formEliminarUsuario_' + row.id +
+                                    '" method="POST" action="' + eliminarUrl +
+                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este usuario?\')">' +
+                                    '<input type="hidden" name="_method" value="DELETE">' +
+                                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                                    '<button type="submit" class="btn btn-danger">Eliminar</button>' +
+                                    '</form></div>';
+                            }
+                        }
                     ]
                 });
 
