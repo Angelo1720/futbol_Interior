@@ -101,7 +101,7 @@
                         {
                             "data": null,
                             "render": function(data, type, row) {
-                                var eliminarUrl = "#";
+                                var eliminarUrl = "{{ route('usuarios.eliminar', ':id') }}";
                                 eliminarUrl = eliminarUrl.replace(':id', row.id);
                                 var editarUrl = "{{ route('usuarios.edit', ':id') }}";
                                 editarUrl = editarUrl.replace(':id', row.id);

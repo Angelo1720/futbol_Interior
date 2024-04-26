@@ -1,6 +1,7 @@
 <x-app-layout>
-    <form method="POST" action="#" class="p-4 border rounded-lg">
+    <form method="POST" action="{{ route('usuarios.update', $usuario->id) }}" class="p-4 border rounded-lg">
         @csrf
+        @method('PUT')
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">{{ __('Nombre') }}</label>
@@ -20,16 +21,16 @@
         <!-- Password -->
         <div class="mb-3">
             <label for="password" class="form-label">{{ __('Contraseña') }}</label>
-            <input id="password" class="form-control" type="password" name="password" required
-                autocomplete="new-password" />
+            <input id="password" class="form-control" type="password" name="password" autocomplete="new-password"
+                placeholder="Deje en blanco para mantener la contraseña actual." />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mb-3">
             <label for="password_confirmation" class="form-label">{{ __('Confirmar Contraseña') }}</label>
-            <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required
-                autocomplete="new-password" />
+            <input id="password_confirmation" class="form-control" type="password" name="password_confirmation"
+                autocomplete="new-password" placeholder="Deje en blanco para mantener la contraseña actual." />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 

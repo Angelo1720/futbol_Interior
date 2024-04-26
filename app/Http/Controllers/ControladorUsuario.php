@@ -42,7 +42,7 @@ class ControladorUsuario extends Controller
         }
 
         if (auth()->user()) {
-            return redirect()->route('dashboard')->with('success', 'Usuario ingresado correctamente.');
+            return redirect()->route('usuarios')->with('success', 'Usuario ingresado correctamente.');
         }
     }
     public function index(Request $request)
@@ -127,31 +127,38 @@ class ControladorUsuario extends Controller
 
     public function update(Request $request, $id)
     {
+        $usuario = User::findOrFail($id);
+
         try {
-            $reglas = [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            ];
-
             if ($request->filled('password')) {
-                $reglas['password'] = ['required', 'confirmed', Rules\Password::defaults()];
-                $reglas['password_confirmation'] = ['required'];
-            }
+                $reglas = [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                    'password_confirmation' => ['required'],
+                ];
 
-            $request->validate($reglas);
+                $request->validate($reglas);
 
-            $usuario = User::findOrFail($id);
+                $usuario->name = $request->input('name');
+                $usuario->email = $request->input('email');
 
-            $usuario->name = $request->input('name');
-            $usuario->email = $request->input('email');
-
-            if ($request->filled('password')) {
                 $usuario->password = Hash::make($request->input('password'));
-            }
+            } else {
+                $reglas = [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                ];
+                $request->validate($reglas);
 
+                $usuario->name = $request->input('name');
+                $usuario->email = $request->input('email');
+
+
+            }
             $usuario->save();
 
-            if (Auth::user()->hasRole('admin_Liga')) {
+            if (Auth::user()) {
                 return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente.');
             }
 
@@ -159,8 +166,20 @@ class ControladorUsuario extends Controller
             Log::error('Error al actualizar usuario: ' . $th->getMessage());
             return redirect()->back()->with('error', 'Se produjo un error al actualizar el usuario. Por favor, inténtelo de nuevo.');
         }
+    }
 
-
+    public function delete($id)
+    {
+        if ($id != null && $id > 0) {
+            $usuario = User::find($id);
+            if (!$usuario) {
+                return redirect()->route('home')->with('error', 'Usuario no encontrado.');
+            }
+            $usuario->delete();
+            return redirect()->route('usuarios')->with('success', 'Usuario eliminado correctamente.');
+        } else {
+            return redirect()->route('home')->with('error', 'Id de usuario no válido.');
+        }
     }
 
 }
