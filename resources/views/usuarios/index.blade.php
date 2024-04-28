@@ -1,12 +1,12 @@
 <x-app-layout>
 
     <body>
-        <div id="divBotonCrear">
-            <button type="submit" class="btn btn-primary"><a class="dropdown-item text-white"
+        <div id="divBotonCrear" class="m-5">
+            <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
                     href="{{ route('usuarios.create') }}">Crear Usuario</a></button>
         </div>
 
-        <div class="table-responsive" style="overflow-x:auto;">
+        <div class="table-responsive m-5" style="overflow-x:auto;">
             <table id='userTable' width='100%' border="1" style='border-collapse: collapse;'>
                 <thead>
                     <tr>
@@ -110,14 +110,14 @@
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este usuario?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button class="btn btn-primary">Editar</button>' +
+                                    '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                     '</form>' +
                                     '<form id="formEliminarUsuario_' + row.id +
                                     '" method="POST" action="' + eliminarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este usuario?\')">' +
                                     '<input type="hidden" name="_method" value="DELETE">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-danger">Eliminar</button>' +
+                                    '<button type="submit" class="btn btn-danger m-2">Eliminar</button>' +
                                     '</form></div>';
                             }
                         }

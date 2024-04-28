@@ -32,10 +32,9 @@ class ControladorUsuario extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        if ($user->rol_id == 1) {
+        if ($request->rol == 1) {
             $user->assignRole('admin_Liga');
-        } elseif ($user->rol_id == 2) {
+        } elseif ($request->rol == 2) {
             $user->assignRole('admin_Equipo');
         } else {
             $user->assignRole('usuario');

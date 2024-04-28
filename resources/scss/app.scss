@@ -1,0 +1,87 @@
+body{
+    position: relative;
+    padding-bottom: 4em;
+}
+
+.footer {
+    background-color: #2A359F;
+    color: white;
+    margin-top: auto;
+    position: absolute;
+    width: 100%;
+    
+}
+
+.personalized-footer h5 {
+    color: #2A359F;
+}
+
+.personalized-footer a {
+    color: white;
+}
+
+.personalized-footer a:hover {
+    color: #3B4ADF;
+}
+
+input.input-custom {
+    border: 1px solid #2A359F;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+label.label-custom {
+    color: #2A359F;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #2A359F;
+    border-color: #2A359F;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1E255F;
+    border-color: #1E255F;
+    color: white;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border-color: #0F1339;
+    color: #0F1339;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #0F1339;
+    border-color: #0F1339;
+    color: white;
+}
+
+.card-custom {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+#divAcciones{
+    display: flex;
+}
+
+select#rol.form-select {
+    border: 1px solid #2A359F;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+select#rol.form-select option {
+    background-color: white;
+}
+
+select#rol.form-select:focus {
+    border-color: #1E255F;
+    outline: 0; /* Quita el contorno de enfoque predeterminado */
+}
+

@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <div class="container">
-        <div class="card">
+        <div class="card card-custom">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="rounded-div">
@@ -15,17 +15,18 @@
 
                             <!-- Email Address -->
                             <div class="mb-3">
-                                <label for="email" class="form-label">{{ __('Correo Electrónico') }}</label>
-                                <input id="email" class="form-control" type="email" name="email"
-                                    :value="old('email')" required autofocus autocomplete="username" />
+                                <label for="email"
+                                    class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
+                                <input id="email" class="form-control input-custom" type="email" name="email"
+                                    :value="old('email')" required autofocus autocomplete="username">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
                             <!-- Password -->
                             <div class="mb-3">
-                                <label for="password" class="form-label">{{ __('Contraseña') }}</label>
-                                <input id="password" class="form-control" type="password" name="password" required
-                                    autocomplete="current-password" />
+                                <label for="password" class="form-label label-custom">{{ __('Contraseña') }}</label>
+                                <input id="password" class="form-control input-custom" type="password" name="password"
+                                    required autocomplete="current-password">
                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
 
@@ -43,7 +44,7 @@
                                 @endif
 
                                 <button type="submit" class="btn btn-primary">{{ __('Iniciar Sesión') }}</button>
-                                <a class="btn btn-secondary ms-3"
+                                <a class="btn btn-outline-secondary ms-3"
                                     href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                             </div>
                         </form>
