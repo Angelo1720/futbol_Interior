@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
+use App\Http\Controllers\EquipoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,8 @@ Route::get('/usuarios/admin/editar/{id}', [controladorUsuario::class, 'edit'])->
 Route::put('/usuarios/{id}', [controladorUsuario::class, 'update'])->name('usuarios.update');
 Route::delete('/usuarios/{id}', [controladorUsuario::class, 'delete'])->middleware('auth')->name('usuarios.eliminar');
 
+
+Route::get('/equipos', [EquipoController::class, 'index'])->middleware('auth')->name('equipos');
+Route::get('/equipos/listado', [ControladorUsuario::class, 'getEquipos'])->middleware('auth')->name('usuarios.getEquipos');
 
 require __DIR__ . '/auth.php';
