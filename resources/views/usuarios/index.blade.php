@@ -5,7 +5,6 @@
             <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
                     href="{{ route('usuarios.create') }}">Crear Usuario</a></button>
         </div>
-
         <div class="table-responsive m-5" style="overflow-x:auto;">
             <table id='userTable' width='100%' border="1" style='border-collapse: collapse;'>
                 <thead>
