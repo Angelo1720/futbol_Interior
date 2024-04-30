@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
+use App\Enum\Divisionales;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -10,7 +11,8 @@ class EquipoController extends Controller
 {
     public function create(): View 
     {
-        return view('equipo.create');
+        $divisional = Divisionales::all();
+        return view('equipo.create', compact('divisional'));
     }
     
     public function store(Request $request) {
@@ -36,7 +38,7 @@ class EquipoController extends Controller
         $equipo->longitudCancha = $request->longitudCancha;
         $equipo->divisional = $request->divisional;
         $equipo->cantidadTitulos = $request->cantidadTitulos;
-        $equipo->save();
+        $equipo->save();    
         return redirect()->route('equipo.index');
     }
 

@@ -85,7 +85,7 @@
                 $('#equipoTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('equipo.getEquipos') }}",
+                    ajax: "{{ route('equipos.getEquipos') }}",
                     columns: [{
                             data: 'nombre'
                         },

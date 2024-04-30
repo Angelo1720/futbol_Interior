@@ -40,6 +40,6 @@ Route::delete('/usuarios/{id}', [controladorUsuario::class, 'delete'])->middlewa
 
 
 Route::get('/equipos', [EquipoController::class, 'index'])->middleware('auth')->name('equipos');
-Route::get('/equipos/listado', [ControladorUsuario::class, 'getEquipos'])->middleware('auth')->name('usuarios.getEquipos');
+Route::get('/equipos/listado', [EquipoController::class, 'getEquipos'])->middleware('auth')->name('equipos.getEquipos');
 
 require __DIR__ . '/auth.php';
