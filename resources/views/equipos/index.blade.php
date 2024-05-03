@@ -3,7 +3,7 @@
     <body>
         @role('admin_Liga')
         <div id="divBotonCrear">
-            <button type="submit" class="btn btn-primary"><a class="dropdown-item text-white" href="#">Crear
+            <button type="submit" class="btn btn-primary"><a class="dropdown-item text-white" href="{{ route('equipos.create') }}">Crear
                     Equipo</a></button>
         </div>
 

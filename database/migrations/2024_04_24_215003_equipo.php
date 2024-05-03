@@ -17,7 +17,8 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
-            $table->string('escudo')->nullable()->default('text');;
+            $table->integer('idEscudo');
+            $table->integer('imgCancha');
             $table->dateTime('fechaFundacion');
             $table->string('nomCancha');
             $table->string('latitudCancha');
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('equipos');
     }
 };

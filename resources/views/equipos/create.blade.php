@@ -17,7 +17,7 @@
                         <!-- Fecha fundacion -->
                         <div class="mb-3">
                             <label for="fecha" class="form-label label-custom">{{ __('Fecha fundación') }}</label>
-                            <input id="fecha" class="form-control input-custom" type="fecha" name="fecha"
+                            <input id="fecha" class="form-control input-custom" type="date" name="fecha"
                                 :value="old('fecha')" required autocomplete="fecha" />
                             <x-input-error :messages="$errors->get('fecha')" class="mt-2" />
                         </div>
@@ -34,9 +34,9 @@
                             <div class="contenedoresListas">
                                 <label for="divisional" class="col-form-label label-custom">Divisional</label>
                                 <select name="divisional" id="divisional" class="form-select mb-3">
-                                        <option value="{{ 1 }}">{{ $divisional->DivA }}</option>
-                                        <option value="{{ 2 }}">{{ $divisional->DivB }}</option>
-                                        <option value="{{ 3 }}">{{ $divisional->DivC }}</option>
+                                        <option value="{{ "DivA" }}">{{ "Primera 'A'" }}</option>
+                                        <option value="{{ "DivB" }}">{{ "Segunda 'B'"}}</option>
+                                        <option value="{{ "DivC" }}">{{ "Tercera 'C'" }}</option>
                                 </select>
                             </div>
                         </div>

@@ -42,4 +42,7 @@ Route::delete('/usuarios/{id}', [controladorUsuario::class, 'delete'])->middlewa
 Route::get('/equipos', [EquipoController::class, 'index'])->middleware('auth')->name('equipos');
 Route::get('/equipos/listado', [EquipoController::class, 'getEquipos'])->middleware('auth')->name('equipos.getEquipos');
 
+Route::get('/equipos/crear', [EquipoController::class, 'create'])->middleware('auth')->name('equipos.create');
+Route::post('/equipos/guardar', [EquipoController::class, 'store'])->middleware('auth')->name('equipos.store');
+
 require __DIR__ . '/auth.php';

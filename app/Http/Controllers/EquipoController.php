@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Enum\Divisionales;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -11,35 +12,37 @@ class EquipoController extends Controller
 {
     public function create(): View 
     {
-        $divisional = Divisionales::all();
-        return view('equipo.create', compact('divisional'));
+        return view('equipos.create');
     }
     
     public function store(Request $request) {
 
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'escudo' => ['required', 'string', 'max:255'],
-            'fechaFundacion' => ['required', 'date', 'max:255'],
-            'nomCancha' => ['required', 'string', 'max:255'],
-            'latitudCancha' => ['required', 'string', 'max:255'],
-            'longitudCancha' => ['required', 'string', 'max:255'],
-            'divisional' => ['required', 'string', 'max:255'],
-            'cantidadTitulos' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'fecha' => ['required', 'date'],
+            'nameCancha' => ['required', 'string', 'max:255'],
         ]);
 
-
+        //dd($request->fecha);
         $equipo = new Equipo();
-        $equipo->nombre = $request->nombre;
-        $equipo->escudo = $request->escudo;
-        $equipo->fechaFundacion = $request->fechaFundacion;
-        $equipo->nomCancha = $request->nomCancha;
-        $equipo->latitudCancha = $request->latitudCancha;
-        $equipo->longitudCancha = $request->longitudCancha;
-        $equipo->divisional = $request->divisional;
-        $equipo->cantidadTitulos = $request->cantidadTitulos;
+        $equipo->nombre = $request->name;
+        // Separar la fecha en año, mes y día
+        //list($ano, $dia, $mes) = explode('-', $request->fecha);
+        // Establecer la fecha manualmente
+        //$equipo->fechaFundacion = new DateTime();
+        //$equipo->fechaFundacion->setDate($ano, $mes, $dia);
+        $equipo->fechaFundacion = $request->input('fecha');
+
+        $equipo->nomCancha = $request->nameCancha;
+        if ($request->divisional == "DivA") {
+            $equipo->divisional = Divisionales::DivA;
+        } elseif ($request->divisional == "DivB") {
+            $equipo->divisional = Divisionales::DivB;
+        } else {
+            $equipo->divisional = Divisionales::DivC;
+        }        
         $equipo->save();    
-        return redirect()->route('equipo.index');
+        return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
     }
 
     public function index(Request $request)
@@ -66,12 +69,12 @@ class EquipoController extends Controller
 
         // Total records
         $totalRecords = Equipo::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->where('divisionales', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = Equipo::orderBy($columnName, $columnSortOrder)
-            ->where('nombre', 'like', '%' . $searchValue . '%')->where('divisionales', 'like', '%' . $searchValue . '%')
-            ->select('equipo.*')
+            ->where('nombre', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')
+            ->select('equipos.*')
             ->skip($start)
             ->take($rowperpage)
             ->get();
@@ -80,11 +83,11 @@ class EquipoController extends Controller
 
         foreach ($records as $record) {
             $nombre = $record->nombre;
-            $divisionales = $record->divisionales;
+            $divisional = $record->divisional;
 
             $data_arr[] = array(
                 "nombre" => $nombre,
-                "divisionales" => $divisionales
+                "divisional" => $divisional
             );
         }
 
