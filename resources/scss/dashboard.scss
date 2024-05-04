@@ -1,0 +1,34 @@
+.swiper-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.swiper-slide img {
+    width: 100px;
+}
+
+.swiper-slide{
+    width: 10%;
+}
+
+#accesosDirectos{
+    display: flex;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute; /* Posición absoluta para los botones */
+    top: 50%; /* Coloca los botones en el centro vertical */
+    transform: translateY(-50%); /* Ajusta la posición vertical */
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
