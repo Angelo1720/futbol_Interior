@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Enum\Divisionales;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,29 +20,31 @@ class EquipoController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'fecha' => ['required', 'date'],
+            'fechaFundacion' => ['required', 'string', 'max:10'],
             'nameCancha' => ['required', 'string', 'max:255'],
         ]);
-
+        //dd($request->all());
         //dd($request->fecha);
-        $equipo = new Equipo();
-        $equipo->nombre = $request->name;
+        $equipoDiv;
+        if ($request->divisional == "DivA") {
+            $equipoDiv = Divisionales::DivA;
+        } elseif ($request->divisional == "DivB") {
+            $equipoDiv = Divisionales::DivB;
+        } else {
+            $equipoDiv = Divisionales::DivC;
+        }     
+
+        Equipo::create([
+            'nombre' => $request['name'],
+            'fechaFundacion' => $request['fechaFundacion'],
+            'nomCancha' => $request['nameCancha'],
+            'divisional' => $equipoDiv,
+        ]);
+        
         // Separar la fecha en año, mes y día
         //list($ano, $dia, $mes) = explode('-', $request->fecha);
         // Establecer la fecha manualmente
-        //$equipo->fechaFundacion = new DateTime();
-        //$equipo->fechaFundacion->setDate($ano, $mes, $dia);
-        $equipo->fechaFundacion = $request->input('fecha');
-
-        $equipo->nomCancha = $request->nameCancha;
-        if ($request->divisional == "DivA") {
-            $equipo->divisional = Divisionales::DivA;
-        } elseif ($request->divisional == "DivB") {
-            $equipo->divisional = Divisionales::DivB;
-        } else {
-            $equipo->divisional = Divisionales::DivC;
-        }        
-        $equipo->save();    
+        //$fechaact = Carbon::create($ano, $mes, $dia);
         return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
     }
 

@@ -16,9 +16,9 @@
 
                         <!-- Fecha fundacion -->
                         <div class="mb-3">
-                            <label for="fecha" class="form-label label-custom">{{ __('Fecha fundación') }}</label>
-                            <input id="fecha" class="form-control input-custom" type="date" name="fecha"
-                                :value="old('fecha')" required autocomplete="fecha" />
+                            <label for="fechaFundacion" class="form-label label-custom">{{ __('Fecha fundación') }}</label>
+                            <input id="fechaFundacion" class="form-control input-custom" type="date" name="fechaFundacion"
+                                :value="old('fechaFundacion')" required autocomplete="fechaFundacion" />
                             <x-input-error :messages="$errors->get('fecha')" class="mt-2" />
                         </div>
 

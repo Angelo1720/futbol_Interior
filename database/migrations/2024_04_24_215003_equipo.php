@@ -17,14 +17,14 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
-            $table->integer('idEscudo');
-            $table->integer('imgCancha');
-            $table->dateTime('fechaFundacion');
+            $table->integer('idEscudo')->nullable();
+            $table->integer('imgCancha')->nullable();
+            $table->string('fechaFundacion');
             $table->string('nomCancha');
-            $table->string('latitudCancha');
-            $table->string('longitudCancha');
+            $table->string('latitudCancha')->nullable();
+            $table->string('longitudCancha')->nullable();
             $table->enum("divisional", Divisionales::forMigration());
-            $table->integer('cantidadTitulos');
+            $table->integer('cantidadTitulos')->nullable();
         });
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Equipo extends Model
 {
     use HasFactory;
@@ -13,7 +14,8 @@ class Equipo extends Model
 
     protected $fillable = [
         'nombre',
-        'escudo',
+        'idEscudo',
+        'imgCancha',
         'fechaFundacion',
         'nomCancha',
         'latitudCancha',
@@ -22,9 +24,14 @@ class Equipo extends Model
         'cantidadTitulos',
     ];
 
+    public $timestamps = false;
+
     protected $casts = [
-        'fechaFundacion' => 'dateTime',
-        'divisional' => 'string',
         'cantidadTitulos' => 'integer',
     ];
+
+    public function imagen() 
+    {
+        return $this->hasMany(Imagen::class);
+    }
 }
