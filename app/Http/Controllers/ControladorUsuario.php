@@ -12,6 +12,37 @@ use Illuminate\Support\Facades\Log;
 
 class ControladorUsuario extends Controller
 {
+    public function create()
+    {
+        $roles = Role::orderBy('id', 'asc')->get();
+        return view('usuarios.create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        if ($request->rol == 1) {
+            $user->assignRole('admin_Liga');
+        } elseif ($request->rol == 2) {
+            $user->assignRole('admin_Equipo');
+        } else {
+            $user->assignRole('usuario');
+        }
+
+        if (auth()->user()) {
+            return redirect()->route('usuarios')->with('success', 'Usuario ingresado correctamente.');
+        }
+    }
     public function index(Request $request)
     {
         $usuarios = User::orderBy('id', 'asc')->get();
