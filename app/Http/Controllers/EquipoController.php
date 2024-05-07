@@ -11,28 +11,27 @@ use Illuminate\View\View;
 
 class EquipoController extends Controller
 {
-    public function create(): View 
+    public function create(): View
     {
         return view('equipos.create');
     }
-    
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'fechaFundacion' => ['required', 'string', 'max:10'],
             'nameCancha' => ['required', 'string', 'max:255'],
         ]);
-        //dd($request->all());
-        //dd($request->fecha);
-        $equipoDiv;
+
         if ($request->divisional == "DivA") {
             $equipoDiv = Divisionales::DivA;
         } elseif ($request->divisional == "DivB") {
             $equipoDiv = Divisionales::DivB;
         } else {
             $equipoDiv = Divisionales::DivC;
-        }     
+        }
 
         Equipo::create([
             'nombre' => $request['name'],
@@ -40,7 +39,7 @@ class EquipoController extends Controller
             'nomCancha' => $request['nameCancha'],
             'divisional' => $equipoDiv,
         ]);
-        
+
         // Separar la fecha en año, mes y día
         //list($ano, $dia, $mes) = explode('-', $request->fecha);
         // Establecer la fecha manualmente
