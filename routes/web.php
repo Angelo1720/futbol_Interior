@@ -50,5 +50,8 @@ Route::get('/campeonatos', [CampeonatoController::class, 'index'])->middleware('
 Route::get('/campeonatos/listado', [CampeonatoController::class, 'getCampeonatos'])->middleware('auth')->name('campeonatos.getCampeonatos');
 Route::get('/campeonatos/crear', [CampeonatoController::class, 'create'])->middleware('auth')->name('campeonatos.create');
 Route::post('/campeonatos/guardar', [CampeonatoController::class, 'store'])->middleware('auth')->name('campeonatos.store');
+Route::get('/campeonatos/admin/editar/{id}', [CampeonatoController::class, 'edit'])->middleware('auth')->name('campeonatos.edit');
+Route::put('/campeonatos/{id}', [CampeonatoController::class, 'update'])->name('campeonatos.update');
+Route::delete('/campeonatos/{id}', [CampeonatoController::class, 'delete'])->middleware('auth')->name('campeonatos.eliminar');
 
 require __DIR__ . '/auth.php';

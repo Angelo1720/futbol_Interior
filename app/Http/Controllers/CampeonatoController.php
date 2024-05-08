@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CampeonatoController extends Controller
 {
@@ -52,11 +54,13 @@ class CampeonatoController extends Controller
         $data_arr = array();
 
         foreach ($records as $record) {
+            $id = $record->id;
             $nombre = $record->nombre;
             $division = $record->division;
             $tipoCampeonato = $record->tipoCampeonato;
 
             $data_arr[] = array(
+                "id" => $id,
                 "nombre" => $nombre,
                 "division" => $division,
                 "tipoCampeonato" => $tipoCampeonato
@@ -89,15 +93,67 @@ class CampeonatoController extends Controller
             $campeonatoDiv = Divisionales::DivC;
         }
 
-        $tipoCampeonato = $request->has('tipoCampeonato') ? '1' : '0';
+        $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
 
-        $campe = Campeonato::create([
+        Campeonato::create([
             'nombre' => $request['name'],
             'division' => $campeonatoDiv,
-            'tipo_campeonato' => $tipoCampeonato
+            'tipoCampeonato' => $tipoCampeonato
         ]);
-        dd($campe);
 
         return redirect()->route('campeonatos')->with('success', 'Campeonato ingresado correctamente.');
+    }
+
+    public function edit($id)
+    {
+        $campeonato = Campeonato::findOrFail($id);
+        return view('campeonatos.edit', compact('campeonato'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $campeonato = Campeonato::findOrFail($id);
+
+        try {
+
+            $request->validate([
+                'name' => ['required', 'string', 'max:255']
+            ]);
+
+            $campeonato->nombre = $request->input('name');
+
+            if ($request->division == "DivA") {
+                $campeonato->division = Divisionales::DivA;
+            } elseif ($request->division == "DivB") {
+                $campeonato->division = Divisionales::DivB;
+            } else {
+                $campeonato->division = Divisionales::DivC;
+            }
+
+            $campeonato->save();
+
+            if (Auth::user()) {
+                return redirect()->route('campeonatos')->with('success', 'Campeonato actualizado correctamente.');
+            }
+
+
+        } catch (\Throwable $th) {
+            Log::error('Error al actualizar campeonato: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Se produjo un error al actualizar el campeonato. Por favor, inténtelo de nuevo.');
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($id != null && $id > 0) {
+            $campeonato = Campeonato::find($id);
+            if (!$campeonato) {
+                return redirect()->route('home')->with('error', 'Campeonato no encontrado.');
+            }
+            $campeonato->delete();
+            return redirect()->route('campeonatos')->with('success', 'Campeonato eliminado correctamente.');
+        } else {
+            return redirect()->route('home')->with('error', 'Id de Campeonato no válido.');
+        }
     }
 }
