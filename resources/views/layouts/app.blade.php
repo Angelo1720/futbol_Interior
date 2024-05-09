@@ -10,8 +10,9 @@
     <link rel="icon" href="{{ asset('Images/futbol-InteriorV1.png') }}" type="image/png">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <!-- Datatables CSS CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
@@ -50,17 +51,25 @@
             {{ $slot }}
         </main>
     </div>
-    <footer class="footer py-4 ">
+    <footer class="footer py-4">
         <div class="container d-none d-md-block personalized-footer">
             <div class="row">
                 <div class="col-12 col-md-3">
                     <h5 class="text-white pt2">Contacto:</h5>
                     <!--headin5_amrc-->
-                    <p><a href="#"><i class="fa fa-location-arrow pr-2"></i><span id="spanDireccion">Baltasar
-                                Brum
-                                875</span></a></p>
-                    <p><a href="tel:472 26220" id="linkTel"><i class="fa fa-phone pr-2"></i><span
-                                id="spanTel">47224247</span></a></p>
+                    <p>
+                        <a href="#">
+                            <i class="fa fa-location-arrow pr-2"></i><span id="spanDireccion">Baltasar Brum 875</span>
+                        </a>
+                    </p>
+                    <p>
+                        <a href="tel:472 26220" id="linkTel">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                              </svg>
+                              <span id="spanTel">47224247</span>
+                        </a>
+                    </p>
                     <p class="text-white">
                         <i class="far fa-calendar-alt pr-2"></i><span id="spanHorario">Lun a Vie de 16:00 a
                             21:30 - Sab de 9:30 a 12:30</span>
@@ -82,16 +91,14 @@
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
-                <div class=" col-sm-4 col-md  col-12 col">
-                </div>
+                
             </div>
         </div>
-        <div class="container">
+        <div class="container divBajoFooter">
             <p class="m-0 text-center text-white">Creado por: <a href="https://utec.edu.uy/es/"
-                    target="_blank">UTEC-UDELAR-UTU</a> - Copyright &copy;2024 <span id="spanFirma">Franco Sancristóbal
-                    -
-                    Angelo
-                    Festino</span></p>
+                    target="_blank">UTEC-UDELAR-UTU</a> - Copyright &copy;2024 | 
+                    <span id="spanFirma">Franco Sancristóbal - Angelo Festino</span>
+            </p>
         </div>
     </footer>
 </body>

@@ -21,13 +21,13 @@ class EquiposTableSeeder extends Seeder
             [
                 'nombre' => 'Club Atlético Juventud Unida',
                 'fechaFundacion' => '1953-05-18',
-                'nomCancha' => 'Parque Agustín Rivaben',
+                'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivA
             ],
             [
                 'nombre' => 'Club Atlético Litoral',
                 'fechaFundacion' => '1911-08-02',
-                'nomCancha' => 'No posee',
+                'nomCancha' => 'Parque Agustín Rivaben',
                 'divisional' => Divisionales::DivA
             ]
         ];

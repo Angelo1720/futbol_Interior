@@ -1,3 +1,10 @@
+h2 {
+    font-family: "Red Hat Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
 .footer {
     background-color: #2A359F;
     color: white;
@@ -8,12 +15,17 @@
     bottom: 0;
 }
 
+.divBajoFooter a {
+    color: white;
+}
+
 .personalized-footer h5 {
     color: #2A359F;
 }
 
 .personalized-footer a {
     color: white;
+    text-decoration: none;
 }
 
 .personalized-footer a:hover {
@@ -61,7 +73,7 @@ label.label-custom {
     border-radius: 15px;
 }
 
-#divAcciones{
+#divAcciones {
     display: flex;
 }
 
@@ -78,6 +90,14 @@ select#rol.form-select option {
 
 select#rol.form-select:focus {
     border-color: #1E255F;
-    outline: 0; /* Quita el contorno de enfoque predeterminado */
+    outline: 0;
+    /* Quita el contorno de enfoque predeterminado */
 }
 
+.navbar a{
+    color: white;
+}
+
+.dropdown-menu{
+    background-color: #0d6efd;
+}

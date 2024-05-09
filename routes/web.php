@@ -40,9 +40,11 @@ Route::delete('/usuarios/{id}', [controladorUsuario::class, 'delete'])->middlewa
 
 
 Route::get('/equipos', [EquipoController::class, 'index'])->middleware('auth')->name('equipos');
-Route::get('/equipos/listado', [EquipoController::class, 'getEquipos'])->middleware('auth')->name('equipos.getEquipos');
+Route::get('/equipos/admin/listado', [EquipoController::class, 'getEquipos'])->middleware('auth')->name('equipos.getEquipos');
 
-Route::get('/equipos/crear', [EquipoController::class, 'create'])->middleware('auth')->name('equipos.create');
-Route::post('/equipos/guardar', [EquipoController::class, 'store'])->middleware('auth')->name('equipos.store');
+Route::get('/equipos/admin/crear', [EquipoController::class, 'create'])->middleware('auth')->name('equipos.create');
+Route::post('/equipos/admin/guardar', [EquipoController::class, 'store'])->middleware('auth')->name('equipos.store');
+Route::get('/equipos/admin/editar/{id}', [EquipoController::class, 'edit'])->middleware('auth')->name('equipos.edit');
+Route::put('/equipos/{id}', [EquipoController::class, 'update'])->name('equipos.update');
 
 require __DIR__ . '/auth.php';
