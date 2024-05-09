@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('longitudCancha')->nullable();
             $table->enum("divisional", Divisionales::forMigration());
             $table->integer('cantidadTitulos')->nullable();
+            $table->boolean('participa')->default(true);
         });
     }
 
