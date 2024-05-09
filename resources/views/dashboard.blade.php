@@ -85,18 +85,6 @@
     </div>
     @auth
         @role('admin_Liga')
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900">
-                            {{ __('Eres un administrador de Liga!') }}
-                        </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat in eum laborum commodi corrupti at
-                            earum repudiandae omnis quae similique, alias laudantium et aspernatur minima molestiae neque itaque
-                            quam possimus?</p>
-                    </div>
-                </div>
-            </div>
         @endrole
     @endauth
 </x-app-layout>
