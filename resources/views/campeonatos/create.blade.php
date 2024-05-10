@@ -26,7 +26,7 @@
                         </div>
 
                         <!-- Tipo de campeonato -->
-                        <div class="mb-3 form-check">
+                        <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="tipoCampeonato" name="tipoCampeonato"
                                 value="1">
                             <label class="form-check-label" for="tipoCampeonato">

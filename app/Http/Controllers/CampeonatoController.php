@@ -82,22 +82,14 @@ class CampeonatoController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255']
+            'name' => ['required', 'unique:campeonatos,nombre', 'string', 'max:255']
         ]);
-
-        if ($request->division == "DivA") {
-            $campeonatoDiv = Divisionales::DivA;
-        } elseif ($request->division == "DivB") {
-            $campeonatoDiv = Divisionales::DivB;
-        } else {
-            $campeonatoDiv = Divisionales::DivC;
-        }
 
         $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
 
         Campeonato::create([
             'nombre' => $request['name'],
-            'division' => $campeonatoDiv,
+            'division' => $this->asignarDivisional($request['division']),
             'tipoCampeonato' => $tipoCampeonato
         ]);
 
@@ -117,18 +109,11 @@ class CampeonatoController extends Controller
         try {
 
             $request->validate([
-                'name' => ['required', 'string', 'max:255']
+                'name' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:255']
             ]);
 
             $campeonato->nombre = $request->input('name');
-
-            if ($request->division == "DivA") {
-                $campeonato->division = Divisionales::DivA;
-            } elseif ($request->division == "DivB") {
-                $campeonato->division = Divisionales::DivB;
-            } else {
-                $campeonato->division = Divisionales::DivC;
-            }
+            $campeonato->division = $this->asignarDivisional($request->input('division'));
 
             $campeonato->save();
 
@@ -155,5 +140,18 @@ class CampeonatoController extends Controller
         } else {
             return redirect()->route('home')->with('error', 'Id de Campeonato no válido.');
         }
+    }
+
+    public function asignarDivisional($divsRequest)
+    {
+        if ($divsRequest == "DivA") {
+            $equipoDiv = Divisionales::DivA;
+        } elseif ($divsRequest == "DivB") {
+            $equipoDiv = Divisionales::DivB;
+        } else {
+            $equipoDiv = Divisionales::DivC;
+        }
+
+        return $equipoDiv;
     }
 }

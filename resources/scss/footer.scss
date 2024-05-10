@@ -1,5 +1,5 @@
 .footer {
-    background-color: #2A359F;
+    background-color: #0d6efd;
     color: white;
     margin-top: auto;
     height: 300px;
@@ -14,8 +14,13 @@
 
 .personalized-footer a {
     color: white;
+    text-decoration: none;
 }
 
 .personalized-footer a:hover {
     color: #3B4ADF;
+}
+
+.divBajoFooter a {
+    color: white;
 }

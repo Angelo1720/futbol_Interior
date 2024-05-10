@@ -22,12 +22,14 @@ class Equipo extends Model
         'longitudCancha',
         'divisional',
         'cantidadTitulos',
+        'participa',
     ];
 
     public $timestamps = false;
 
     protected $casts = [
         'cantidadTitulos' => 'integer',
+        'participa' => 'boolean',
     ];
 
     public function imagen() 
