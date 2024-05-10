@@ -21,7 +21,7 @@ class ControladorUsuario extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'unique:users,name', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -129,25 +129,22 @@ class ControladorUsuario extends Controller
 
         try {
             if ($request->filled('password')) {
-                $reglas = [
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255'],
+                $request->validate([
+                    'name' => ['required', 'unique:users,name,'. $id, 'string','max:255'],
+                    'email' => ['required', 'unique:users,email,'. $id, 'string', 'email','max:255'],
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                     'password_confirmation' => ['required'],
-                ];
-
-                $request->validate($reglas);
+                ]);
 
                 $usuario->name = $request->input('name');
                 $usuario->email = $request->input('email');
 
                 $usuario->password = Hash::make($request->input('password'));
             } else {
-                $reglas = [
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255'],
-                ];
-                $request->validate($reglas);
+                $request->validate([
+                    'name' => ['required', 'unique:users,name,'. $id, 'string','max:255'],
+                    'email' => ['required', 'unique:users,email,'. $id, 'string', 'email','max:255'],
+                ]);
 
                 $usuario->name = $request->input('name');
                 $usuario->email = $request->input('email');
