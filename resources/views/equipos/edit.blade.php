@@ -68,7 +68,6 @@
                             <x-input-error :messages="$errors->get('participa')" class="mt-2" />
                         </div>
 
-
                         <div class="d-flex justify-content-end align-items-center">
                             <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
                         </div>
