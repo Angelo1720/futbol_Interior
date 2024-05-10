@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampeonatoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
@@ -46,5 +47,13 @@ Route::get('/equipos/admin/crear', [EquipoController::class, 'create'])->middlew
 Route::post('/equipos/admin/guardar', [EquipoController::class, 'store'])->middleware('auth')->name('equipos.store');
 Route::get('/equipos/admin/editar/{id}', [EquipoController::class, 'edit'])->middleware('auth')->name('equipos.edit');
 Route::put('/equipos/{id}', [EquipoController::class, 'update'])->name('equipos.update');
+
+Route::get('/campeonatos', [CampeonatoController::class, 'index'])->middleware('auth')->name('campeonatos');
+Route::get('/campeonatos/listado', [CampeonatoController::class, 'getCampeonatos'])->middleware('auth')->name('campeonatos.getCampeonatos');
+Route::get('/campeonatos/crear', [CampeonatoController::class, 'create'])->middleware('auth')->name('campeonatos.create');
+Route::post('/campeonatos/guardar', [CampeonatoController::class, 'store'])->middleware('auth')->name('campeonatos.store');
+Route::get('/campeonatos/admin/editar/{id}', [CampeonatoController::class, 'edit'])->middleware('auth')->name('campeonatos.edit');
+Route::put('/campeonatos/{id}', [CampeonatoController::class, 'update'])->name('campeonatos.update');
+Route::delete('/campeonatos/{id}', [CampeonatoController::class, 'delete'])->middleware('auth')->name('campeonatos.eliminar');
 
 require __DIR__ . '/auth.php';

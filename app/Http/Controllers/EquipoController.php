@@ -15,7 +15,6 @@ class EquipoController extends Controller
     {
         return view('equipos.create');
     }
-
     public function asignarDivisional($divsRequest)
     {
         if ($divsRequest == "DivA") {
@@ -32,14 +31,14 @@ class EquipoController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
             'fechaFundacion' => ['required', 'string', 'max:10'],
             'nameCancha' => ['max:255'],
         ]);
         Equipo::create([
             'nombre' => $request['name'],
             'fechaFundacion' => $request['fechaFundacion'],
-            'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nomCancha'],
+            'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
             'divisional' => $this->asignarDivisional($request['divisional']),
         ]);
 
@@ -121,7 +120,7 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         try {
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
+                'name' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:255'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:255'],
                 'cantidadTitulos' => ['required', 'integer']
