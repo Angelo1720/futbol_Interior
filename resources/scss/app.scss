@@ -1,14 +1,40 @@
+/*@keyframes bgAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+body {
+    animation: bgAnimation 30s linear infinite;
+    background-image: 
+        url('public/Images/Huracan.png'),
+        url('/Images/Boston.png'),
+        url('/Images/escudo3.png'),
+        url('/Images/escudo4.png'),
+        url('/Images/escudo5.png');
+    background-size: 150px; /* ajusta el tamaño de las imágenes 
+    background-repeat: repeat;
+}*/
+
 body{
     position: relative;
     min-height: 100vh;
     padding-bottom: 20rem;
+    font-family: "Red Hat Display", sans-serif;
 }
 
 h2 {
-    font-family: "Red Hat Display", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
+}
+
+header h2{
+    font-size: xx-large;
+    font-weight: 600;
 }
 
 input.input-custom {
@@ -80,3 +106,9 @@ select#rol.form-select:focus {
 .dropdown-menu{
     background-color: #0d6efd;
 }
+
+.navbar img{
+    width: 30px; height: auto;
+}
+
+

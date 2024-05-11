@@ -1,3 +1,8 @@
+section a {
+    margin-top: 20px;
+}
+
+
 .swiper-container {
     width: 100%;
     padding: 20px;
@@ -31,4 +36,84 @@
 
 .swiper-button-next {
     right: 10px;
+}
+
+#clubes{
+    background-color: #38CBFF;
+    background-image: url("https://www.invsport.com/img/index/balon-fondo-inicio.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#idolos{
+    background-color: #38CBFF;
+    background-image: url("https://img2.wallspic.com/previews/8/3/9/7/3/137938/137938-la_copa_del_mundo-patada_de_ftbol-x750.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#palmarés{
+    background-color: #38CBFF;
+    background-image: url("https://www.canelonesazulgrana.com/wp-content/uploads/2022/02/OFI.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#interiorSanducero{
+    background-color: #38CBFF;
+    background-image: url("https://www.huelvainformacion.es/2011/06/19/deportes/parte-corazon-quedo-Huelva_488961313_107924312_1200x675.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.seccionesDashboard{
+    padding: 100px 100px 100px 100px;
+    margin: auto;
+}
+
+.sectionDescriptions{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.sectionDiv{
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.sectionDiv:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: translate(10px, 10px);
+}
+
+.banner {
+    width: 100%;
+    max-width: 100%; /* Ancho máximo del banner */
+    margin: 0 auto; /* Centra el banner horizontalmente */
+    overflow: hidden; /* Oculta cualquier contenido que se desborde del contenedor */
+}
+
+.banner-inner {
+    display: flex; /* Establece un contenedor flexible para las imágenes */
+    animation: scrollBanner 30s linear infinite; /* Anima el desplazamiento horizontal */
+}
+
+.banner img {
+    width: 20%; /* Ajusta el ancho de las imágenes al 100% del contenedor */
+    height: auto; /* Mantiene la relación de aspecto original */
+    padding: 10px;
+    margin: 10px;
+}
+
+@keyframes scrollBanner {
+    0% {
+        transform: translateX(100%); /* Comienza desde la posición inicial */
+    }
+    100% {
+        transform: translateX(-100%); /* Se desplaza completamente hacia la izquierda */
+    }
 }

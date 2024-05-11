@@ -8,11 +8,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Comunidad</a>
+                    <a class="nav-link" aria-current="page" href="#"> <img src="/Images/burbuja-de-dialogo.png"
+                            alt="Icono"> Comunidad</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                        aria-expanded="false"> <img src="/Images/copa-de-futbol.png" alt="Icono">
                         Campeonatos
                     </a>
                     <ul class="dropdown-menu">
@@ -23,7 +24,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                        aria-expanded="false"> <img src="/Images/club-de-futbol.png" alt="Icono">
                         Clubes
                     </a>
                     <ul class="dropdown-menu">
@@ -34,7 +35,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Departamento
+                        <img src="/Images/uruguay.png" alt="Icono"> Departamento
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Jugadores Históricos</a></li>
@@ -46,7 +47,7 @@
                     @role('admin_Liga')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                                aria-expanded="false"> <img src="/Images/administracion.png" alt="Icono">
                                 Administrar
                             </a>
                             <ul class="dropdown-menu">
@@ -80,6 +81,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                             class="bi bi-person-circle m-2 {{ Auth::user()->hasRole('admin_Liga') ? 'text-danger' : (Auth::user()->hasRole('admin_Equipo') ? 'text-warning' : 'text-info') }}"
                             viewBox="0 0 16 16">
+
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                             <path fill-rule="evenodd"
                                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
@@ -87,10 +89,12 @@
                         {{ Auth::user()->name }}
                     </a>
                     <ul class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Mi perfil') }}</a>
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}"> <img
+                                src="/Images/red-social.png" alt="Icono"> {{ __('Mi perfil') }}</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="dropdown-item">{{ __('Cerrar Sesión') }}</button>
+                            <button type="submit" class="dropdown-item"> <img src="/Images/apagar.png"
+                                    alt="Icono"> {{ __('Cerrar Sesión') }}</button>
                         </form>
                     </ul>
                 </li>
