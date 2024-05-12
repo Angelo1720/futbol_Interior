@@ -88,6 +88,30 @@
                     exjugador profesional naciente en Quebracho</h2>
                 <a href="#" class="btn btn-primary">Ver más</a>
             </div>
+        </div>
+    </section>
+    <section id="ejemplosJugadaoresHistoricos" class="seccionesDashboard mb-5 mt-2">
+        <h2 style="color: gold">Históricos</h2>
+        <div class="divCartas">
+            <div class="card">
+                <div class="card2">
+                    <img src="Images/alzugaray.webp" class="imagenCartaJugador" alt="Jugador">
+                </div>
+                <span>"Pitufo" José Alzugaray</span>
+            </div>
+            <div class="card">
+                <div class="card2">
+                    <img src="Images/collares.jpg" class="imagenCartaJugador" alt="Jugador">
+                </div>
+                <span>Luis Alfredo Collares (Negro)</span>
+            </div>
+            <div class="card">
+                <div class="card2">
+                    <img src="Images/colita-merentiel.webp" class="imagenCartaJugador" alt="Jugador">
+                </div>
+                <span>Julio “Colita” Merentiel</span>
+            </div>
+        </div>
     </section>
     @auth
         @role('admin_Liga')
