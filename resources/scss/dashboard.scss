@@ -1,34 +1,131 @@
-.swiper-container {
-    width: 100%;
+section a {
+    margin-top: 20px;
+}
+
+#clubes{
+    background-color: #38CBFF;
+    background-image: url("https://www.invsport.com/img/index/balon-fondo-inicio.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#idolos{
+    background-color: #38CBFF;
+    background-image: url("https://img2.wallspic.com/previews/8/3/9/7/3/137938/137938-la_copa_del_mundo-patada_de_ftbol-x750.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#palmarés{
+    background-color: #38CBFF;
+    background-image: url("https://www.canelonesazulgrana.com/wp-content/uploads/2022/02/OFI.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#interiorSanducero{
+    background-color: #38CBFF;
+    background-image: url("https://www.huelvainformacion.es/2011/06/19/deportes/parte-corazon-quedo-Huelva_488961313_107924312_1200x675.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#ejemplosJugadaoresHistoricos{
+    background-color: #1F1D1E;
+    background-image: url("https://cdn.vectorstock.com/i/500p/53/73/squares-black-mesh-carbon-dark-fiber-vector-42015373.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.seccionesDashboard{
+    padding: 100px 100px 100px 100px;
+    margin: auto;
+}
+
+.sectionDescriptions{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.sectionDiv{
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.sectionDiv:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: translate(10px, 10px);
+}
+
+.banner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.banner-inner {
     display: flex;
-    align-items: center;
-    position: relative;
+    animation: scrollBanner 30s linear infinite;
 }
 
-.swiper-slide img {
-    width: 100px;
+.banner img {
+    width: 20%;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
 }
 
-.swiper-slide{
-    width: 10%;
+@keyframes scrollBanner {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
-#accesosDirectos{
+.cartaLegendaria {
+    width: 190px;
+    height: 254px;
+    background-image: linear-gradient(163deg, #ffd700 0%, #ffd700 100%);
+    border-radius: 20px;
+    transition: all .3s;
+    margin-inline: 170px;
+   }
+   
+.card2 {
+    width: 190px;
+    height: 254px;
+    background-color: #1a1a1a;
+    border-radius: 20px;
+    transition: all .2s;
+   }
+   
+.card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+   }
+   
+.cartaLegendaria:hover {
+    box-shadow: 0px 0px 30px 1px rgba(255, 215, 0, 0.30);
+   }
+
+.imagenCartaJugador{
+    width: 190px;
+    height: 254px;
+    border-radius: 20px;
+   }
+
+.divCartas{
     display: flex;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-    position: absolute; /* Posición absoluta para los botones */
-    top: 50%; /* Coloca los botones en el centro vertical */
-    transform: translateY(-50%); /* Ajusta la posición vertical */
-}
-
-.swiper-button-prev {
-    left: 10px;
-}
-
-.swiper-button-next {
-    right: 10px;
+.divCartas span{
+    color: gold;
+    margin: 4px;
 }

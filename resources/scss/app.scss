@@ -2,13 +2,18 @@ body{
     position: relative;
     min-height: 100vh;
     padding-bottom: 20rem;
+    font-family: "Red Hat Display", sans-serif;
 }
 
 h2 {
-    font-family: "Red Hat Display", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
+}
+
+header h2{
+    font-size: xx-large;
+    font-weight: 600;
 }
 
 input.input-custom {
@@ -80,3 +85,9 @@ select#rol.form-select:focus {
 .dropdown-menu{
     background-color: #0d6efd;
 }
+
+.navbar img{
+    width: 30px; height: auto;
+}
+
+
