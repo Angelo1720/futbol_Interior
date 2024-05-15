@@ -51,7 +51,7 @@
             </div>
         </div>
     </section>
-    <section id="idolos" class="seccionesDashboard mb-5 mt-2">
+    <section hidden id="idolos" class="seccionesDashboard mb-5 mt-2">
         <div class="sectionDiv">
             <div>
                 <h2>Ídolos</h2>
@@ -64,14 +64,15 @@
             </div>
         </div>
     </section>
-    <section id="palmarés" class="seccionesDashboard mb-5 mt-2">
-        <div class="sectionDiv">
-            <div>
+    <section id="palmares" class="seccionesDashboard mb-5 mt-2">
+        <div class="background-image"></div>
+            <div class="content">
+                <div class="sectionDiv">
                 <h2>Palmarés</h2>
-            </div>
-            <div class="sectionDescriptions">
-                <h2>Aquí les mostraremos el gran éxito en títulos de la selección sanducera.</h2>
-                <a href="#" class="btn btn-primary">Ver más</a>
+                <div class="sectionDescriptions">
+                    <h2>Aquí encontrarán el gran éxito en títulos de la selección sanducera.</h2>
+                    <a href="#" class="btn btn-primary">Ver más</a>
+                </div>
             </div>
         </div>
     </section>
@@ -81,17 +82,15 @@
                 <h2>El Interior Sanducero</h2>
             </div>
             <div class="sectionDescriptions">
-                <h2>También serán testigos de los campeonatos e Ídolos, que han dicho presente en
-                    el
-                    interior mismo del departamento a lo largo de la historia. Aquí vemos al "Pitufo" José
-                    Alzugaray,
-                    exjugador profesional naciente en Quebracho</h2>
+                <h2>También serán testigos de los campeonatos y momentos que han dicho presente en el
+                    interior del departamento a lo largo de la historia.
+                </h2>
                 <a href="#" class="btn btn-primary">Ver más</a>
             </div>
         </div>
     </section>
     <section id="ejemplosJugadaoresHistoricos" class="seccionesDashboard mb-5 mt-2">
-        <h2 style="color: gold">Históricos</h2>
+        <h2 style="color: gold">Jugadores Históricos</h2>
         <div class="divCartas">
             <div class="cartaLegendaria">
                 <div class="card2">
@@ -103,7 +102,7 @@
                 <div class="card2">
                     <img src="Images/collares.jpg" class="imagenCartaJugador" alt="Jugador">
                 </div>
-                <span>Luis Alfredo Collares (Negro)</span>
+                <span>Luis Alfredo Collares</span>
             </div>
             <div class="cartaLegendaria">
                 <div class="card2">
