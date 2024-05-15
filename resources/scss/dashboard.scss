@@ -16,18 +16,37 @@ section a {
     background-size: cover;
 }
 
-#palmarés{
-    background-color: #38CBFF;
-    background-image: url("https://www.canelonesazulgrana.com/wp-content/uploads/2022/02/OFI.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+#palmares {
+    position: relative;
+    overflow: hidden; /* Para evitar que el desenfoque se propague */
 }
+
+.background-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://cdn.pixabay.com/photo/2013/02/18/18/36/trophy-83115_960_720.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3.5px);
+}
+
+.content {
+    position: relative;
+    z-index: 1; /* Para asegurar que el contenido esté encima de la imagen de fondo */
+    padding: 20px;
+}
+
 
 #interiorSanducero{
     background-color: #38CBFF;
-    background-image: url("https://www.huelvainformacion.es/2011/06/19/deportes/parte-corazon-quedo-Huelva_488961313_107924312_1200x675.jpg");
+    //background-image: url("https://images.pexels.com/photos/774321/pexels-photo-774321.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(27,27,116,1) 30%, rgba(0,212,255,1) 100%);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: bottom;
 }
 
 #ejemplosJugadaoresHistoricos{
@@ -46,6 +65,7 @@ section a {
     display: flex;
     flex-direction: column;
     align-items: end;
+    text-align: end;
 }
 
 .sectionDiv{
@@ -70,22 +90,22 @@ section a {
 
 .banner-inner {
     display: flex;
-    animation: scrollBanner 30s linear infinite;
+    animation: scrollBanner 15s linear infinite;
 }
 
 .banner img {
-    width: 20%;
-    height: auto;
+    width: auto;
+    height: 4rem;
     padding: 10px;
     margin: 10px;
 }
 
 @keyframes scrollBanner {
     0% {
-        transform: translateX(100%);
+        transform: translateX(2%);
     }
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-30%);
     }
 }
 
@@ -123,9 +143,12 @@ section a {
 
 .divCartas{
     display: flex;
+    text-align: center;
 }
 
 .divCartas span{
     color: gold;
     margin: 4px;
+    font-weight: bold;
+    font-style: italic;
 }
