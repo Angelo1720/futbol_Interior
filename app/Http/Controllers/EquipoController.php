@@ -32,25 +32,29 @@ class EquipoController extends Controller
     }
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'name' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
+                'fechaFundacion' => ['required', 'string', 'max:10'],
+                'nameCancha' => ['max:255'],
+            ]);
+            Equipo::create([
+                'nombre' => $request['name'],
+                'fechaFundacion' => $request['fechaFundacion'],
+                'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
+                'divisional' => $this->asignarDivisional($request['divisional']),
+            ]);
 
-        $request->validate([
-            'name' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
-            'fechaFundacion' => ['required', 'string', 'max:10'],
-            'nameCancha' => ['max:255'],
-        ]);
-        Equipo::create([
-            'nombre' => $request['name'],
-            'fechaFundacion' => $request['fechaFundacion'],
-            'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
-            'divisional' => $this->asignarDivisional($request['divisional']),
-        ]);
-
-        // Separar la fecha en año, mes y día
-        //list($ano, $dia, $mes) = explode('-', $request->fecha);
-        // Establecer la fecha manualmente
-        //$fechaact = Carbon::create($ano, $mes, $dia);
-        if (Auth::user()) {
-            return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
+            // Separar la fecha en año, mes y día
+            //list($ano, $dia, $mes) = explode('-', $request->fecha);
+            // Establecer la fecha manualmente
+            //$fechaact = Carbon::create($ano, $mes, $dia);
+            if (Auth::user()) {
+                return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al crear equipo: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
@@ -137,7 +141,7 @@ class EquipoController extends Controller
             $equipo->participa = $request->has('participa');
             $equipo->save();
 
-            
+
             // Manejar la imagen si se proporciona
             if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {
                 if ($equipo->idEscudo == null) {
@@ -159,7 +163,7 @@ class EquipoController extends Controller
                     // Actualizar la imagen
                     $image = base64_encode(file_get_contents($request->file('imgEscudo')->getRealPath()));
                     $imagen = Imagen::findOrFail($equipo->idEscudo);
-                    $imagen->nombreImg = "Escudo_". $request->file('imgEscudo')->getClientOriginalName();
+                    $imagen->nombreImg = "Escudo_" . $request->file('imgEscudo')->getClientOriginalName();
                     $imagen->base64 = $image;
                     $imagen->save();
                 }

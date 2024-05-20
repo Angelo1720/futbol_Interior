@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -20,27 +21,32 @@ class ControladorUsuario extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'unique:users,name', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try {
+            $request->validate([
+                'name' => ['required', 'unique:users,name', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        if ($request->rol == 1) {
-            $user->assignRole('admin_Liga');
-        } elseif ($request->rol == 2) {
-            $user->assignRole('admin_Equipo');
-        } else {
-            $user->assignRole('usuario');
-        }
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            if ($request->rol == 1) {
+                $user->assignRole('admin_Liga');
+            } elseif ($request->rol == 2) {
+                $user->assignRole('admin_Equipo');
+            } else {
+                $user->assignRole('usuario');
+            }
 
-        if (auth()->user()) {
-            return redirect()->route('usuarios')->with('success', 'Usuario ingresado correctamente.');
+            if (auth()->user()) {
+                return redirect()->route('usuarios')->with('success', 'Usuario ingresado correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al crear usuario: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
     public function index(Request $request)
@@ -130,8 +136,8 @@ class ControladorUsuario extends Controller
         try {
             if ($request->filled('password')) {
                 $request->validate([
-                    'name' => ['required', 'unique:users,name,'. $id, 'string','max:255'],
-                    'email' => ['required', 'unique:users,email,'. $id, 'string', 'email','max:255'],
+                    'name' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
+                    'email' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                     'password_confirmation' => ['required'],
                 ]);
@@ -142,24 +148,21 @@ class ControladorUsuario extends Controller
                 $usuario->password = Hash::make($request->input('password'));
             } else {
                 $request->validate([
-                    'name' => ['required', 'unique:users,name,'. $id, 'string','max:255'],
-                    'email' => ['required', 'unique:users,email,'. $id, 'string', 'email','max:255'],
+                    'name' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
+                    'email' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
                 ]);
 
                 $usuario->name = $request->input('name');
                 $usuario->email = $request->input('email');
-
-
             }
             $usuario->save();
 
             if (Auth::user()) {
                 return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente.');
             }
-
-        } catch (\Throwable $th) {
-            Log::error('Error al actualizar usuario: ' . $th->getMessage());
-            return redirect()->back()->with('error', 'Se produjo un error al actualizar el usuario. Por favor, inténtelo de nuevo.');
+        } catch (ValidationException $e) {
+            Log::error('Error al actualizar usuario: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
@@ -176,5 +179,4 @@ class ControladorUsuario extends Controller
             return redirect()->route('home')->with('error', 'Id de usuario no válido.');
         }
     }
-
 }

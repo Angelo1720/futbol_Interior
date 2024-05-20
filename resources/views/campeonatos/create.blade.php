@@ -11,7 +11,9 @@
                             <label for="name" class="form-label label-custom">{{ __('Nombre') }}</label>
                             <input id="name" class="form-control input-custom" type="text" name="name"
                                 :value="old('name')" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                @error('name')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <div id="comboBoxs">
