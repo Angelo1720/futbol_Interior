@@ -14,11 +14,13 @@ class Imagen extends Model
 
     protected $fillable = [
         'id',
+        'equipo_id',
         'nombreImg',
         'base64',
     ];
     protected $casts = [
         'id' => 'integer',
+        'equipo_id' => 'integer'
     ];
 
     public function equipo()
