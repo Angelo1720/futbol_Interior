@@ -146,6 +146,18 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'nameEquipo' => '"Nombre equipo"',
+        'fechaFundacion' => '"Fecha de fundación"',
+        'nameCancha' => '"Nombre cancha"',
+        'divisional' => '"Divisional"',
+        'cantidadTitulos' => '"Cantidad de titulos"',
+        'imgEscudo' => '"Escudo de equipo"',
+        'nameCampeonato' => '"Nombre"',
+        'nameUsuario' => '"Nombre usuario"',
+        'emailUsuario' => '"Correo electrónico"',
+        'passwordUsuario' => '"Contraseña"',
+        'password_confirmationUsuario' => '"Confirmar contraseña"',
+    ],
 
 ];

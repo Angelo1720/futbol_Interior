@@ -34,12 +34,12 @@ class EquipoController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
+                'nameEquipo' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:255'],
             ]);
             Equipo::create([
-                'nombre' => $request['name'],
+                'nombre' => $request['nameEquipo'],
                 'fechaFundacion' => $request['fechaFundacion'],
                 'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
                 'divisional' => $this->asignarDivisional($request['divisional']),
@@ -127,20 +127,19 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         try {
             $request->validate([
-                'name' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:60'],
+                'nameEquipo' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:60'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:255'],
                 'cantidadTitulos' => ['required', 'integer'],
                 'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename] // Asegúrate de tener esta validación
             ]);
-            $equipo->nombre = $request->input('name');
+            $equipo->nombre = $request->input('nameEquipo');
             $equipo->fechaFundacion = $request->input('fechaFundacion');
             $equipo->nomCancha = $request->input('nameCancha') == null ? 'NO' : $request->input('nameCancha');
             $equipo->divisional = $this->asignarDivisional($request->input('divisional'));
             $equipo->cantidadTitulos = $request->input('cantidadTitulos');
             $equipo->participa = $request->has('participa');
             $equipo->save();
-
 
             // Manejar la imagen si se proporciona
             if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {

@@ -83,14 +83,14 @@ class CampeonatoController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'unique:campeonatos,nombre', 'string', 'max:255']
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre', 'string', 'max:255']
             ]);
 
             $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
 
             Campeonato::create([
-                'nombre' => $request['name'],
-                'division' => $this->asignarDivisional($request['division']),
+                'nombre' => $request['nameCampeonato'],
+                'division' => $this->asignarDivisional($request['divisional']),
                 'tipoCampeonato' => $tipoCampeonato
             ]);
 
@@ -113,11 +113,11 @@ class CampeonatoController extends Controller
 
         try {
             $request->validate([
-                'name' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:255']
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:255']
             ]);
 
-            $campeonato->nombre = $request->input('name');
-            $campeonato->division = $this->asignarDivisional($request->input('division'));
+            $campeonato->nombre = $request->input('nameCampeonato');
+            $campeonato->division = $this->asignarDivisional($request->input('divisional'));
 
             $campeonato->save();
 

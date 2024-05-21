@@ -9,10 +9,10 @@
                         @method('PUT')
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
-                            <input id="name" class="form-control input-custom" type="text" name="name"
-                                value="{{ $equipo->nombre }}" required autofocus autocomplete="name" />
-                                @error('name')
+                            <label for="nameEquipo" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
+                            <input id="nameEquipo" class="form-control input-custom" type="text" name="nameEquipo"
+                                value="{{ $equipo->nombre }}" autofocus autocomplete="nameEquipo" />
+                                @error('nameEquipo')
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                         </div>
@@ -20,7 +20,7 @@
                         <!-- Fecha fundacion -->
                         <div class="mb-3">
                             <label for="fechaFundacion"
-                                class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
+                                class="form-label label-custom">{{ __('Fecha de fundación') }}</label>
                             <input id="fechaFundacion" class="form-control input-custom" type="date"
                                 name="fechaFundacion" value="{{ $equipo->fechaFundacion }}" required
                                 autocomplete="fechaFundacion" />

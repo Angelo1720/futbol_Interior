@@ -23,15 +23,15 @@ class ControladorUsuario extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'unique:users,name', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'nameUsuario' => ['required', 'unique:users,name', 'string', 'max:255'],
+                'emailUsuario' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'passwordUsuario' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'nameUsuario' => $request->name,
+                'emailUsuario' => $request->email,
+                'passwordUsuario' => Hash::make($request->password),
             ]);
             if ($request->rol == 1) {
                 $user->assignRole('admin_Liga');
@@ -136,24 +136,24 @@ class ControladorUsuario extends Controller
         try {
             if ($request->filled('password')) {
                 $request->validate([
-                    'name' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
-                    'email' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
-                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                    'password_confirmation' => ['required'],
+                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
+                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
+                    'passwordUsuario' => ['required', 'confirmed', Rules\Password::defaults()],
+                    'password_confirmationUsuario' => ['required'],
                 ]);
 
-                $usuario->name = $request->input('name');
-                $usuario->email = $request->input('email');
+                $usuario->name = $request->input('nameUsuario');
+                $usuario->email = $request->input('emailUsuario');
 
-                $usuario->password = Hash::make($request->input('password'));
+                $usuario->password = Hash::make($request->input('passwordUsuario'));
             } else {
                 $request->validate([
-                    'name' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
-                    'email' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
+                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
+                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
                 ]);
 
-                $usuario->name = $request->input('name');
-                $usuario->email = $request->input('email');
+                $usuario->name = $request->input('nameUsuario');
+                $usuario->email = $request->input('emailUsuario');
             }
             $usuario->save();
 
