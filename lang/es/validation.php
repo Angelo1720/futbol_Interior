@@ -153,6 +153,7 @@ return [
         'divisional' => '"Divisional"',
         'cantidadTitulos' => '"Cantidad de titulos"',
         'imgEscudo' => '"Escudo de equipo"',
+        'imgCancha' => '"Imágen de cancha"',
         'nameCampeonato' => '"Nombre"',
         'nameUsuario' => '"Nombre usuario"',
         'emailUsuario' => '"Correo electrónico"',

@@ -131,7 +131,8 @@ class EquipoController extends Controller
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:255'],
                 'cantidadTitulos' => ['required', 'integer'],
-                'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename] // Asegúrate de tener esta validación
+                'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename], // Asegúrate de tener esta validación
+                'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename] 
             ]);
             $equipo->nombre = $request->input('nameEquipo');
             $equipo->fechaFundacion = $request->input('fechaFundacion');
@@ -141,7 +142,7 @@ class EquipoController extends Controller
             $equipo->participa = $request->has('participa');
             $equipo->save();
 
-            // Manejar la imagen si se proporciona
+            // Manejar la imagen de escudo si se proporciona
             if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {
                 if ($equipo->idEscudo == null) {
                     try {
@@ -167,7 +168,32 @@ class EquipoController extends Controller
                     $imagen->save();
                 }
             }
-
+            //Manejar la imagen de cancha si se proporciona
+            if ($request->hasFile('imgCancha') && $request->file('imgCancha')->isValid()) {
+                if ($equipo->imgCancha == null) {
+                    try {
+                        $image = base64_encode(file_get_contents($request->file('imgCancha')->getRealPath()));
+                        // Guardar la imagen y asignar idEscudo al equipo
+                        $imagen = Imagen::Create([
+                            'nombreImg' => "Cancha_" . $request->file('imgCancha')->getClientOriginalName(),
+                            'equipo_id' => $equipo->id,
+                            'base64' => $image
+                        ]);
+                        $equipo->imgCancha = $imagen->id;
+                        // Volver a guardar el equipo con el idEscudo actualizado
+                        $equipo->save();
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                } else {
+                    // Actualizar la imagen
+                    $image = base64_encode(file_get_contents($request->file('imgCancha')->getRealPath()));
+                    $imagen = Imagen::findOrFail($equipo->imgCancha);
+                    $imagen->nombreImg = "Cancha_" . $request->file('imgCancha')->getClientOriginalName();
+                    $imagen->base64 = $image;
+                    $imagen->save();
+                }
+            }
             if (Auth::user()) {
                 return redirect()->route('equipos')->with('success', 'Equipo actualizado correctamente.');
             }

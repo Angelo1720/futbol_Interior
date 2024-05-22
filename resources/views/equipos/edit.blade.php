@@ -11,10 +11,10 @@
                         <div class="mb-3">
                             <label for="nameEquipo" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
                             <input id="nameEquipo" class="form-control input-custom" type="text" name="nameEquipo"
-                                value="{{ $equipo->nombre }}" autofocus autocomplete="nameEquipo" />
-                                @error('nameEquipo')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                                value="{{ $equipo->nombre }}" required autofocus autocomplete="nameEquipo" />
+                            @error('nameEquipo')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Fecha fundacion -->
@@ -24,9 +24,9 @@
                             <input id="fechaFundacion" class="form-control input-custom" type="date"
                                 name="fechaFundacion" value="{{ $equipo->fechaFundacion }}" required
                                 autocomplete="fechaFundacion" />
-                                @error('fechaFundacion')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('fechaFundacion')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Nombre cancha -->
@@ -35,9 +35,9 @@
                             <input id="nameCancha" class="form-control input-custom" type="text" name="nameCancha"
                                 value="{{ $equipo->nomCancha == 'NO' ? '' : $equipo->nomCancha }}" autofocus autocomplete="nameCancha"
                                 placeholder ="Si queda vacío signfica que NO posee una." />
-                                @error('nameCancha')
-                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('nameCancha')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Divisional -->
@@ -62,9 +62,9 @@
                             <input id="cantidadTitulos" class="form-control input-custom" type="text"
                                 name="cantidadTitulos" value="{{ $equipo->cantidadTitulos }}" required autofocus
                                 autocomplete="cantidadTitulos" />
-                                @error('cantidadTitulos')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('cantidadTitulos')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Bool participa -->
@@ -75,22 +75,37 @@
                                 {{ $equipo->participa ? 'checked' : '' }} autofocus autocomplete="participa" />
                         </div>
                         
-                        <!-- Escudo actual -->
-                        @if ($equipo->imagen() != null)
+                        <!-- Escudo y cancha actual -->
+                        @if ($equipo->imagen()->first() != null || $equipo->imagen()->skip(1)->first() != null)
                             <div class="text-center editEquipoImg">
-                                <label for="imageEscudo" class="label-custom">{{ __('👇Imágen de escudo actual👇')}}</label>
-                                <img id="imageEscudo" class="img-thumbnail" src="data:image/jpg;base64, {{$equipo->imagen()->first()->base64}}" alt="Imagen de escudo">
+                                <label for="imageEscudo" class="label-custom">{{ __('👇Imágen/es utilizadas actualmente👇')}}</label>
+                                @if ($equipo->imagen()->first() != null)
+                                    <img id="imageEscudo" class="img-thumbnail" src="data:image/jpg;base64, 
+                                    {{$equipo->imagen()->first()->base64}}" alt="Imagen de escudo">
+                                @endif
+                                @if ($equipo->imagen()->skip(1)->first() != null)
+                                <img id="imageCancha" class="img-thumbnail" src="data:image/jpg;base64, 
+                                {{$equipo->imagen()->skip(1)->first()->base64}}" alt="Imagen de cancha">
+                                @endif
                             </div>
                         @endif
 
                         <!-- Escudo -->
                         <div class="mb-3">
                             <label for="imgEscudo" class="form-label label-custom">{{ __('Escudo de equipo') }}</label>
-                            <input id="imgEscudo" class="form-control input-custom" type="file" name="imgEscudo"
-                                value="{{ $equipo->imagen()->first()->nombreImg }}" autofocus/>
-                                @error('imgEscudo')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            <input id="imgEscudo" class="form-control input-custom" type="file" name="imgEscudo" autofocus/>
+                            @error('imgEscudo')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Cancha -->
+                        <div class="mb-3">
+                            <label for="imgCancha" class="form-label label-custom">{{ __('Imágen de cancha') }}</label>
+                            <input id="imgCancha" class="form-control input-custom" type="file" name="imgCancha" autofocus/>
+                            @error('imgCancha')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center">
