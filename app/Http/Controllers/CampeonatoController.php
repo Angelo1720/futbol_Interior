@@ -83,7 +83,7 @@ class CampeonatoController extends Controller
     {
         try {
             $request->validate([
-                'nameCampeonato' => ['required', 'unique:campeonatos,nombre', 'string', 'max:255']
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre', 'string', 'max:100']
             ]);
 
             $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
@@ -113,7 +113,7 @@ class CampeonatoController extends Controller
 
         try {
             $request->validate([
-                'nameCampeonato' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:255']
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:100']
             ]);
 
             $campeonato->nombre = $request->input('nameCampeonato');

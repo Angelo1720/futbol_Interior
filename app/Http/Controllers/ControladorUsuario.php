@@ -23,8 +23,8 @@ class ControladorUsuario extends Controller
     {
         try {
             $request->validate([
-                'nameUsuario' => ['required', 'unique:users,name', 'string', 'max:255'],
-                'emailUsuario' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'nameUsuario' => ['required', 'unique:users,name', 'string', 'max:40'],
+                'emailUsuario' => ['required', 'string', 'email', 'max:60', 'unique:' . User::class],
                 'passwordUsuario' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
@@ -136,8 +136,8 @@ class ControladorUsuario extends Controller
         try {
             if ($request->filled('password')) {
                 $request->validate([
-                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
-                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
+                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:40'],
+                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:60'],
                     'passwordUsuario' => ['required', 'confirmed', Rules\Password::defaults()],
                     'password_confirmationUsuario' => ['required'],
                 ]);
@@ -148,8 +148,8 @@ class ControladorUsuario extends Controller
                 $usuario->password = Hash::make($request->input('passwordUsuario'));
             } else {
                 $request->validate([
-                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:255'],
-                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:255'],
+                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:40'],
+                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:60'],
                 ]);
 
                 $usuario->name = $request->input('nameUsuario');

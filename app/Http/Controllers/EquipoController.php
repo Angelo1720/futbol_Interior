@@ -34,9 +34,9 @@ class EquipoController extends Controller
     {
         try {
             $request->validate([
-                'nameEquipo' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
+                'nameEquipo' => ['required', 'unique:equipos,nombre', 'string', 'max:80'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
-                'nameCancha' => ['max:255'],
+                'nameCancha' => ['max:80'],
             ]);
             Equipo::create([
                 'nombre' => $request['nameEquipo'],
@@ -127,9 +127,9 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         try {
             $request->validate([
-                'nameEquipo' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:60'],
+                'nameEquipo' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:80'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
-                'nameCancha' => ['max:255'],
+                'nameCancha' => ['max:80'],
                 'cantidadTitulos' => ['required', 'integer'],
                 'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename], // Asegúrate de tener esta validación
                 'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename] 
