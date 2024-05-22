@@ -9,16 +9,18 @@
                         @method('PUT')
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label label-custom">{{ __('Nombre') }}</label>
-                            <input id="name" class="form-control input-custom" type="text" name="name"
-                                value="{{ $campeonato->nombre }}" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <label for="nameCampeonato" class="form-label label-custom">{{ __('Nombre') }}</label>
+                            <input id="nameCampeonato" class="form-control input-custom" type="text" name="nameCampeonato"
+                                value="{{ $campeonato->nombre }}" required autofocus autocomplete="nameCampeonato" />
+                                @error('nameCampeonato')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <div id="comboBoxs">
                             <div class="contenedoresListas">
-                                <label for="division" class="col-form-label label-custom">Division</label>
-                                <select name="division" id="division" class="form-select mb-3">
+                                <label for="divisional" class="col-form-label label-custom">{{ __('Divisional')}}</label>
+                                <select name="divisional" id="divisional" class="form-select mb-3">
                                     <option value="DivA" {{ $campeonato->division == 'Primera "A"' ? 'selected' : '' }}>
                                         Primera 'A'</option>
                                     <option value="DivB" {{ $campeonato->division == 'Segunda "B"' ? 'selected' : '' }}>

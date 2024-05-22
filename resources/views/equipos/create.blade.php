@@ -8,18 +8,22 @@
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
-                            <input id="name" class="form-control input-custom" type="text" name="name"
-                                :value="old('name')" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <label for="nameEquipo" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
+                            <input id="nameEquipo" class="form-control input-custom" type="text" name="nameEquipo"
+                                :value="old('nameEquipo')" required autofocus autocomplete="nameEquipo" />
+                                @error('nameEquipo')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <!-- Fecha fundacion -->
                         <div class="mb-3">
-                            <label for="fechaFundacion" class="form-label label-custom">{{ __('Fecha fundación') }}</label>
+                            <label for="fechaFundacion" class="form-label label-custom">{{ __('Fecha de fundación') }}</label>
                             <input id="fechaFundacion" class="form-control input-custom" type="date" name="fechaFundacion"
                                 :value="old('fechaFundacion')" required autocomplete="fechaFundacion" />
-                            <x-input-error :messages="$errors->get('fecha')" class="mt-2" />
+                                @error('fechaFundacion')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <!-- Nombre cancha -->
@@ -27,7 +31,9 @@
                             <label for="nameCancha" class="form-label label-custom">{{ __('Nombre cancha') }}</label>
                             <input id="nameCancha" class="form-control input-custom" type="text" name="nameCancha"
                                 :value="old('nameCancha')" required autofocus autocomplete="nameCancha" />
-                            <x-input-error :messages="$errors->get('nameCancha')" class="mt-2" />
+                                @error('nameCancha')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <div id="comboBoxs">

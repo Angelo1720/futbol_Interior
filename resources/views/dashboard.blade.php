@@ -7,33 +7,33 @@
     <div class="banner">
         <div class="banner-inner">
             <img src="Images/Amanecer.png" alt="Escudo Equipo">
-            <img src="Images/Barrio obrero.png" alt="Escudo Equipo">
-            <img src="Images/Bella Vista.png" alt="Escudo Equipo">
-            <img src="Images/Boca de sacra.png" alt="Escudo Equipo">
+            <img src="Images/Barrio_obrero.png" alt="Escudo Equipo">
+            <img src="Images/Bella_Vista.png" alt="Escudo Equipo">
+            <img src="Images/Boca_de_sacra.png" alt="Escudo Equipo">
             <img src="Images/Bohemios.png" alt="Escudo Equipo">
             <img src="Images/Boston.png" alt="Escudo Equipo">
-            <img src="Images/Casa Blanca.png" alt="Escudo Equipo">
+            <img src="Images/Casa_Blanca.png" alt="Escudo Equipo">
             <img src="Images/Centenario.png" alt="Escudo Equipo">
             <img src="Images/Charrua.png" alt="Escudo Equipo">
-            <img src="Images/Deportivo America.png" alt="Escudo Equipo">
+            <img src="Images/Deportivo_America.png" alt="Escudo Equipo">
             <img src="Images/Esperanza.png" alt="Escudo Equipo">
             <img src="Images/Estudiantil.png" alt="Escudo Equipo">
             <img src="Images/Guaviyú.png" alt="Escudo Equipo">
             <img src="Images/Huracan.png" alt="Escudo Equipo">
             <img src="Images/Independencia.png" alt="Escudo Equipo">
             <img src="Images/Independiente.png" alt="Escudo Equipo">
-            <img src="Images/Juventud Unida.png" alt="Escudo Equipo">
+            <img src="Images/Juventud_Unida.png" alt="Escudo Equipo">
             <img src="Images/Litoral.png" alt="Escudo Equipo">
-            <img src="Images/Los Sauces.png" alt="Escudo Equipo">
-            <img src="Images/Nuevo Paysandú.png" alt="Escudo Equipo">
-            <img src="Images/Olímpico.png" alt="Escudo Equipo">
-            <img src="Images/Piedras Coloradas.png" alt="Escudo Equipo">
+            <img src="Images/Los_Sauces.png" alt="Escudo Equipo">
+            <img src="Images/Nuevo_Paysandu.png" alt="Escudo Equipo">
+            <img src="Images/Olimpico.png" alt="Escudo Equipo">
+            <img src="Images/Piedras_Coloradas.png" alt="Escudo Equipo">
             <img src="Images/Progreso.png" alt="Escudo Equipo">
             <img src="Images/Queguay.png" alt="Escudo Equipo">
             <img src="Images/Racing.png" alt="Escudo Equipo">
             <img src="Images/Rampla.png" alt="Escudo Equipo">
-            <img src="Images/San Felix.png" alt="Escudo Equipo">
-            <img src="Images/Sud América.png" alt="Escudo Equipo">
+            <img src="Images/San_Felix.png" alt="Escudo Equipo">
+            <img src="Images/Sud_America.png" alt="Escudo Equipo">
             <img src="Images/Vialidad.png" alt="Escudo Equipo">
             <img src="Images/Wanderers.png" alt="Escudo Equipo">
         </div>

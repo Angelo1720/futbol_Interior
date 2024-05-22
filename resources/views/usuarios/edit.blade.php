@@ -9,25 +9,29 @@
                         @method('PUT')
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label label-custom">{{ __('Nombre') }}</label>
-                            <input id="name" class="form-control input-custom" type="text" name="name"
-                                value="{{ $usuario->name }}" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <label for="nameUsuario" class="form-label label-custom">{{ __('Nombre usuario') }}</label>
+                            <input id="nameUsuario" class="form-control input-custom" type="text" name="nameUsuario"
+                                value="{{ $usuario->name }}" required autofocus autocomplete="nameUsuario" />
+                                @error('nameUsuario')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <!-- Email Address -->
                         <div class="mb-3">
-                            <label for="email" class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
-                            <input id="email" class="form-control input-custom" type="email" name="email"
-                                value="{{ $usuario->email }}" required autocomplete="username" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <label for="emailUsuario" class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
+                            <input id="emailUsuario" class="form-control input-custom" type="email" name="emailUsuario"
+                                value="{{ $usuario->email }}" required autocomplete="emailUsuario" />
+                                @error('emailUsuario')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <!-- Password -->
                         <div class="mb-3">
-                            <label for="password" class="form-label label-custom">{{ __('Contraseña') }}</label>
-                            <input id="password" class="form-control input-custom" type="password" name="password"
-                                autocomplete="new-password"
+                            <label for="passwordUsuario" class="form-label label-custom">{{ __('Contraseña') }}</label>
+                            <input id="passwordUsuario" class="form-control input-custom" type="password" name="passwordUsuario"
+                                autocomplete="passwordUsuario"
                                 placeholder="Deje en blanco para mantener la contraseña actual." />
                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -40,17 +44,21 @@
                                         d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
                                 </svg>
                             </button>
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            @error('passwordUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Confirm Password -->
                         <div class="mb-3">
-                            <label for="password_confirmation"
+                            <label for="password_confirmationUsuario"
                                 class="form-label label-custom">{{ __('Confirmar Contraseña') }}</label>
-                            <input id="password_confirmation" class="form-control input-custom" type="password"
-                                name="password_confirmation" autocomplete="new-password"
+                            <input id="password_confirmationUsuario" class="form-control input-custom" type="password"
+                                name="password_confirmationUsuario" autocomplete="password_confirmationUsuario"
                                 placeholder="Deje en blanco para mantener la contraseña actual." />
-                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                @error('password_confirmationUsuario')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center">

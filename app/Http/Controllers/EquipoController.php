@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Enum\Divisionales;
+use App\Models\Imagen;
+use App\Rules\NoSpacesInFilename;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -29,25 +32,29 @@ class EquipoController extends Controller
     }
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'nameEquipo' => ['required', 'unique:equipos,nombre', 'string', 'max:80'],
+                'fechaFundacion' => ['required', 'string', 'max:10'],
+                'nameCancha' => ['max:80'],
+            ]);
+            Equipo::create([
+                'nombre' => $request['nameEquipo'],
+                'fechaFundacion' => $request['fechaFundacion'],
+                'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
+                'divisional' => $this->asignarDivisional($request['divisional']),
+            ]);
 
-        $request->validate([
-            'name' => ['required', 'unique:equipos,nombre', 'string', 'max:255'],
-            'fechaFundacion' => ['required', 'string', 'max:10'],
-            'nameCancha' => ['max:255'],
-        ]);
-        Equipo::create([
-            'nombre' => $request['name'],
-            'fechaFundacion' => $request['fechaFundacion'],
-            'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
-            'divisional' => $this->asignarDivisional($request['divisional']),
-        ]);
-
-        // Separar la fecha en año, mes y día
-        //list($ano, $dia, $mes) = explode('-', $request->fecha);
-        // Establecer la fecha manualmente
-        //$fechaact = Carbon::create($ano, $mes, $dia);
-        if (Auth::user()) {
-            return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
+            // Separar la fecha en año, mes y día
+            //list($ano, $dia, $mes) = explode('-', $request->fecha);
+            // Establecer la fecha manualmente
+            //$fechaact = Carbon::create($ano, $mes, $dia);
+            if (Auth::user()) {
+                return redirect()->route('equipos')->with('success', 'Equipo ingresado correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al crear equipo: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
@@ -120,26 +127,79 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         try {
             $request->validate([
-                'name' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:255'],
+                'nameEquipo' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:80'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
-                'nameCancha' => ['max:255'],
-                'cantidadTitulos' => ['required', 'integer']
+                'nameCancha' => ['max:80'],
+                'cantidadTitulos' => ['required', 'integer'],
+                'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename], // Asegúrate de tener esta validación
+                'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename] 
             ]);
-            $equipo->nombre = $request->input('name');
+            $equipo->nombre = $request->input('nameEquipo');
             $equipo->fechaFundacion = $request->input('fechaFundacion');
             $equipo->nomCancha = $request->input('nameCancha') == null ? 'NO' : $request->input('nameCancha');
             $equipo->divisional = $this->asignarDivisional($request->input('divisional'));
             $equipo->cantidadTitulos = $request->input('cantidadTitulos');
-            $equipo->participa = $request->input('participa') == 'on' ? true : false;
+            $equipo->participa = $request->has('participa');
             $equipo->save();
-            
+
+            // Manejar la imagen de escudo si se proporciona
+            if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {
+                if ($equipo->idEscudo == null) {
+                    try {
+                        $image = base64_encode(file_get_contents($request->file('imgEscudo')->getRealPath()));
+                        // Guardar la imagen y asignar idEscudo al equipo
+                        $imagen = Imagen::Create([
+                            'nombreImg' => "Escudo_" . $request->file('imgEscudo')->getClientOriginalName(),
+                            'equipo_id' => $equipo->id,
+                            'base64' => $image
+                        ]);
+                        $equipo->idEscudo = $imagen->id;
+                        // Volver a guardar el equipo con el idEscudo actualizado
+                        $equipo->save();
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                } else {
+                    // Actualizar la imagen
+                    $image = base64_encode(file_get_contents($request->file('imgEscudo')->getRealPath()));
+                    $imagen = Imagen::findOrFail($equipo->idEscudo);
+                    $imagen->nombreImg = "Escudo_" . $request->file('imgEscudo')->getClientOriginalName();
+                    $imagen->base64 = $image;
+                    $imagen->save();
+                }
+            }
+            //Manejar la imagen de cancha si se proporciona
+            if ($request->hasFile('imgCancha') && $request->file('imgCancha')->isValid()) {
+                if ($equipo->imgCancha == null) {
+                    try {
+                        $image = base64_encode(file_get_contents($request->file('imgCancha')->getRealPath()));
+                        // Guardar la imagen y asignar idEscudo al equipo
+                        $imagen = Imagen::Create([
+                            'nombreImg' => "Cancha_" . $request->file('imgCancha')->getClientOriginalName(),
+                            'equipo_id' => $equipo->id,
+                            'base64' => $image
+                        ]);
+                        $equipo->imgCancha = $imagen->id;
+                        // Volver a guardar el equipo con el idEscudo actualizado
+                        $equipo->save();
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                } else {
+                    // Actualizar la imagen
+                    $image = base64_encode(file_get_contents($request->file('imgCancha')->getRealPath()));
+                    $imagen = Imagen::findOrFail($equipo->imgCancha);
+                    $imagen->nombreImg = "Cancha_" . $request->file('imgCancha')->getClientOriginalName();
+                    $imagen->base64 = $image;
+                    $imagen->save();
+                }
+            }
             if (Auth::user()) {
                 return redirect()->route('equipos')->with('success', 'Equipo actualizado correctamente.');
             }
-
-        } catch (\Throwable $th) {
-            Log::error('Error al actualizar equipo: ' . $th->getMessage());
-            return redirect()->back()->with('error', 'Se produjo un error al actualizar el equipo. Por favor, inténtelo de nuevo.');
+        } catch (ValidationException $e) {
+            Log::error('Error al actualizar equipo: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\Divisionales;
 use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,20 +81,24 @@ class CampeonatoController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre', 'string', 'max:100']
+            ]);
 
-        $request->validate([
-            'name' => ['required', 'unique:campeonatos,nombre', 'string', 'max:255']
-        ]);
+            $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
 
-        $tipoCampeonato = $request->has('tipoCampeonato') ? true : false;
+            Campeonato::create([
+                'nombre' => $request['nameCampeonato'],
+                'division' => $this->asignarDivisional($request['divisional']),
+                'tipoCampeonato' => $tipoCampeonato
+            ]);
 
-        Campeonato::create([
-            'nombre' => $request['name'],
-            'division' => $this->asignarDivisional($request['division']),
-            'tipoCampeonato' => $tipoCampeonato
-        ]);
-
-        return redirect()->route('campeonatos')->with('success', 'Campeonato ingresado correctamente.');
+            return redirect()->route('campeonatos')->with('success', 'Campeonato ingresado correctamente.');
+        } catch (ValidationException $e) {
+            Log::error('Error al ingresar campeonato: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 
     public function edit($id)
@@ -107,24 +112,21 @@ class CampeonatoController extends Controller
         $campeonato = Campeonato::findOrFail($id);
 
         try {
-
             $request->validate([
-                'name' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:255']
+                'nameCampeonato' => ['required', 'unique:campeonatos,nombre,' . $id, 'string', 'max:100']
             ]);
 
-            $campeonato->nombre = $request->input('name');
-            $campeonato->division = $this->asignarDivisional($request->input('division'));
+            $campeonato->nombre = $request->input('nameCampeonato');
+            $campeonato->division = $this->asignarDivisional($request->input('divisional'));
 
             $campeonato->save();
 
             if (Auth::user()) {
                 return redirect()->route('campeonatos')->with('success', 'Campeonato actualizado correctamente.');
             }
-
-
-        } catch (\Throwable $th) {
-            Log::error('Error al actualizar campeonato: ' . $th->getMessage());
-            return redirect()->back()->with('error', 'Se produjo un error al actualizar el campeonato. Por favor, inténtelo de nuevo.');
+        } catch (ValidationException $e) {
+            Log::error('Error al actualizar campeonato: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
