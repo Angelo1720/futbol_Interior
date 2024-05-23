@@ -27,4 +27,9 @@ class Imagen extends Model
     {
         return $this->belongsTo(Equipo::class);
     }
+
+    public function edicion_historia()
+    {
+        return $this->hasMany(Edicion_historia::class);
+    }
 }
