@@ -82,6 +82,8 @@
                                 @if ($equipo->imagen()->first() != null)
                                     <img id="imageEscudo" class="img-thumbnail" src="data:image/jpg;base64, 
                                     {{$equipo->imagen()->first()->base64}}" alt="Imagen de escudo">
+                                    <input type="hidden" id="Imagen_{{($equipo->imagen->first()->id)}}" value="0">
+                                    <a name="imagen" href="javascript:borrarImagen('Imagen_' + {{($equipo->imagen->first()->id)}});">Borrar</a>
                                 @endif
                                 @if ($equipo->imagen()->skip(1)->first() != null)
                                 <img id="imageCancha" class="img-thumbnail" src="data:image/jpg;base64, 
@@ -116,4 +118,13 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function borrarImagen(id) {
+            if (document.getElementById(id).value == "0") {
+                document.getElementById(id).value = "1";
+            } else {
+                document.getElementById(id).value = "0";
+            }
+        }
+    </script>
 </x-app-layout>
