@@ -81,26 +81,28 @@
                                 <label for="imageEscudo" class="label-custom">{{ __('👇Imágen/es utilizadas actualmente👇')}}</label>
                                 @if ($equipo->imagen()->first() != null)
                                     <span class="imagenEditEquipo">
-                                        <svg onclick="borrarImagen('Imagen_{{($equipo->imagen->first()->id)}}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <svg onclick="borrarImagenEscudo('Imagen_{{($equipo->imagen->first()->id)}}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                                           </svg>
                                     <img id="imageEscudo" class="img-thumbnail" src="data:image/jpg;base64, 
                                     {{$equipo->imagen()->first()->base64}}" alt="Imagen de escudo">
                                     </span>
-                                    <input type="hidden" id="Imagen_{{($equipo->imagen->first()->id)}}" value="0">
+                                    <input type="hidden" id="Imagen_{{($equipo->imagen->first()->id)}}" 
+                                    name="NOborrarImgEscudo" value="{{($equipo->imagen->first()->id)}}">
                                 @endif
                                 
                                 @if ($equipo->imagen()->skip(1)->first() != null)
                                 <span class="imagenEditEquipo">
-                                <svg onclick="borrarImagen('Imagen_{{($equipo->imagen->skip(1)->first()->id)}}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <svg onclick="borrarImagenCancha('Imagen_{{($equipo->imagen->skip(1)->first()->id)}}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                                 </svg>
                                 <img id="imageCancha" class="img-thumbnail" src="data:image/jpg;base64, 
                                 {{$equipo->imagen()->skip(1)->first()->base64}}" alt="Imagen de cancha">
                                 </span>
-                                <input type="hidden" id="Imagen_{{($equipo->imagen->skip(1)->first()->id)}}" value="0">
+                                <input type="hidden" id="Imagen_{{($equipo->imagen->skip(1)->first()->id)}}" 
+                                name="NOborrarImgCancha" value="{{($equipo->imagen->skip(1)->first()->id)}}">
 
                                 @endif
                             </div>
@@ -133,11 +135,24 @@
         </div>
     </div>
     <script type="text/javascript">
-        function borrarImagen(id) {
-            if (document.getElementById(id).value == "0") {
-                document.getElementById(id).value = "1";
+        function borrarImagenEscudo(id) {
+            const inputEscudo = document.getElementById('imgEscudo');
+            if (document.getElementById(id).name == "NOborrarImgEscudo") { //Escudo img empieza con 0 valor para NO borrar
+                document.getElementById(id).name = "BORRARimgEscudo";
+                inputEscudo.disabled = true; //Deshabilita el input 
             } else {
-                document.getElementById(id).value = "0";
+                document.getElementById(id).name = "NOborrarImgEscudo";
+                inputEscudo.disabled = false;  //Habilita input
+            }
+        }
+        function borrarImagenCancha(id) {
+            const inputCancha = document.getElementById('imgCancha');
+            if (document.getElementById(id).name == "NOborrarImgCancha") { //Cancha img empieza con 5 valor para NO borrar
+                document.getElementById(id).name = "BORRARimgCancha";
+                inputCancha.disabled = true; //Deshabilita el input
+            } else {
+                document.getElementById(id).name = "NOborrarImgCancha";
+                inputCancha.disabled = false;  //Habilita input
             }
         }
     </script>
