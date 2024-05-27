@@ -94,3 +94,22 @@ select#rol.form-select:focus {
 .editEquipoImg img {
     height: 8rem;
 }
+
+.imagenEditEquipo {
+    position: relative;
+    display: inline-block;
+}
+
+.imagenEditEquipo svg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.imagenEditEquipo img {
+    display: block;
+}
