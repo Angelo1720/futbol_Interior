@@ -33,14 +33,13 @@ class EquiposTableSeeder extends Seeder
         ];
 
         $imagenes = [
-            file_get_contents(public_path("Images/Juventud Unida.png")),
+            file_get_contents(public_path("Images/Juventud_Unida.png")),
             file_get_contents(public_path("Images/Litoral.png")),
         ];
 
         $i = 0;
 
-        foreach ($equipos as $equipoData) 
-        {
+        foreach ($equipos as $equipoData) {
             $equipo = Equipo::updateOrCreate($equipoData);
             $imagen = Imagen::updateOrCreate(['equipo_id' => $equipo->id], ['base64' => base64_encode($imagenes[$i])]);
             $equipo->idEscudo = $imagen->id;

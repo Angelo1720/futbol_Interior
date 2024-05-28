@@ -35,4 +35,9 @@ class Edicion extends Model
     {
         return $this->hasOne(Edicion_Historia::class);
     }
+
+    public function equipos()
+    {
+        return $this->hasMany(Equipo::class);
+    }
 }
