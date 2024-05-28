@@ -32,18 +32,25 @@ class Equipo extends Model
         'participa' => 'boolean',
     ];
 
-    public function imagen() 
+    public function imagen()
     {
         return $this->hasMany(Imagen::class);
     }
 
-    public function traerEscudo() {
+    public function traerEscudo()
+    {
         $image = Imagen::find($this->idEscudo);
         return $image;
     }
 
-    public function traerCancha() {
+    public function traerCancha()
+    {
         $image = Imagen::find($this->imgCancha);
         return $image;
+    }
+
+    public function ediciones()
+    {
+        return $this->belongsToMany(Edicion::class);
     }
 }

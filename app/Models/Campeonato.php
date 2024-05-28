@@ -19,5 +19,8 @@ class Campeonato extends Model
 
     public $timestamps = false;
 
-    //HAS MANY EDICIONES
+    public function ediciones()
+    {
+        return $this->hasMany(Edicion::class, 'idCampeonato');
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\CampeonatoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
+use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
 
 /*
@@ -55,5 +56,9 @@ Route::post('/campeonatos/guardar', [CampeonatoController::class, 'store'])->mid
 Route::get('/campeonatos/admin/editar/{id}', [CampeonatoController::class, 'edit'])->middleware('auth')->name('campeonatos.edit');
 Route::put('/campeonatos/{id}', [CampeonatoController::class, 'update'])->name('campeonatos.update');
 Route::delete('/campeonatos/{id}', [CampeonatoController::class, 'delete'])->middleware('auth')->name('campeonatos.eliminar');
+
+Route::get('/ediciones/crear/{idCampeonato}', [EdicionController::class, 'create'])->middleware('auth')->name('ediciones.create');
+Route::get('/ediciones/{idCampeonato}', [EdicionController::class, 'index'])->middleware('auth')->name('ediciones.index');
+Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middleware('auth')->name('ediciones.store');
 
 require __DIR__ . '/auth.php';
