@@ -137,7 +137,7 @@
     <script type="text/javascript">
         function borrarImagenEscudo(id) {
             const inputEscudo = document.getElementById('imgEscudo');
-            if (document.getElementById(id).name == "NOborrarImgEscudo") { //Escudo img empieza con 0 valor para NO borrar
+            if (document.getElementById(id).name == "NOborrarImgEscudo") { //Escudo img empieza con name="NOborrarImgEscudo" para NO borrar
                 document.getElementById(id).name = "BORRARimgEscudo";
                 inputEscudo.disabled = true; //Deshabilita el input 
             } else {
@@ -147,7 +147,7 @@
         }
         function borrarImagenCancha(id) {
             const inputCancha = document.getElementById('imgCancha');
-            if (document.getElementById(id).name == "NOborrarImgCancha") { //Cancha img empieza con 5 valor para NO borrar
+            if (document.getElementById(id).name == "NOborrarImgCancha") { //Cancha img empieza con name="NOborrarImgCancha" para NO borrar
                 document.getElementById(id).name = "BORRARimgCancha";
                 inputCancha.disabled = true; //Deshabilita el input
             } else {
