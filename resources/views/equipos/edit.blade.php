@@ -7,14 +7,26 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <!-- Name -->
+                        <!-- nombreCorto -->
                         <div class="mb-3">
-                            <label for="nameEquipo" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
-                            <input id="nameEquipo" class="form-control input-custom" type="text" name="nameEquipo"
-                                value="{{ $equipo->nombre }}" required autofocus autocomplete="nameEquipo" />
-                            @error('nameEquipo')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
+                            <label for="nameEquipoCorto" class="form-label label-custom">{{ __('Nombre corto de equipo') }}</label>
+                            <input id="nameEquipoCorto" class="form-control input-custom" type="text" name="nameEquipoCorto"
+                                value="{{ $equipo->nombreCorto }}" required autofocus autocomplete="nameEquipoCorto" 
+                                placeholder="Ej: Litoral" />
+                                @error('nameEquipoCorto')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                        </div>
+
+                        <!-- nombre completo -->
+                        <div class="mb-3">
+                            <label for="nameEquipoLargo" class="form-label label-custom">{{ __('Nombre largo de equipo') }}</label>
+                            <input id="nameEquipoLargo" class="form-control input-custom" type="text" name="nameEquipoLargo"
+                            value="{{ $equipo->nombreCompleto }}" required autofocus autocomplete="nameEquipoLargo" 
+                            placeholder="Club Atlético Litoral" />
+                                @error('nameEquipoLargo')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </div>
 
                         <!-- Fecha fundacion -->

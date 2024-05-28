@@ -6,12 +6,24 @@
                     <form method="POST" action="{{ route('equipos.store') }}" class="p-4 border rounded-lg">
                         @csrf
 
-                        <!-- Name -->
+                        <!-- nombreCorto -->
                         <div class="mb-3">
-                            <label for="nameEquipo" class="form-label label-custom">{{ __('Nombre equipo') }}</label>
-                            <input id="nameEquipo" class="form-control input-custom" type="text" name="nameEquipo"
-                                :value="old('nameEquipo')" required autofocus autocomplete="nameEquipo" />
-                                @error('nameEquipo')
+                            <label for="nameEquipoCorto" class="form-label label-custom">{{ __('Nombre corto de equipo') }}</label>
+                            <input id="nameEquipoCorto" class="form-control input-custom" type="text" name="nameEquipoCorto"
+                                :value="old('nameEquipoCorto')" required autofocus autocomplete="nameEquipoCorto" 
+                                placeholder="Ej: Litoral" />
+                                @error('nameEquipoCorto')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                        </div>
+
+                        <!-- nombre completo -->
+                        <div class="mb-3">
+                            <label for="nameEquipoLargo" class="form-label label-custom">{{ __('Nombre largo de equipo') }}</label>
+                            <input id="nameEquipoLargo" class="form-control input-custom" type="text" name="nameEquipoLargo"
+                                :value="old('nameEquipoLargo')" required autofocus autocomplete="nameEquipoLargo" 
+                                placeholder="Club Atlético Litoral" />
+                                @error('nameEquipoLargo')
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                         </div>

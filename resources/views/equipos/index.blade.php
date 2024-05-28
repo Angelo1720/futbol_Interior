@@ -88,7 +88,7 @@
                     ajax: "{{ route('equipos.getEquipos') }}",
                     columns: [
                         {
-                            data: 'nombre'
+                            data: 'nombreCorto'
                         },
                         {
                             data: 'divisional'  

@@ -147,7 +147,8 @@ return [
     */
 
     'attributes' => [
-        'nameEquipo' => '"Nombre equipo"',
+        'nameEquipoCorto' => '"Nombre corto de equipo"',
+        'nameEquipoLargo' => '"Nombre largo de equipo"',
         'fechaFundacion' => '"Fecha de fundación"',
         'nameCancha' => '"Nombre cancha"',
         'divisional' => '"Divisional"',

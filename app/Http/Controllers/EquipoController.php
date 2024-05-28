@@ -34,12 +34,14 @@ class EquipoController extends Controller
     {
         try {
             $request->validate([
-                'nameEquipo' => ['required', 'unique:equipos,nombre', 'string', 'max:80'],
+                'nameEquipoCorto' => ['required', 'unique:equipos,nombreCorto', 'string', 'max:40'],
+                'nameEquipoLargo' => ['required', 'unique:equipos,nombreCompleto', 'string', 'max:80'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:80'],
             ]);
             Equipo::create([
-                'nombre' => $request['nameEquipo'],
+                'nombreCorto' => $request['nameEquipoCorto'],
+                'nombreCompleto' => $request['nameEquipoLargo'],
                 'fechaFundacion' => $request['fechaFundacion'],
                 'nomCancha' => $request['nameCancha'] == null ? 'NO' : $request['nameCancha'],
                 'divisional' => $this->asignarDivisional($request['divisional']),
@@ -60,7 +62,7 @@ class EquipoController extends Controller
 
     public function index(Request $request)
     {
-        $equipos = Equipo::orderBy('nombre', 'asc')->get();
+        $equipos = Equipo::orderBy('nombreCorto', 'asc')->get();
         return view('equipos.index', compact('equipos'));
     }
     public function getEquipos(Request $request)
@@ -82,11 +84,11 @@ class EquipoController extends Controller
 
         // Total records
         $totalRecords = Equipo::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombreCorto', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = Equipo::orderBy($columnName, $columnSortOrder)
-            ->where('nombre', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')
+            ->where('nombreCorto', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')
             ->select('equipos.*')
             ->skip($start)
             ->take($rowperpage)
@@ -96,12 +98,12 @@ class EquipoController extends Controller
 
         foreach ($records as $record) {
             $id = $record->id;
-            $nombre = $record->nombre;
+            $nombreCorto = $record->nombreCorto;
             $divisional = $record->divisional;
 
             $data_arr[] = array(
                 "id" => $id,
-                "nombre" => $nombre,
+                "nombreCorto" => $nombreCorto,
                 "divisional" => $divisional
             );
         }
@@ -127,14 +129,16 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         try {
             $request->validate([
-                'nameEquipo' => ['required', 'unique:equipos,nombre,' . $id, 'string', 'max:80'],
+                'nameEquipoCorto' => ['required', 'unique:equipos,nombreCorto,' . $id, 'string', 'max:40'],
+                'nameEquipoLargo' => ['required', 'unique:equipos,nombreCompleto,' . $id, 'string', 'max:80'],
                 'fechaFundacion' => ['required', 'string', 'max:10'],
                 'nameCancha' => ['max:80'],
                 'cantidadTitulos' => ['required', 'integer'],
                 'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename], // Asegúrate de tener esta validación
                 'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename] 
             ]);
-            $equipo->nombre = $request->input('nameEquipo');
+            $equipo->nombreCorto = $request->input('nameEquipoCorto');
+            $equipo->nombreCompleto = $request->input('nameEquipoLargo');
             $equipo->fechaFundacion = $request->input('fechaFundacion');
             $equipo->nomCancha = $request->input('nameCancha') == null ? 'NO' : $request->input('nameCancha');
             $equipo->divisional = $this->asignarDivisional($request->input('divisional'));
