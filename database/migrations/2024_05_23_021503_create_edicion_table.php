@@ -15,10 +15,12 @@ return new class extends Migration {
         Schema::create('edicion', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('fechaInicio');
-            $table->string('fechaFinal');
+            $table->string('fechaInicio')->nullable();
+            $table->string('fechaFinal')->nullable();
             $table->integer('idCampeon')->nullable();
             $table->boolean('liguilla')->default(false);
+            $table->integer('idCampeonato');
+            $table->foreign('idCampeonato')->references('id')->on('campeonatos');
         });
     }
 

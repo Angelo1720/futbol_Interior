@@ -17,18 +17,20 @@ class Edicion extends Model
         'fechaFinal',
         'idCampeon',
         'liguilla',
+        'idCampeonato'
     ];
 
     public $timestamps = false;
 
     protected $casts = [
         'idCampeon' => 'integer',
+        'idCampeonato' => 'integer',
         'liguilla' => 'boolean',
     ];
 
     public function campeonato()
     {
-        return $this->belongsTo(Campeonato::class);
+        return $this->belongsTo(Campeonato::class, 'idCampeonato');
     }
 
     public function edicion_Historia()
@@ -36,8 +38,8 @@ class Edicion extends Model
         return $this->hasOne(Edicion_Historia::class);
     }
 
-    public function equipos()
+    public function edicion_equipo()
     {
-        return $this->hasMany(Equipo::class);
+        return $this->hasMany(Edicion_Equipo::class);
     }
 }

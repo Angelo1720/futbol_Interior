@@ -37,21 +37,21 @@ class Equipo extends Model
         return $this->hasMany(Imagen::class);
     }
 
-<<<<<<< HEAD
-    public function traerEscudo() {
+
+    public function traerEscudo()
+    {
         $image = Imagen::find($this->idEscudo);
         return $image;
     }
 
-    public function traerCancha() {
+    public function traerCancha()
+    {
         $image = Imagen::find($this->imgCancha);
         return $image;
     }
-}
-=======
+
     public function ediciones()
     {
         return $this->belongsToMany(Edicion::class);
     }
 }
->>>>>>> a06c24d ([ediciones] inicio de ediciones)

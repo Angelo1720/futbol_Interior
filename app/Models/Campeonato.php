@@ -21,6 +21,6 @@ class Campeonato extends Model
 
     public function ediciones()
     {
-        return $this->hasMany(Edicion::class);
+        return $this->hasMany(Edicion::class, 'idCampeonato');
     }
 }
