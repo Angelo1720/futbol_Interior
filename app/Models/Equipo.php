@@ -36,4 +36,14 @@ class Equipo extends Model
     {
         return $this->hasMany(Imagen::class);
     }
+
+    public function traerEscudo() {
+        $image = Imagen::find($this->idEscudo);
+        return $image;
+    }
+
+    public function traerCancha() {
+        $image = Imagen::find($this->imgCancha);
+        return $image;
+    }
 }
