@@ -31,6 +31,7 @@ class Edicion extends Model
     public function campeonato()
     {
         return $this->belongsTo(Campeonato::class, 'idCampeonato');
+
     }
 
     public function edicion_Historia()

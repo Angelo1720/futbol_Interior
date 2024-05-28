@@ -36,7 +36,6 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <input type="hidden" name="campeonatoId" value="{{ $campeonatoSeleccionado->id }}">
 
                         <!-- Bool liguilla -->
