@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
 use App\Models\Edicion;
+use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -23,20 +24,19 @@ class EdicionController extends Controller
     {
         $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
         $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
-        //dd($edicionesDelCampeonato);
         return view('ediciones.index', compact('edicionesDelCampeonato'));
     }
 
     public function store(Request $request)
     {
         try {
-            dd($request);
+            //dd($request);
             $request->validate([
-                'nameEdicion' => ['required', 'unique:,nombre', 'string', 'max:80'],
-                'fechaInicio' => ['required', 'string', 'max:10'],
-                'fechaFinal' => ['required', 'string', 'max:10'],
+                'nameEdicion' => ['required', 'unique:edicion,nombre', 'string', 'max:80'],
+                'fechaInicio' => ['max:10'],
+                'fechaFinal' => ['max:10'],
             ]);
-            dd($request);
+
             Edicion::create([
                 'nombre' => $request['nameEdicion'],
                 'fechaInicio' => $request['fechaInicio'],
@@ -46,10 +46,10 @@ class EdicionController extends Controller
             ]);
 
             if (Auth::user()) {
-                return redirect()->route('ediciones')->with('success', 'Edicion ingresada correctamente.');
+                return redirect()->route('ediciones.index', ['idCampeonato' => $request->input('campeonatoId')])->with('success', 'Edicion ingresada correctamente.');
             }
 
-        } catch (Exception $e) {
+        } catch (ValidationException $e) {
             Log::error('Error al crear edicion: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
