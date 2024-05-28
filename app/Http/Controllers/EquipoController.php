@@ -141,7 +141,7 @@ class EquipoController extends Controller
             $equipo->cantidadTitulos = $request->input('cantidadTitulos');
             $equipo->participa = $request->has('participa');
             $equipo->save();
-
+            
             // Manejar la imagen de escudo si se proporciona
             if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {
                 if ($equipo->idEscudo == null) {
@@ -168,6 +168,14 @@ class EquipoController extends Controller
                     $imagen->save();
                 }
             }
+            //Borrado de imgEscudo
+            if ($request->has('BORRARimgEscudo')) {
+                $imagen = Imagen::findOrFail($request->input('BORRARimgEscudo'));
+                $imagen->delete();
+                $equipo->idEscudo = null;
+                $equipo->save();
+            }
+            
             //Manejar la imagen de cancha si se proporciona
             if ($request->hasFile('imgCancha') && $request->file('imgCancha')->isValid()) {
                 if ($equipo->imgCancha == null) {
@@ -193,6 +201,13 @@ class EquipoController extends Controller
                     $imagen->base64 = $image;
                     $imagen->save();
                 }
+            }
+            //Borrado de imgCancha
+            if ($request->has('BORRARimgCancha')) {
+                $imagen = Imagen::findOrFail($request->input('BORRARimgCancha'));
+                $imagen->delete();
+                $equipo->imgCancha = null;
+                $equipo->save();
             }
             if (Auth::user()) {
                 return redirect()->route('equipos')->with('success', 'Equipo actualizado correctamente.');
