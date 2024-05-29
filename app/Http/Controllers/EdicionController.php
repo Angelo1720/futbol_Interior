@@ -30,7 +30,6 @@ class EdicionController extends Controller
     public function store(Request $request)
     {
         try {
-            //dd($request);
             $request->validate([
                 'nameEdicion' => ['required', 'unique:edicion,nombre', 'string', 'max:80'],
                 'fechaInicio' => ['max:10'],
@@ -74,11 +73,23 @@ class EdicionController extends Controller
 
         // Total records
         $totalRecords = Edicion::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Edicion::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Edicion::select('count(*) as allcount')
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->where('nombre', 'like', '%' . $searchValue . '%')
+            ->where('fechaInicio', 'like', '%' . $searchValue . '%')
+            ->where('fechaFinal', 'like', '%' . $searchValue . '%')
+            ->where('liguilla', 'like', '%' . $searchValue . '%')
+            ->distinct()
+            ->count();
 
         // Fetch records
-        $records = Campeonato::orderBy($columnName, $columnSortOrder)
-            ->where('idCampeonato', 'like', '%' . $searchValue . '%')
+        $records = Edicion::orderBy($columnName, $columnSortOrder)
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->where('nombre', 'like', '%' . $searchValue . '%')
+            ->orWhere('fechaInicio', 'like', '%' . $searchValue . '%')
+            ->orWhere('fechaFinal', 'like', '%' . $searchValue . '%')
+            ->orWhere('liguilla', 'like', '%' . $searchValue . '%')
+            ->orWhere('campeonatos.nombre', 'like', '%' . $searchValue . '%')
             ->select('edicion.*')
             ->skip($start)
             ->take($rowperpage)
@@ -91,16 +102,18 @@ class EdicionController extends Controller
             $nombre = $record->nombre;
             $fechaInicio = $record->fechaInicio;
             $fechaFinal = $record->fechaFinal;
-            $idCampeon = $record->idCampeon;
             $liguilla = $record->liguilla;
+            $idCampeon = $record->idCampeon;
+            $campeonato = $record->campeonatos->pluck('nombre')->implode(', ');
 
             $data_arr[] = array(
                 "id" => $id,
                 "nombre" => $nombre,
                 "fechaInicio" => $fechaInicio,
                 "fechaFinal" => $fechaFinal,
-                "idCampeon" => $idCampeon,
                 "liguilla" => $liguilla,
+                "idCampeon" => $idCampeon,
+                "campeonato" => $campeonato,
             );
         }
 
