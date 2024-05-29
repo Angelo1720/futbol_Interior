@@ -62,4 +62,5 @@ Route::get('/ediciones/{idCampeonato}', [EdicionController::class, 'index'])->mi
 Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middleware('auth')->name('ediciones.store');
 Route::get('/ediciones/listado', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 
+
 require __DIR__ . '/auth.php';

@@ -95,6 +95,7 @@ class EdicionController extends Controller
             ->take($rowperpage)
             ->get();
 
+
         $data_arr = array();
 
         foreach ($records as $record) {
