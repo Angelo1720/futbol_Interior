@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\Divisionales;
 use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

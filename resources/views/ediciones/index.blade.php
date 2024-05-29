@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <body>
         @role('admin_Liga')
             <div id="divBotonCrear" class="m-5">

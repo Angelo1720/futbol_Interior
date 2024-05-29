@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
 use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\PartidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,8 @@ Route::delete('/campeonatos/{id}', [CampeonatoController::class, 'delete'])->mid
 Route::get('/ediciones/crear/{idCampeonato}', [EdicionController::class, 'create'])->middleware('auth')->name('ediciones.create');
 Route::get('/ediciones/{idCampeonato}', [EdicionController::class, 'index'])->middleware('auth')->name('ediciones.index');
 Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middleware('auth')->name('ediciones.store');
+
+Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
+Route::get('/partidos/guardar', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
 
 require __DIR__ . '/auth.php';

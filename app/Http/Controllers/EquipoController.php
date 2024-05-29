@@ -6,7 +6,7 @@ use App\Models\Equipo;
 use App\Enum\Divisionales;
 use App\Models\Imagen;
 use App\Rules\NoSpacesInFilename;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
