@@ -60,7 +60,7 @@ Route::delete('/campeonatos/{id}', [CampeonatoController::class, 'delete'])->mid
 Route::get('/ediciones/crear/{idCampeonato}', [EdicionController::class, 'create'])->middleware('auth')->name('ediciones.create');
 Route::get('/ediciones/{idCampeonato}', [EdicionController::class, 'index'])->middleware('auth')->name('ediciones.index');
 Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middleware('auth')->name('ediciones.store');
-Route::get('/ediciones/listado', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
+Route::get('/ediciones/listado/{idCampeonato}', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 
 
 require __DIR__ . '/auth.php';

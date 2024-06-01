@@ -110,15 +110,14 @@
                                 editarUrl = editarUrl.replace(':id', row.id);
                                 var verEdicionesUrl = "{{ route('ediciones.index', ':id') }}";
                                 verEdicionesUrl = verEdicionesUrl.replace(':id', row.id);
-                                return '<div id="divAcciones"><form id="formEditarCampeonato_' + row
-                                    .id +
+                                return '<div id="divAcciones"><form id="formEditarCampeonato_' + row.id +
                                     '" method="POST" action="' + editarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este campeonato?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                     '</form>' +
-                                    '<form' + row.id +
+                                    '<form id=formVerEdiciones_' + row.id +
                                     '" method="POST" action="' + verEdicionesUrl +
                                     '" onsubmit="return confirm(\'Ver ediciones\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +

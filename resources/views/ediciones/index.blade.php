@@ -16,7 +16,6 @@
                             <td>Fecha de finalización</td>
                             <td>Liguilla</td>
                             <td>Campeón</td>
-                            <td>Campeonato</td>
                             <td>Acciones</td>
                         </tr>
                     </thead>
@@ -60,7 +59,7 @@
                 $('#edicionTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('ediciones.getEdiciones') }}",
+                    ajax: "{{ route('ediciones.getEdiciones', $edicionesDelCampeonato[0]->idCampeonato) }}",
                     columns: [{
                             data: 'nombre'
                         },
@@ -75,12 +74,9 @@
                         },
                         {
                             data: 'idCampeon'
-                        },
+                        }/*,
                         {
-                            data: 'campeonato'
-                        },
-                        {
-                            /* "data": null,
+                             "data": null,
                              "render": function(data, type, row) {
                                  var editarUrl = "{{ route('equipos.edit', ':id') }}";
                                  editarUrl = editarUrl.replace(':id', row.id);
@@ -91,8 +87,8 @@
                                      '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                      '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                      '</form>'
-                             }*/
-                        }
+                             }
+                        }*/
                     ] 
                 });
 
