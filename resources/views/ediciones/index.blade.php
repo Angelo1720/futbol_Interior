@@ -59,7 +59,7 @@
                 $('#edicionTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('ediciones.getEdiciones', $edicionesDelCampeonato[0]->idCampeonato) }}",
+                    ajax: "{{ route('ediciones.getEdicionesConCampeon', $edicionesDelCampeonato[0]->idCampeonato) }}",
                     columns: [{
                             data: 'nombre'
                         },
@@ -70,26 +70,41 @@
                             data: 'fechaFinal'
                         },
                         {
-                            data: 'liguilla'
+                            data: 'liguilla',
+                            "render": function(data, type, row) {
+                                if (data == true) {
+                                    return '<span class="badge bg-success">Si</span>';
+                                } else {
+                                    return '<span class="badge bg-danger">No</span>';
+                                }
+                            }
                         },
                         {
-                            data: 'idCampeon'
-                        }/*,
-                        {
-                             "data": null,
-                             "render": function(data, type, row) {
-                                 var editarUrl = "{{ route('equipos.edit', ':id') }}";
-                                 editarUrl = editarUrl.replace(':id', row.id);
-                                 return '<div id="divAcciones"><form id="formEditarEquipo_' + row.id +
-                                     '" method="POST" action="' + editarUrl +
-                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
-                                     '<input type="hidden" name="_method" value="GET">' +
-                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
-                                     '</form>'
-                             }
-                        }*/
-                    ] 
+                            data: 'nombreCampeon',
+                            "render": function(data, type, row) {
+                                if (data != null) {
+                                    return '<span class="badge bg-primary">' + data + '</span>';
+                                } else {
+                                    return '<span class="badge bg-secondary">Sin definir</span>';
+                                }
+                            }
+                        }
+                        /*,
+                                                {
+                                                     "data": null,
+                                                     "render": function(data, type, row) {
+                                                         var editarUrl = "{{ route('equipos.edit', ':id') }}";
+                                                         editarUrl = editarUrl.replace(':id', row.id);
+                                                         return '<div id="divAcciones"><form id="formEditarEquipo_' + row.id +
+                                                             '" method="POST" action="' + editarUrl +
+                                                             '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
+                                                             '<input type="hidden" name="_method" value="GET">' +
+                                                             '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                                                             '<button class="btn btn-outline-secondary m-2">Editar</button>' +
+                                                             '</form>'
+                                                     }
+                                                }*/
+                    ]
                 });
 
             });

@@ -73,7 +73,7 @@ class EdicionController extends Controller
         $totalRecords = Edicion::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Edicion::select('count(*) as allcount')
             ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
-            ->where('idCampeonato',  $searchValue)
+            ->where('idCampeonato', $searchValue)
             ->distinct()
             ->count();
 
@@ -104,6 +104,77 @@ class EdicionController extends Controller
                 "fechaFinal" => $fechaFinal,
                 "liguilla" => $liguilla,
                 "idCampeon" => $idCampeon
+            );
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        );
+
+        echo json_encode($response);
+        exit;
+    }
+
+    public function getEdicionesConCampeon(Request $request, $idCampeonato)
+    {
+        ## Read value
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $idCampeonato; // Search value
+
+        // Total records
+        $totalRecords = Edicion::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = Edicion::select('count(*) as allcount')
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
+            ->where('idCampeonato', $searchValue)
+            ->distinct()
+            ->count();
+
+        // Fetch records
+        $records = Edicion::orderBy($columnName, $columnSortOrder)
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
+            ->where('idCampeonato', $searchValue)
+            ->select('edicion.*', 'equipos.nombre as nombreCampeon')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+
+        $data_arr = array();
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $nombre = $record->nombre;
+            $fechaInicio = $record->fechaInicio;
+            $fechaFinal = $record->fechaFinal;
+            $liguilla = $record->liguilla;
+            $idCampeon = $record->idCampeon;
+            $nombreCampeon = $record->nombreCampeon;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "nombre" => $nombre,
+                "fechaInicio" => $fechaInicio,
+                "fechaFinal" => $fechaFinal,
+                "liguilla" => $liguilla,
+                "idCampeon" => $idCampeon,
+                "nombreCampeon" => $nombreCampeon
+
             );
         }
 
