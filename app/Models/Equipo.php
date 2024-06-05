@@ -50,6 +50,54 @@ class Equipo extends Model
         return $image;
     }
 
+    public function jugadores()
+    {
+        return $this->hasMany(Jugador::class, 'idEquipo');
+    }
+    public static function traerJugadores() 
+    {
+        $jugadoresPorEquipo = [];
+
+        // Obtener todos los equipos con sus jugadores
+        $equipos = self::with('jugadores')->get();
+        
+        foreach ($equipos as $equipo) {
+            $jugadoresPorEquipo[$equipo->nombre] = [
+                'Arqueros' => [],
+                'Defensas' => [],
+                'Mediocampistas' => [],
+                'Delanteros' => []
+            ];
+            
+            foreach ($equipo->jugadores as $jugador) {
+                
+                switch ($jugador->posicion) {
+                    case 'Arquero':
+                        $jugadoresPorEquipo[$equipo->nombre]['Arqueros'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        break;
+                    case 'Defensa central':
+                    case 'Lateral izquierdo':
+                    case 'Lateral derecho':
+                        $jugadoresPorEquipo[$equipo->nombre]['Defensas'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        break;
+                    case 'Mediocampista':
+                    case 'Mediocampista defensivo':
+                    case 'Mediocampista derecho':
+                    case 'Mediocampista izquierdo':
+                    case 'Mediapunta':
+                        $jugadoresPorEquipo[$equipo->nombre]['Mediocampistas'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        break;
+                    case 'Delantero centro':
+                    case 'Extremo izquierdo':
+                    case 'Extremo derecho':
+                        $jugadoresPorEquipo[$equipo->nombre]['Delanteros'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        break;
+                }
+            }
+        }
+        return $jugadoresPorEquipo;
+    }
+    
     public function ediciones()
     {
         return $this->belongsToMany(Edicion::class);

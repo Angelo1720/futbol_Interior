@@ -21,7 +21,6 @@ class Jugador extends Model
     protected $casts = [
         'goles' => 'integer',
         'partidosJugados' => 'integer',
-        'posicion' => 'integer',
         'idEquipo' => 'integer',
     ];
     public $timestamps = false;

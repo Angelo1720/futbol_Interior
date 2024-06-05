@@ -43,4 +43,15 @@ class Edicion extends Model
     {
         return $this->hasMany(Edicion_Equipo::class);
     }
+
+    public function equiposParticipantes()
+    {
+        $listEdicion_Equipos = Edicion_Equipo::where('idEdicion', $this->id)->get();
+        $equiposParticipantes = array();
+        foreach ($listEdicion_Equipos as $equipoEdicion) {
+            $equiposParticipantes[] = Equipo::findOrFail($equipoEdicion->idEquipo);   
+        }
+        return $equiposParticipantes;
+        
+    }
 }

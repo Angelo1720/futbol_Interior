@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Edicion;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -11,7 +12,9 @@ class PartidoController extends Controller
     public function create($idEdicion)
     {
         $edicion = Edicion::find($idEdicion);
-        return view('partidos.create', compact('edicion'));
+        $equiposParticipantes = $edicion->equiposParticipantes();
+        $equiposJugadores = Equipo::traerJugadores();
+        return view('partidos.create', compact('edicion', 'equiposParticipantes', 'equiposJugadores'));
     }
 
     public function store(Request $request, $idEdicion)
