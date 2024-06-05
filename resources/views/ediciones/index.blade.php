@@ -6,9 +6,15 @@
                 <div id="nombreCampeonato">
                     {{$campeonatoSeleccionado->nombre}}
                 </div>
-                <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
-                        href="{{ route('ediciones.create', ['idCampeonato' => $edicionesDelCampeonato[0]->idCampeonato]) }}">Crear
-                        Edicion</a></button>
+                @if ($edicionesDelCampeonato->isNotEmpty())
+    <button type="submit" class="btn btn-primary m-2">
+        <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $edicionesDelCampeonato[0]->idCampeonato]) }}">Crear Edicion</a>
+    </button>
+@else
+<button type="submit" class="btn btn-primary m-2">
+    <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $campeonatoSeleccionado->id]) }}">Crear Edicion</a>
+</button>
+@endif
             </div>
             <div class="table-responsive m-5" style="overflow-x:auto;">
                 <table id='edicionTable' width='100%' border="1" style='border-collapse: collapse;'>
@@ -57,12 +63,14 @@
         <!-- Script -->
         <script type="text/javascript">
             $(document).ready(function() {
+                // Define idCampeonato
+                var idCampeonato = @json($edicionesDelCampeonato->isNotEmpty() ? $edicionesDelCampeonato[0]->idCampeonato : null);
 
                 // DataTable
                 $('#edicionTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('ediciones.getEdicionesConCampeon', $edicionesDelCampeonato[0]->idCampeonato) }}",
+                    ajax: idCampeonato ? "{{ route('ediciones.getEdicionesConCampeon', '') }}/" + idCampeonato : "{{ route('ediciones.getEdicionesConCampeon', 'null') }}",
                     columns: [{
                             data: 'nombre'
                         },

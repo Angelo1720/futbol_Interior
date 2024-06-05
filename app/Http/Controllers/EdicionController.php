@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\TryCatch;
 
 class EdicionController extends Controller
 {
@@ -21,9 +22,14 @@ class EdicionController extends Controller
 
     public function index(Request $request, $idCampeonato)
     {
-        $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
-        $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
-        return view('ediciones.index', compact('edicionesDelCampeonato'), compact('campeonatoSeleccionado'));
+        try{
+            $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
+            $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
+            return view('ediciones.index', compact('edicionesDelCampeonato'), compact('campeonatoSeleccionado'));
+        }catch(ValidationException $e){
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+        
     }
 
     public function store(Request $request)
