@@ -2,7 +2,10 @@
 
     <body>
         @role('admin_Liga')
-            <div id="divBotonCrear" class="m-5">
+            <div id="divBotonCrear" class="m-5 d-flex justify-content-between">
+                <div id="nombreCampeonato">
+                    {{$campeonatoSeleccionado->nombre}}
+                </div>
                 <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
                         href="{{ route('ediciones.create', ['idCampeonato' => $edicionesDelCampeonato[0]->idCampeonato]) }}">Crear
                         Edicion</a></button>

@@ -23,7 +23,7 @@ class EdicionController extends Controller
     {
         $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
         $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
-        return view('ediciones.index', compact('edicionesDelCampeonato'));
+        return view('ediciones.index', compact('edicionesDelCampeonato'), compact('campeonatoSeleccionado'));
     }
 
     public function store(Request $request)
