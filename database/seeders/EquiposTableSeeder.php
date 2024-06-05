@@ -19,16 +19,20 @@ class EquiposTableSeeder extends Seeder
     {
         $equipos = [
             [
-                'nombre' => 'Club Atlético Juventud Unida',
-                'fechaFundacion' => '1953-05-18',
+                'nombreCorto' => 'Juventud Unida',
+                'nombreCompleto' => 'Club Atlético Juventud Unida',
+                'fechaFundacion' => '1953-08-02',
                 'nomCancha' => 'NO',
-                'divisional' => Divisionales::DivA
+                'divisional' => Divisionales::DivA,
+                'cantidadTitulos' => '23'
             ],
             [
-                'nombre' => 'Club Atlético Litoral',
-                'fechaFundacion' => '1911-08-02',
+                'nombreCorto' => 'Litoral',
+                'nombreCompleto' => 'Club Atlético Litoral',
+                'fechaFundacion' => '1911-05-18',
                 'nomCancha' => 'Parque Agustín Rivaben',
-                'divisional' => Divisionales::DivA
+                'divisional' => Divisionales::DivA,
+                'cantidadTitulos' => '50'
             ]
         ];
 
