@@ -36,7 +36,7 @@ class EdicionController extends Controller
     {
         try {
             $request->validate([
-                'nameEdicion' => ['required', 'unique:edicion,nombre', 'string', 'max:80'],
+                'nameEdicion' => ['required', 'string', 'max:80'],
                 'fechaInicio' => ['max:10'],
                 'fechaFinal' => ['max:10'],
             ]);

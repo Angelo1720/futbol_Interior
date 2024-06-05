@@ -3,7 +3,7 @@
     <body>
         @role('admin_Liga')
             <div id="divBotonCrear" class="m-5 d-flex justify-content-between">
-                <div id="nombreCampeonato">
+                <div id="nombreCampeonato" class="text-left flex-grow-1 mb-2 mb-md-0">
                     {{$campeonatoSeleccionado->nombre}}
                 </div>
                 <button type="submit" class="btn btn-primary m-2">
@@ -12,9 +12,9 @@
             </div>
                 @if ($edicionesDelCampeonato->isNotEmpty())
 
-            <div class="table-responsive m-5" style="overflow-x:auto;">
-                <table id='edicionTable' width='100%' border="1" style='border-collapse: collapse;'>
-                    <thead>
+            <div class="table-responsive m-5 text-center" style="overflow-x:auto;">
+                <table id='edicionTable' width='100%' class="table table-bordered table-hover" >
+                    <thead class="thead-dark">
                         <tr>
                             <td>Nombre</td>
                             <td>Fecha de Inicio</td>
@@ -27,8 +27,10 @@
                 </table>
             </div>
             @else
-            <div id="sinEdiciones" class="m-2">
+            <div class="position-relative">
+            <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
                 Campeonato sin ediciones
+            </div>
             </div>
             @endif
         @endrole
