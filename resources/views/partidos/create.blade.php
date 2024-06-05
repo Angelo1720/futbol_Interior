@@ -40,7 +40,7 @@
                         </div>
 
                         <!-- Equipo local -->
-                        <div class="mb-3">
+                        <div class="mb-3 border border-3 border-primary rounded p-1">
                             <label for="nomEquipoLocal" class="form-label label-custom">{{ __('Equipo local') }}</label>
                             <input type="text" list="equipos" name="nomEquipoLocal" id="nomEquipoLocal"
                                 oninput="checkInput(this.id);" class="form-control input-custom mb-3" autocomplete="off"
@@ -61,7 +61,7 @@
                         </div>
 
                         <!-- Equipo visitante -->
-                        <div class="mb-3">
+                        <div class="mb-3 border border-3 border-primary rounded p-1">
                             <label for="nomEquipoVisitante"
                                 class="form-label label-custom">{{ __('Equipo visitante') }}</label>
                             <input type="text" list="equipos" name="nomEquipoVisitante" id="nomEquipoVisitante"
