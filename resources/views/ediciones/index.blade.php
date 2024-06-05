@@ -6,16 +6,12 @@
                 <div id="nombreCampeonato">
                     {{$campeonatoSeleccionado->nombre}}
                 </div>
-                @if ($edicionesDelCampeonato->isNotEmpty())
-    <button type="submit" class="btn btn-primary m-2">
-        <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $edicionesDelCampeonato[0]->idCampeonato]) }}">Crear Edicion</a>
-    </button>
-@else
-<button type="submit" class="btn btn-primary m-2">
-    <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $campeonatoSeleccionado->id]) }}">Crear Edicion</a>
-</button>
-@endif
+                <button type="submit" class="btn btn-primary m-2">
+                    <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $campeonatoSeleccionado->id]) }}">Crear Edicion</a>
+                </button>
             </div>
+                @if ($edicionesDelCampeonato->isNotEmpty())
+
             <div class="table-responsive m-5" style="overflow-x:auto;">
                 <table id='edicionTable' width='100%' border="1" style='border-collapse: collapse;'>
                     <thead>
@@ -30,6 +26,11 @@
                     </thead>
                 </table>
             </div>
+            @else
+            <div id="sinEdiciones" class="m-2">
+                Campeonato sin ediciones
+            </div>
+            @endif
         @endrole
         @if (session('success'))
             <!-- Modal -->
@@ -63,14 +64,11 @@
         <!-- Script -->
         <script type="text/javascript">
             $(document).ready(function() {
-                // Define idCampeonato
-                var idCampeonato = @json($edicionesDelCampeonato->isNotEmpty() ? $edicionesDelCampeonato[0]->idCampeonato : null);
-
                 // DataTable
                 $('#edicionTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: idCampeonato ? "{{ route('ediciones.getEdicionesConCampeon', '') }}/" + idCampeonato : "{{ route('ediciones.getEdicionesConCampeon', 'null') }}",
+                    ajax: "{{ route('ediciones.getEdicionesConCampeon', $campeonatoSeleccionado->id) }}",
                     columns: [{
                             data: 'nombre'
                         },
