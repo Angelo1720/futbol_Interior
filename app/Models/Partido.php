@@ -12,22 +12,23 @@ class Partido extends Model
     protected $table = 'partidos';
 
     protected $fillable = [
+        'idEdicion',
         'fecha',
         'nroJornada',
         'nombreJornada',
-        'equipoLocal',
-        'equipoVisitante',
+        'nomEquipoLocal',
+        'nomEquipoVisitante',
+        'dataEquipoLocal',
+        'dataEquipoVisitante',
         'goles'
     ];
 
     protected $casts = [
-        'equipoLocal' => 'json',
-        'equipoVisitante' => 'json',
-        'goles' => 'json',
         'nroJornada' => 'integer',
-        'fecha' => 'string'
+        'idEdicion' => 'integer'
     ];
-    protected $timestamps = false;
+
+    public $timestamps = false;
 
     public function edicion()
     {

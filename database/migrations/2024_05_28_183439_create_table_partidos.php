@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('partidos', function (Blueprint $table) {
             $table->id();
+            $table->integer('idEdicion');
             $table->string('fecha');
             $table->integer('nroJornada');
             $table->string('nombreJornada');
-            $table->json('equipoLocal');
-            $table->json('equipoVisitante');
-            $table->json('goles');
+            $table->string('nomEquipoLocal');
+            $table->string('nomEquipoVisitante');
+            $table->jsonb('dataEquipoLocal')->nullable();
+            $table->jsonb('dataEquipoVisitante')->nullable();
+            $table->jsonb('goles')->nullable();
+
+            $table->foreign('idEdicion')->references('id')->on('edicion');
         });
     }
 

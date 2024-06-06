@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Edicion;
+use App\Models\Edicion_Equipo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,16 @@ class EdicionesTableSeeder extends Seeder
             'idCampeon' => null,
             'liguilla' => false,
             'idCampeonato' => '1',
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '1',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '2',
+            'idEdicion' => '1'
         ]);
     }
 }

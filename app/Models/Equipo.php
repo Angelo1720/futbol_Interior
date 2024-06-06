@@ -62,7 +62,7 @@ class Equipo extends Model
         $equipos = self::with('jugadores')->get();
         
         foreach ($equipos as $equipo) {
-            $jugadoresPorEquipo[$equipo->nombre] = [
+            $jugadoresPorEquipo[$equipo->nombreCorto] = [
                 'Arqueros' => [],
                 'Defensas' => [],
                 'Mediocampistas' => [],
@@ -73,24 +73,24 @@ class Equipo extends Model
                 
                 switch ($jugador->posicion) {
                     case 'Arquero':
-                        $jugadoresPorEquipo[$equipo->nombre]['Arqueros'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        $jugadoresPorEquipo[$equipo->nombreCorto]['Arqueros'][] = $jugador->nombre . ' ' . $jugador->apellido;
                         break;
                     case 'Defensa central':
                     case 'Lateral izquierdo':
                     case 'Lateral derecho':
-                        $jugadoresPorEquipo[$equipo->nombre]['Defensas'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        $jugadoresPorEquipo[$equipo->nombreCorto]['Defensas'][] = $jugador->nombre . ' ' . $jugador->apellido;
                         break;
                     case 'Mediocampista':
                     case 'Mediocampista defensivo':
                     case 'Mediocampista derecho':
                     case 'Mediocampista izquierdo':
                     case 'Mediapunta':
-                        $jugadoresPorEquipo[$equipo->nombre]['Mediocampistas'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        $jugadoresPorEquipo[$equipo->nombreCorto]['Mediocampistas'][] = $jugador->nombre . ' ' . $jugador->apellido;
                         break;
                     case 'Delantero centro':
                     case 'Extremo izquierdo':
                     case 'Extremo derecho':
-                        $jugadoresPorEquipo[$equipo->nombre]['Delanteros'][] = $jugador->nombre . ' ' . $jugador->apellido;
+                        $jugadoresPorEquipo[$equipo->nombreCorto]['Delanteros'][] = $jugador->nombre . ' ' . $jugador->apellido;
                         break;
                 }
             }

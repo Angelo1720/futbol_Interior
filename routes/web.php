@@ -63,6 +63,6 @@ Route::get('/ediciones/{idCampeonato}', [EdicionController::class, 'index'])->mi
 Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middleware('auth')->name('ediciones.store');
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
-Route::get('/partidos/guardar', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
+Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
 
 require __DIR__ . '/auth.php';

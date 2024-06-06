@@ -18,7 +18,7 @@ class JugadoresTableSeeder extends Seeder
     {
         Jugador::create([
             'nombre' => 'Franco',
-            'apellido' => 'Sancristóbal',
+            'apellido' => 'S',
             'fechaNacimiento' => '2003-09-27',
             'posicion' => Posiciones::DFC,
             'goles' => '1',
@@ -26,10 +26,64 @@ class JugadoresTableSeeder extends Seeder
             'idEquipo' => '1'
         ]);
         Jugador::create([
-            'nombre' => 'Nacho',
-            'apellido' => 'Sena',
+            'nombre' => 'Brian',
+            'apellido' => 'R',
+            'fechaNacimiento' => '2003-09-27',
+            'posicion' => Posiciones::ARQ,
+            'goles' => '1',
+            'partidosJugados' => '20',
+            'idEquipo' => '1'
+        ]);
+        Jugador::create([
+            'nombre' => 'Fernando',
+            'apellido' => 'A',
+            'fechaNacimiento' => '2003-09-27',
+            'posicion' => Posiciones::MC,
+            'goles' => '1',
+            'partidosJugados' => '20',
+            'idEquipo' => '1'
+        ]);
+        Jugador::create([
+            'nombre' => 'Matias',
+            'apellido' => 'S',
+            'fechaNacimiento' => '2003-09-27',
+            'posicion' => Posiciones::DC,
+            'goles' => '1',
+            'partidosJugados' => '20',
+            'idEquipo' => '1'
+        ]);
+        Jugador::create([
+            'nombre' => 'Lucas',
+            'apellido' => 'C',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::ARQ,
+            'goles' => '6',
+            'partidosJugados' => '35',
+            'idEquipo' => '2'
+        ]);
+        Jugador::create([
+            'nombre' => 'Angelo',
+            'apellido' => 'S',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DFC,
+            'goles' => '6',
+            'partidosJugados' => '35',
+            'idEquipo' => '2'
+        ]);
+        Jugador::create([
+            'nombre' => 'Leo',
+            'apellido' => 'B',
             'fechaNacimiento' => '2003-10-24',
             'posicion' => Posiciones::MC,
+            'goles' => '6',
+            'partidosJugados' => '35',
+            'idEquipo' => '2'
+        ]);
+        Jugador::create([
+            'nombre' => 'Gaston',
+            'apellido' => 'Z',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DC,
             'goles' => '6',
             'partidosJugados' => '35',
             'idEquipo' => '2'
