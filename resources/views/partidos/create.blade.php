@@ -121,8 +121,7 @@
                 document.getElementById('suplentesVISITANTE').innerHTML = '';
             }
         }
-    </script>
-    <script type="text/javascript">
+    
         function checkInput(id) {
             const inputTyped = document.getElementById(id);
 
@@ -132,15 +131,12 @@
                 inputTyped.value = '';
             }
         }
-    </script>
-    <script type="text/javascript">
+    
         $(document).ready(function() {
             $('.js-select2').select2();
         });
-    </script>
-    <script type="text/javascript">
+    
         const equiposJugadores = @json($equiposJugadores);
-
         function cargarSelect(inputId) {
             const equipo = document.getElementById(inputId).value;
             const select = inputId == 'nomEquipoLocal' ? document.getElementById('alineacionLOCAL') : document
@@ -179,8 +175,7 @@
                 }
             }
         }
-    </script>
-    <script type="text/javascript">
+    
         function prepareFormData() {
             const alineacionLocal = document.getElementById('alineacionLOCAL');
             const suplentesLocal = document.getElementById('suplentesLOCAL');
