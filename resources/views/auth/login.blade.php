@@ -36,13 +36,13 @@
                             <label class="form-check-label" for="remember_me">{{ __('Recordar Credenciales') }}</label>
                         </div>
 
-                        <div class="d-flex justify-content-end align-items-center">
+                        <div class="justify-content-end align-items-center">
                             @if (Route::has('password.request'))
                                 <a class="btn btn-link me-3"
                                     href="{{ route('password.request') }}">{{ __('Olvidaste tu contraseña?') }}</a>
                             @endif
 
-                            <button type="submit" class="btn btn-primary">{{ __('Iniciar Sesión') }}</button>
+                            <button type="submit" class="btn btn-primary w-50">{{ __('Iniciar Sesión') }}</button>
                             <a class="btn btn-outline-secondary ms-3"
                                 href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                         </div>
