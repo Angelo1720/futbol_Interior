@@ -120,3 +120,10 @@ select#rol.form-select:focus {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.navbar-nav .dropdown:hover>.dropdown-menu {
+    display: block;
+}
+.navbar-nav .dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
