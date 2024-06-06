@@ -2,15 +2,15 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-8">
-                <div class="rounded-div row justify-content-center">
+                <div class="rounded-div row w-50 justify-content-center">
                     <div class="col-auto">
                         <img src="{{ asset('Images/futbol-InteriorV1.png') }}" alt="Logo de Mi Sitio Web" width="250"
                             height="250">
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-white col-6">
                     <form method="POST" action="{{ route('login') }}" class="p-4 border rounded-lg">
                         @csrf
 

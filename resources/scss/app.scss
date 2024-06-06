@@ -113,3 +113,10 @@ select#rol.form-select:focus {
 .imagenEditEquipo img {
     display: block;
 }
+
+#bodyGuest{
+    background-image: url('/public/Images/loginFutbolUruguayo.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
