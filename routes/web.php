@@ -19,12 +19,12 @@ use App\Http\Controllers\EquipoController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');

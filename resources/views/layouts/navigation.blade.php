@@ -72,8 +72,10 @@
                             </ul>
                         </li>
                     @endrole
-                @endauth
+                
             </ul>
+        </div>
+        <div>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -97,6 +99,12 @@
                         </form>
                     </ul>
                 </li>
+                @endauth
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link align-content-end" aria-current="page" href="{{route('login')}}">Iniciar Sesión</a>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>
