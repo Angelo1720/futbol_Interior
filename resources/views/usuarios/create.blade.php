@@ -11,20 +11,20 @@
                             <label for="nameUsuario" class="form-label label-custom">{{ __('Nombre usuario') }}</label>
                             <input id="nameUsuario" class="form-control input-custom" type="text" name="nameUsuario"
                                 :value="old('nameUsuario')" required autofocus autocomplete="nameUsuario" />
-                                @error('nameUsuario')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('nameUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Email Address -->
                         <div class="mb-3">
                             <label for="emailUsuario" class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
                             <input id="emailUsuario" class="form-control input-custom" type="email" name="emailUsuario"
-                                :value="old('emailUsuario')" required autocomplete="emailUsuario"
+                            :value="old('emailUsuario')" required autocomplete="emailUsuario"
                                 placeholder="nombre@example.com" />
-                                @error('emailUsuario')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('emailUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div id="comboBoxs">
@@ -43,7 +43,8 @@
                             <label for="passwordUsuario" class="form-label label-custom">{{ __('Contraseña') }}</label>
                             <input id="passwordUsuario" class="form-control input-custom" type="password" name="passwordUsuario"
                                 required autocomplete="passwordUsuario" />
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword"
+                                onclick="togglePasswordFn('password');">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
                                     <path
@@ -65,9 +66,9 @@
                                 class="form-label label-custom">{{ __('Confirmar Contraseña') }}</label>
                             <input id="password_confirmationUsuario" class="form-control input-custom" type="password"
                                 name="password_confirmationUsuario" required autocomplete="password_confirmationUsuario" />
-                                @error('password_confirmationUsuario')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('password_confirmationUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center">
