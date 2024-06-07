@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="card card-custom">
-        <div class="row justify-content-center">
+    <div class="mt-5">
+        <div class="row justify-content-center m-0">
             <div class="col-md-4">
                 <div class="card-body">
                     <form method="POST" action="{{ route('ediciones.store') }}" class="p-4 border rounded-lg">
@@ -40,9 +40,9 @@
 
                         <!-- Bool liguilla -->
                         <div class="mb-3 form-check form-switch">
+                            <input id="liguilla" class="form-check-input" type="checkbox" name="liguilla">
                             <label for="liguilla"
                                 class="form-label form-check-label">{{ __('¿Esta edición es una liguilla?') }}</label>
-                            <input id="liguilla" class="form-check-input" type="checkbox" name="liguilla">
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center">

@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="card card-custom">
-        <div class="row justify-content-center">
+    <div class="mt-5">
+        <div class="row justify-content-center m-0">
             <div class="col-md-4">
                 <div class="card-body">
                     <form method="POST" action="{{ route('equipos.update', $equipo->id) }}" class="p-4 border rounded-lg" 
