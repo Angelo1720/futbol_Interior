@@ -98,13 +98,17 @@
             @endauth
         </ul>
         @guest
+        <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ route('login') }}">Iniciar
+                <a class="nav-link" aria-current="page" href="{{ route('login') }}"> <img src="/Images/iniciar-sesion.png"
+                    alt="Icono"> Iniciar
                     Sesión</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="{{ route('register') }}">Registrarse</a>
+                <a class="nav-link " aria-current="page" href="{{ route('register') }}"><img src="/Images/registro.png"
+                    alt="Icono"> Registrarse</a>
             </li>
+        </ul>
         @endguest
     </div>
     </div>
