@@ -43,7 +43,7 @@
                             @endif
 
                             <button type="submit" class="btn btn-primary w-50">{{ __('Iniciar Sesión') }}</button>
-                            <a class="btn btn-outline-secondary ms-3"
+                            <a class="btn btn-outline-secondary ms-3 m-3"
                                 href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                         </div>
                     </form>

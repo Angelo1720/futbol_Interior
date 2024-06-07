@@ -48,7 +48,7 @@
                         </div>
 
                         <!-- Confirm Password -->
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="password_confirmation"
                                 class="form-label label-custom">{{ __('Confirmar Contraseña') }}</label>
                             <input id="password_confirmation" class="form-control input-custom" type="password"
@@ -56,7 +56,7 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
-                        <div class="d-flex justify-content-end align-items-center" id="botonesRegister">
+                        <div class="d-flex justify-content-between align-items-center" id="botonesRegister">
                             <a class="btn btn-link me-4" href="{{ route('login') }}">{{ __('Ya está Registrado?') }}</a>
                             <button type="submit" class="btn btn-primary">{{ __('Registrarse') }}</button>
                         </div>
