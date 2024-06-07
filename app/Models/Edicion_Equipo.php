@@ -17,7 +17,8 @@ class Edicion_Equipo extends Model
     ];
 
     public $timestamps = false;
-
+    public $incrementing = false;
+    protected $primarykey = ['idEquipo', 'idEdicion'];
     protected $casts = [
         'idEquipo' => 'integer',
         'idEdicion' => 'integer',

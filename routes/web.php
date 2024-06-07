@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
 use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\PartidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,5 +64,8 @@ Route::post('/ediciones/guardar', [EdicionController::class, 'store'])->middlewa
 Route::get('/ediciones/listado/{idCampeonato}', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 Route::get('/ediciones/campeon/{idCampeonato}', [EdicionController::class, 'getEdicionesConCampeon'])->middleware('auth')->name('ediciones.getEdicionesConCampeon');
 
+
+Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
+Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
 
 require __DIR__ . '/auth.php';
