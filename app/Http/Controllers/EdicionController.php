@@ -154,7 +154,7 @@ class EdicionController extends Controller
             ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
             ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
             ->where('idCampeonato', $searchValue)
-            ->select('edicion.*', 'equipos.nombre as nombreCampeon')
+            ->select('edicion.*', 'equipos.nombreCorto as nombreCampeon')
             ->skip($start)
             ->take($rowperpage)
             ->get();
