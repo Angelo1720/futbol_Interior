@@ -105,9 +105,8 @@
                                 var editarUrl = "{{ route('usuarios.edit', ':id') }}";
                                 editarUrl = editarUrl.replace(':id', row.id);
                                 return '<div id="divAcciones"><form id="formEditarUsuario_' + row.id +
-                                    '" method="POST" action="' + editarUrl +
+                                    '" method="GET" action="' + editarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este usuario?\')">' +
-                                    '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                     '</form>' +
