@@ -13,7 +13,7 @@
                         <td>Nombre</td>
                         <td>Correo</td>
                         <td>Usuario</td>
-                        <td> Acciones</td>
+                        <td>Acciones</td>
                     </tr>
                 </thead>
             </table>
