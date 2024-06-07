@@ -81,10 +81,11 @@
 
                         <!-- Bool participa -->
                         <div class="mb-3 form-check form-switch">
-                            <label for="participa"
-                                class="form-label form-check-label">{{ __('¿Actualmente está en competencia?') }}</label>
                             <input id="participa" class="form-check-input" type="checkbox" name="participa"
                                 {{ $equipo->participa ? 'checked' : '' }} autofocus autocomplete="participa" />
+                            <label for="participa"
+                                class="form-label form-check-label">{{ __('¿Actualmente está en competencia?') }}</label>
+                            
                         </div>
                         
                         <!-- Escudo y cancha actual -->
