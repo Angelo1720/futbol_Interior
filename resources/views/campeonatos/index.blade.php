@@ -7,9 +7,9 @@
                         href="{{ route('campeonatos.create') }}">Crear Campeonato</a></button>
             </div>
 
-            <div class="table-responsive m-5" style="overflow-x:auto;">
-                <table id='campeonatoTable' width='100%' border="1" style='border-collapse: collapse;'>
-                    <thead>
+            <div class="m-5 text-center" style="overflow-x:auto;">
+                <table id='campeonatoTable' width='98%' class="table-bordered table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <td>Nombre</td>
                             <td>Division</td>

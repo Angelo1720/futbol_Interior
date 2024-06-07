@@ -11,8 +11,8 @@
             </div>
                 @if ($edicionesDelCampeonato->isNotEmpty())
 
-            <div class="table-responsive m-5 text-center" style="overflow-x:auto;">
-                <table id='edicionTable' width='100%' class="table table-bordered table-hover" >
+            <div class="m-5 text-center" style="overflow-x:auto;">
+                <table id='edicionTable' width='98%' class="table-bordered table-hover" >
                     <thead class="thead-dark">
                         <tr>
                             <td>Nombre</td>
