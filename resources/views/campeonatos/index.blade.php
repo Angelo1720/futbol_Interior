@@ -110,7 +110,8 @@
                                 editarUrl = editarUrl.replace(':id', row.id);
                                 var verEdicionesUrl = "{{ route('ediciones.index', ':id') }}";
                                 verEdicionesUrl = verEdicionesUrl.replace(':id', row.id);
-                                return '<div id="divAcciones"><form id="formEditarCampeonato_' + row.id +
+                                return '<div id="divAcciones"><form id="formEditarCampeonato_' + row
+                                    .id +
                                     '" method="GET" action="' + editarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este campeonato?\')">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
@@ -123,7 +124,27 @@
                                     '</form></div>';
                             }
                         }
-                    ]
+                    ],
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
                 });
 
             });
