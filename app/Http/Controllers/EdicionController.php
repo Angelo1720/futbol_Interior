@@ -21,17 +21,21 @@ class EdicionController extends Controller
 
     public function index(Request $request, $idCampeonato)
     {
-        $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
-        $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
-        return view('ediciones.index', compact('edicionesDelCampeonato'));
+        try{
+            $campeonatoSeleccionado = Campeonato::findOrFail($idCampeonato);
+            $edicionesDelCampeonato = $campeonatoSeleccionado->ediciones;
+            return view('ediciones.index', compact('edicionesDelCampeonato'), compact('campeonatoSeleccionado'));
+        }catch(ValidationException $e){
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+        
     }
 
     public function store(Request $request)
     {
         try {
-            //dd($request);
             $request->validate([
-                'nameEdicion' => ['required', 'unique:edicion,nombre', 'string', 'max:80'],
+                'nameEdicion' => ['required', 'string', 'max:80'],
                 'fechaInicio' => ['max:10'],
                 'fechaFinal' => ['max:10'],
             ]);
@@ -47,14 +51,13 @@ class EdicionController extends Controller
             if (Auth::user()) {
                 return redirect()->route('ediciones.index', ['idCampeonato' => $request->input('campeonatoId')])->with('success', 'Edicion ingresada correctamente.');
             }
-
         } catch (ValidationException $e) {
             Log::error('Error al crear edicion: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
-    public function getEdiciones(Request $request)
+    public function getEdiciones(Request $request, $idCampeonato)
     {
         ## Read value
         $draw = $request->get('draw');
@@ -69,19 +72,25 @@ class EdicionController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = $idCampeonato; // Search value
 
         // Total records
         $totalRecords = Edicion::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Edicion::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Edicion::select('count(*) as allcount')
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->where('idCampeonato', $searchValue)
+            ->distinct()
+            ->count();
 
         // Fetch records
-        $records = Campeonato::orderBy($columnName, $columnSortOrder)
-            ->where('idCampeonato', 'like', '%' . $searchValue . '%')
+        $records = Edicion::orderBy($columnName, $columnSortOrder)
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->where('idCampeonato', $searchValue)
             ->select('edicion.*')
             ->skip($start)
             ->take($rowperpage)
             ->get();
+
 
         $data_arr = array();
 
@@ -90,16 +99,87 @@ class EdicionController extends Controller
             $nombre = $record->nombre;
             $fechaInicio = $record->fechaInicio;
             $fechaFinal = $record->fechaFinal;
-            $idCampeon = $record->idCampeon;
             $liguilla = $record->liguilla;
+            $idCampeon = $record->idCampeon;
 
             $data_arr[] = array(
                 "id" => $id,
                 "nombre" => $nombre,
                 "fechaInicio" => $fechaInicio,
                 "fechaFinal" => $fechaFinal,
-                "idCampeon" => $idCampeon,
                 "liguilla" => $liguilla,
+                "idCampeon" => $idCampeon
+            );
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        );
+
+        echo json_encode($response);
+        exit;
+    }
+
+    public function getEdicionesConCampeon(Request $request, $idCampeonato)
+    {
+        ## Read value
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $idCampeonato; // Search value
+
+        // Total records
+        $totalRecords = Edicion::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = Edicion::select('count(*) as allcount')
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
+            ->where('idCampeonato', $searchValue)
+            ->distinct()
+            ->count();
+
+        // Fetch records
+        $records = Edicion::orderBy($columnName, $columnSortOrder)
+            ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
+            ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
+            ->where('idCampeonato', $searchValue)
+            ->select('edicion.*', 'equipos.nombreCorto as nombreCampeon')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+
+        $data_arr = array();
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $nombre = $record->nombre;
+            $fechaInicio = $record->fechaInicio;
+            $fechaFinal = $record->fechaFinal;
+            $liguilla = $record->liguilla;
+            $idCampeon = $record->idCampeon;
+            $nombreCampeon = $record->nombreCampeon;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "nombre" => $nombre,
+                "fechaInicio" => $fechaInicio,
+                "fechaFinal" => $fechaFinal,
+                "liguilla" => $liguilla,
+                "idCampeon" => $idCampeon,
+                "nombreCampeon" => $nombreCampeon
+
             );
         }
 

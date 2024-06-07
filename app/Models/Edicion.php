@@ -24,14 +24,12 @@ class Edicion extends Model
 
     protected $casts = [
         'idCampeon' => 'integer',
-        'idCampeonato' => 'integer',
         'liguilla' => 'boolean',
     ];
 
     public function campeonato()
     {
         return $this->belongsTo(Campeonato::class, 'idCampeonato');
-
     }
 
     public function edicion_Historia()
@@ -55,3 +53,4 @@ class Edicion extends Model
         
     }
 }
+
