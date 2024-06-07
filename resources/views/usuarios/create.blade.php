@@ -8,7 +8,7 @@
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label label-custom">{{ __('Nombre usuario') }}</label>
+                            <label for="nameUsuario" class="form-label label-custom">{{ __('Nombre usuario') }}</label>
                             <input id="nameUsuario" class="form-control input-custom" type="text" name="nameUsuario"
                                 :value="old('nameUsuario')" required autofocus autocomplete="nameUsuario" />
                                 @error('nameUsuario')

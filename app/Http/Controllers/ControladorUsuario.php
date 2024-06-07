@@ -136,8 +136,8 @@ class ControladorUsuario extends Controller
         try {
             if ($request->filled('password')) {
                 $request->validate([
-                    'name' => ['required', 'unique:users,name,' . $id, 'string', 'max:40'],
-                    'email' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:60'],
+                    'nameUsuario' => ['required', 'unique:users,name,' . $id, 'string', 'max:40'],
+                    'emailUsuario' => ['required', 'unique:users,email,' . $id, 'string', 'email', 'max:60'],
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                     'password_confirmation' => ['required'],
                 ]);
