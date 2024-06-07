@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        //Attr de equipo
         'nameEquipoCorto' => '"Nombre corto de equipo"',
         'nameEquipoLargo' => '"Nombre largo de equipo"',
         'fechaFundacion' => '"Fecha de fundación"',
@@ -155,11 +156,27 @@ return [
         'cantidadTitulos' => '"Cantidad de titulos"',
         'imgEscudo' => '"Escudo de equipo"',
         'imgCancha' => '"Imágen de cancha"',
+        //Attr de campeonato
         'nameCampeonato' => '"Nombre"',
+        //Attr de usuario
         'nameUsuario' => '"Nombre usuario"',
         'emailUsuario' => '"Correo electrónico"',
-        'passwordUsuario' => '"Contraseña"',
-        'password_confirmationUsuario' => '"Confirmar contraseña"',
+        'password' => '"Contraseña"',
+        'password_confirmation' => '"Confirmar contraseña"',
+        //Attr de edicion
+        'nameEdicion' => '"Nombre edicion"',
+        'fechaInicio' => '"Fecha de inicio"',
+        'fechaFinal' => '"Fecha de finalización"',
+        //Attr de partidos
+        'fechaPartido' => '"Fecha de partido"',
+        'nombreJornada' => '"Nombre jornada"',
+        'nroJornada' => '"Número de jornada"',
+        'nomEquipoLocal' => '"Equipo local"',
+        'nomEquipoVisitante' => '"Equipo visitante"',
+        'alineacionLOCAL' => '"Alineacion"',
+        'alineacionVISITANTE' => '"Alineacion"',
+        'suplentesLOCAL' => '"Suplentes"',
+        'suplentesVISITANTE' => '"Suplentes"',
     ],
 
 ];
