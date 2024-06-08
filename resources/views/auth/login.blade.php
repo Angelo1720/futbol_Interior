@@ -37,7 +37,7 @@
                             <label class="form-check-label" for="remember_me">{{ __('Recordar credenciales') }}</label>
                             </span>
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link me-0 pe-0 pt-1" id="olvidarContrasenia"
+                                <a class="btn btn-link me-0 pe-0 pt-1" id="anchorAuth"
                                     href="{{ route('password.request') }}">{{ __('Olvidaste tu contraseña?') }}</a>
                             @endif
                         </div>

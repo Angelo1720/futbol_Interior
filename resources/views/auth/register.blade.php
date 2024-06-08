@@ -45,10 +45,12 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center" id="botonesRegister">
-                            <a class="btn btn-link me-4" href="{{ route('login') }}">{{ __('Ya está Registrado?') }}</a>
-                            <button type="submit" class="btn btn-primary">{{ __('Registrarse') }}</button>
+                        <div class="d-flex mb-2">
+                            <a class="btn btn-link ps-0 pt-0 me-4" id="anchorAuth" href="{{ route('login') }}">{{ __('Ya está Registrado?') }}</a>
                         </div>
+                        <div class="d-flex justify-content-center mt-0">
+                            <button type="submit" class="btn btn-primary btn-lg">{{ __('Registrarse') }}</button>
+                        </div>  
                     </form>
                 </div>
             </div>
