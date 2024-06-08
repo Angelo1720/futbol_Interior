@@ -5,9 +5,9 @@
             <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
                     href="{{ route('usuarios.create') }}">Crear Usuario</a></button>
         </div>
-        <div class="table-responsive m-5" style="overflow-x:auto;">
-            <table id='userTable' width='100%' border="1" style='border-collapse: collapse;'>
-                <thead>
+        <div class="m-5 text-center" style="overflow-x:auto;">
+            <table id='userTable' width='98%' class="table-bordered table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <td>ID</td>
                         <td>Nombre</td>
@@ -120,7 +120,27 @@
                                     '</form></div>';
                             }
                         }
-                    ]
+                    ],
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
                 });
 
             });

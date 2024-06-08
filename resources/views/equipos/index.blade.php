@@ -7,9 +7,9 @@
                 href="{{ route('equipos.create') }}">Crear Equipo</a></button>
         </div>
 
-        <div class="table-responsive m-5" style="overflow-x:auto;">
-            <table id='equipoTable' width='100%' border="1" style='border-collapse: collapse;'>
-                <thead>
+        <div class="m-5 text-center" style="overflow-x:auto;">
+            <table id='equipoTable' width='98%' class="table-bordered table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <td>Nombre</td>
                         <td>Divisional</td>
@@ -107,7 +107,27 @@
                                     '</form>'
                             }
                         }
-                    ]
+                    ],
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
                 });
 
             });

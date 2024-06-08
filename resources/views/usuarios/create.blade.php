@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="card card-custom">
-        <div class="row justify-content-center">
+    <div class="mt-5">
+        <div class="row justify-content-center m-0">
             <div class="col-md-4">
                 <div class="card-body">
                     <form method="POST" action="{{ route('usuarios.store') }}" class="p-4 border rounded-lg">
@@ -11,20 +11,20 @@
                             <label for="nameUsuario" class="form-label label-custom">{{ __('Nombre usuario') }}</label>
                             <input id="nameUsuario" class="form-control input-custom" type="text" name="nameUsuario"
                                 :value="old('nameUsuario')" required autofocus autocomplete="nameUsuario" />
-                                @error('nameUsuario')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('nameUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Email Address -->
                         <div class="mb-3">
                             <label for="emailUsuario" class="form-label label-custom">{{ __('Correo Electrónico') }}</label>
                             <input id="emailUsuario" class="form-control input-custom" type="email" name="emailUsuario"
-                                :value="old('emailUsuario')" required autocomplete="emailUsuario"
+                            :value="old('emailUsuario')" required autocomplete="emailUsuario"
                                 placeholder="nombre@example.com" />
-                                @error('emailUsuario')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                            @error('emailUsuario')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div id="comboBoxs">
@@ -43,7 +43,7 @@
                             <label for="password" class="form-label label-custom">{{ __('Contraseña') }}</label>
                             <input id="password" class="form-control input-custom" type="password" name="password"
                                 required autocomplete="password" />
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" onclick="togglePasswordFn('password');">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
                                     <path

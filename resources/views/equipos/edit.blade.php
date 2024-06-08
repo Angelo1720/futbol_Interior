@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="card card-custom">
-        <div class="row justify-content-center">
+    <div class="mt-5">
+        <div class="row justify-content-center m-0">
             <div class="col-md-4">
                 <div class="card-body">
                     <form method="POST" action="{{ route('equipos.update', $equipo->id) }}" class="p-4 border rounded-lg" 
@@ -147,26 +147,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function borrarImagenEscudo(id) {
-            const inputEscudo = document.getElementById('imgEscudo');
-            if (document.getElementById(id).name == "NOborrarImgEscudo") { //Escudo img empieza con name="NOborrarImgEscudo" para NO borrar
-                document.getElementById(id).name = "BORRARimgEscudo";
-                inputEscudo.disabled = true; //Deshabilita el input 
-            } else {
-                document.getElementById(id).name = "NOborrarImgEscudo";
-                inputEscudo.disabled = false;  //Habilita input
-            }
-        }
-        function borrarImagenCancha(id) {
-            const inputCancha = document.getElementById('imgCancha');
-            if (document.getElementById(id).name == "NOborrarImgCancha") { //Cancha img empieza con name="NOborrarImgCancha" para NO borrar
-                document.getElementById(id).name = "BORRARimgCancha";
-                inputCancha.disabled = true; //Deshabilita el input
-            } else {
-                document.getElementById(id).name = "NOborrarImgCancha";
-                inputCancha.disabled = false;  //Habilita input
-            }
-        }
-    </script>
 </x-app-layout>
