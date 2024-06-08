@@ -2,15 +2,15 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-8">
-                <div class="rounded-div row justify-content-center">
+                <div class="rounded-div row w-50 justify-content-center">
                     <div class="col-auto">
                         <img src="{{ asset('Images/futbol-InteriorV1.png') }}" alt="Logo de Mi Sitio Web" width="250"
                             height="250">
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-white col-6 shadow-lg">
                     <form method="POST" action="{{ route('login') }}" class="p-4 border rounded-lg">
                         @csrf
 
@@ -31,19 +31,20 @@
                         </div>
 
                         <!-- Remember Me -->
-                        <div class="mb-3 form-check">
+                        <div class="mb-3 form-check d-flex justify-content-between">
+                            <span>
                             <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                            <label class="form-check-label" for="remember_me">{{ __('Recordar Credenciales') }}</label>
-                        </div>
-
-                        <div class="d-flex justify-content-end align-items-center">
+                            <label class="form-check-label" for="remember_me">{{ __('Recordar credenciales') }}</label>
+                            </span>
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link me-3"
+                                <a class="btn btn-link me-0 pe-0 pt-1" id="olvidarContrasenia"
                                     href="{{ route('password.request') }}">{{ __('Olvidaste tu contraseña?') }}</a>
                             @endif
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">{{ __('Iniciar Sesión') }}</button>
-                            <a class="btn btn-outline-secondary ms-3"
+                        <div class="d-flex mt-4 justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary w-50">{{ __('Iniciar Sesión') }}</button>
+                            <a class="btn btn-outline-secondary "
                                 href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                         </div>
                     </form>
