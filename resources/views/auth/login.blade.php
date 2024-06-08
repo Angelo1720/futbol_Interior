@@ -10,7 +10,7 @@
                             height="250">
                     </div>
                 </div>
-                <div class="card-body bg-white col-6">
+                <div class="card-body bg-white col-6 shadow-lg">
                     <form method="POST" action="{{ route('login') }}" class="p-4 border rounded-lg">
                         @csrf
 
@@ -31,19 +31,20 @@
                         </div>
 
                         <!-- Remember Me -->
-                        <div class="mb-3 form-check">
+                        <div class="mb-3 form-check d-flex justify-content-between">
+                            <span>
                             <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                            <label class="form-check-label" for="remember_me">{{ __('Recordar Credenciales') }}</label>
-                        </div>
-
-                        <div class="justify-content-end align-items-center">
+                            <label class="form-check-label" for="remember_me">{{ __('Recordar credenciales') }}</label>
+                            </span>
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link me-3"
+                                <a class="btn btn-link me-0 pe-0 pt-1" id="olvidarContrasenia"
                                     href="{{ route('password.request') }}">{{ __('Olvidaste tu contraseña?') }}</a>
                             @endif
+                        </div>
 
+                        <div class="d-flex mt-4 justify-content-between align-items-center">
                             <button type="submit" class="btn btn-primary w-50">{{ __('Iniciar Sesión') }}</button>
-                            <a class="btn btn-outline-secondary ms-3 m-3"
+                            <a class="btn btn-outline-secondary "
                                 href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                         </div>
                     </form>
