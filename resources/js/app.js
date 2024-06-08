@@ -1,5 +1,4 @@
 import 'bootstrap';
-import '../js/register.js';
 import '../js/equipo.js';
 import '../js/partido.js';
 

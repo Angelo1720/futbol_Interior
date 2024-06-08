@@ -121,15 +121,15 @@ select#rol.form-select:focus {
     background-repeat: no-repeat;
 }
 
-
 .navbar-nav .dropdown:hover>.dropdown-menu {
     display: block;
 }
+
 .navbar-nav .dropdown>.dropdown-toggle:active {
     pointer-events: none;
 }
 
-#olvidarContrasenia {
+#anchorAuth {
     font-size: 12px;
     color: black;
 }
