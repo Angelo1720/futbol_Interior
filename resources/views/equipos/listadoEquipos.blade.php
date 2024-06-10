@@ -33,6 +33,10 @@
                                         <img src="/Images/campo.png" alt="Icono" class="imagenItem m-2">
                                     <p class="card-text"> {{ $equipo->nomCancha }}</p>
                                     </div>
+                                    <div class=" d-flex itemsEquipo">
+                                        <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
+                                            href="#">Detalles</a></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
