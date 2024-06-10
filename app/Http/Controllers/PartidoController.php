@@ -45,7 +45,7 @@ class PartidoController extends Controller
                 'dataEquipoVisitante' => $request->input('dataEquipoVisitante')
             ]);
             if (Auth::user()) {
-                return redirect()->route('ediciones.index', ['idCampeonato' => $edicion->idCampeonato])->with('success', 'Partido creado correctamente.');
+                return redirect()->route('ediciones.edit', ['idEdicion' => $edicion->id])->with('success', 'Partido creado correctamente.');
             }
         } catch (ValidationException $e) {
             Log::error('Error al crear partido: ' . $e->getMessage());

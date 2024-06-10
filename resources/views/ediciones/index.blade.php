@@ -1,36 +1,38 @@
 <x-app-layout>
+
     <body>
         @role('admin_Liga')
             <div id="divBotonCrear" class="m-5 d-flex justify-content-between">
                 <div id="nombreCampeonato" class="text-left flex-grow-1 mb-2 mb-md-0">
-                    {{$campeonatoSeleccionado->nombre}}
+                    {{ $campeonatoSeleccionado->nombre }}
                 </div>
                 <button type="submit" class="btn btn-primary m-2">
-                    <a class="dropdown-item text-white" href="{{ route('ediciones.create', ['idCampeonato' => $campeonatoSeleccionado->id]) }}">Crear Edicion</a>
+                    <a class="dropdown-item text-white"
+                        href="{{ route('ediciones.create', ['idCampeonato' => $campeonatoSeleccionado->id]) }}">Crear
+                        Edicion</a>
                 </button>
             </div>
-                @if ($edicionesDelCampeonato->isNotEmpty())
-
-            <div class="m-5 text-center" style="overflow-x:auto;">
-                <table id='edicionTable' width='98%' class="table-bordered table-hover" >
-                    <thead class="thead-dark">
-                        <tr>
-                            <td>Nombre</td>
-                            <td>Fecha de Inicio</td>
-                            <td>Fecha de finalización</td>
-                            <td>Liguilla</td>
-                            <td>Campeón</td>
-                            <td>Acciones</td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+            @if ($edicionesDelCampeonato->isNotEmpty())
+                <div class="m-5 text-center" style="overflow-x:auto;">
+                    <table id='edicionTable' width='98%' class="table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Fecha de Inicio</td>
+                                <td>Fecha de finalización</td>
+                                <td>Liguilla</td>
+                                <td>Campeón</td>
+                                <td>Acciones</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             @else
-            <div class="position-relative">
-            <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
-                Campeonato sin ediciones
-            </div>
-            </div>
+                <div class="position-relative">
+                    <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
+                        Campeonato sin ediciones
+                    </div>
+                </div>
             @endif
         @endrole
         @if (session('success'))
@@ -98,22 +100,20 @@
                                     return '<span class="badge bg-secondary">Sin definir</span>';
                                 }
                             }
+                        },
+                        {
+                            "data": null,
+                            "render": function(data, type, row) {
+                                var editarUrl = "{{ route('ediciones.edit', ':id') }}";
+                                editarUrl = editarUrl.replace(':id', row.id);
+                                return '<div id="divAcciones"><form id="formAdminEdicion_' + row.id +
+                                    '" method="POST" action="' + editarUrl + '">' +
+                                    '<input type="hidden" name="_method" value="GET">' +
+                                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                                    '<button class="btn btn-outline-secondary m-2">Administrar</button>' +
+                                    '</form>'
+                            }
                         }
-                        /*,
-                                                {
-                                                     "data": null,
-                                                     "render": function(data, type, row) {
-                                                         var editarUrl = "{{ route('equipos.edit', ':id') }}";
-                                                         editarUrl = editarUrl.replace(':id', row.id);
-                                                         return '<div id="divAcciones"><form id="formEditarEquipo_' + row.id +
-                                                             '" method="POST" action="' + editarUrl +
-                                                             '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
-                                                             '<input type="hidden" name="_method" value="GET">' +
-                                                             '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                                             '<button class="btn btn-outline-secondary m-2">Editar</button>' +
-                                                             '</form>'
-                                                     }
-                                                }*/
                     ],
                     language: {
                         "decimal": "",

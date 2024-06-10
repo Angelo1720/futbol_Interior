@@ -1,5 +1,3 @@
-import { getJSON, parseJSON } from "jquery";
-
 window.clearInput = function(inputId) {
     const inputFocus = document.getElementById(inputId);
     inputFocus.value = '';
