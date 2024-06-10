@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <body>
-        <div class="container mt-5">
+        <div id="listadoGeneral" class="container mt-5">
             @foreach ($equipos as $equipo)
                 <div class="card mb-3">
                     <div class="row g-0">
@@ -43,6 +43,7 @@
                     </div>
                 </div>
             @endforeach
+            {{ $equipos->links() }}
         </div>
     </body>
 </x-app-layout>
