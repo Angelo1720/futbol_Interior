@@ -193,4 +193,12 @@ class EdicionController extends Controller
         echo json_encode($response);
         exit;
     }
+
+    public function edit(Request $request, $idEdicion)
+    {
+        $edicion = Edicion::findOrFail($idEdicion);
+        $campeonato = Campeonato::findOrFail($edicion->idCampeonato);
+        $equiposParticipantes = $edicion->equiposParticipantes();
+        return view('ediciones.edit', compact('edicion', 'equiposParticipantes', 'campeonato'));
+    }
 }

@@ -42,7 +42,7 @@
                         <div class="mb-3">
                             <label for="nameCancha" class="form-label label-custom">{{ __('Nombre cancha') }}</label>
                             <input id="nameCancha" class="form-control input-custom" type="text" name="nameCancha"
-                                :value="old('nameCancha')" required autofocus autocomplete="nameCancha" />
+                                :value="old('nameCancha')" autofocus autocomplete="nameCancha" />
                                 @error('nameCancha')
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
