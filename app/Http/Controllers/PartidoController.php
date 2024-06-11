@@ -22,7 +22,6 @@ class PartidoController extends Controller
 
     public function store(Request $request, $idEdicion)
     {
-        $edicion = Edicion::find($idEdicion);
         try {
             $request->validate([
                 'fechaPartido' => ['required', 'date', 'max:16'],
@@ -30,8 +29,8 @@ class PartidoController extends Controller
                 'nombreJornada' => ['string', 'max:40'],
                 'nomEquipoLocal' => ['required', 'string'],
                 'nomEquipoVisitante' => ['required', 'string'],
-                'dataEquipoLocal' => ['required', 'json'],
-                'dataEquipoVisitante' => ['required', 'json']
+                'dataEquipoLocal' => ['json'],
+                'dataEquipoVisitante' => ['json']
             ]);
 
             Partido::create([
@@ -45,7 +44,7 @@ class PartidoController extends Controller
                 'dataEquipoVisitante' => $request->input('dataEquipoVisitante')
             ]);
             if (Auth::user()) {
-                return redirect()->route('ediciones.edit', ['idEdicion' => $edicion->id])->with('success', 'Partido creado correctamente.');
+                return redirect()->route('ediciones.edit', ['id' => $idEdicion])->with('success', 'Partido creado correctamente.');
             }
         } catch (ValidationException $e) {
             Log::error('Error al crear partido: ' . $e->getMessage());

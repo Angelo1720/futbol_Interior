@@ -1,14 +1,16 @@
 @php
     use Carbon\Carbon;
+    Carbon::setLocale('es');
 @endphp
 
 <x-app-layout>
+
     <body>
         @role('admin_Liga')
             <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-1">
                 <div class="d-flex align-content-start row pb-0">
                     <h1 class="p-0 m-0 ms-2">{{ $campeonato->nombre }} - {{ $edicion->nombre }} <span
-                            name="fechaEdicion">{{ substr($edicion->fechaInicio, 0, 4) }}</span></h1>
+                            name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
                     <div class="mt-5 p-0">
                         <button type="submit" class="btn btn-primary mx-2">
                             <a class="dropdown-item text-white"
@@ -17,8 +19,7 @@
                             </a>
                         </button>
                         <button type="submit" class="btn btn-primary mx-2">
-                            <a class="dropdown-item text-white"
-                                href="#">Añadir equipo
+                            <a class="dropdown-item text-white" href="#">Añadir equipo
                             </a>
                         </button>
                         <button type="submit" class="btn btn-primary mx-2">
@@ -31,8 +32,8 @@
                 </div>
                 <div class="border border-3 p-3 rounded-3 mt-0 pb-0 pt-2">
                     <p class="display-6 fw-semibold">Duración de campeonato</p>
-                    <p class="display-6 mx-3 my-0">{{ Carbon::parse($edicion->fechaInicio)->format('Y/m/d') }} 
-                        - {{ Carbon::parse($edicion->fechaFinal)->format('Y/m/d') }}</p>
+                    <p class="display-6 mx-3 my-0">{{ Carbon::parse($edicion->fechaInicio)->format('d/m') }}
+                        - {{ Carbon::parse($edicion->fechaFinal)->format('d/m') }}</p>
                 </div>
 
             </div>
@@ -41,7 +42,7 @@
                     <div class="d-flex justify-content-center w-100">
                         <h2>Clubes participantes</h2>
                     </div>
-                    <div class="container m-0 p-0">
+                    <div id="clubesParticipantes" class="container m-0 p-0">
                         <div class="row d-flex justify-content-center w-100 m-0 p-0">
                             @foreach ($equiposParticipantes as $index => $equipo)
                                 @if ($index % 2 == 0 && $index != 0)
@@ -67,9 +68,37 @@
                         <h2>Partidos</h2>
                     </div>
                     <div class="row">
+                        <<div class="accordion" id="accordionExample">
+                            @foreach ($partidosPorJornada as $nroJornada => $partidos)
+                                <div class="card">
+                                    <div class="card-header row" id="heading{{ $nroJornada }}">
+                                        <button class="btn btn-link text-decoration-none text-black" type="button"
+                                            data-toggle="collapse" data-target="#collapse{{ $nroJornada }}"
+                                            aria-expanded="true" aria-controls="collapse{{ $nroJornada }}">
+                                            <h5 class="mb-0 ">
+                                                <strong>Fecha {{ $nroJornada }}</strong>
+                                            </h5>
+                                        </button>
+                                    </div>
 
+                                    <div id="collapse{{ $nroJornada }}" class="collapse"
+                                        aria-labelledby="heading{{ $nroJornada }}" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            @foreach ($partidos as $partido)
+                                                <p><strong>{{ Carbon::parse($partido->fecha)->format('d/m/Y - H:m') }}</strong>
+                                                    -
+                                                    {{ $partido->nomEquipoLocal }} vs
+                                                    {{ $partido->nomEquipoVisitante }}
+                                                </p>
+                                                <hr>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                     </div>
                 </div>
+            </div>
             </div>
         @endrole
         @if (session('success'))
