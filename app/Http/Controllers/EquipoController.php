@@ -135,7 +135,7 @@ class EquipoController extends Controller
                 'nameCancha' => ['max:80'],
                 'cantidadTitulos' => ['required', 'integer'],
                 'imgEscudo' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename], // Asegúrate de tener esta validación
-                'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename] 
+                'imgCancha' => ['file', 'mimes:jpeg,png,jpg', 'max:4096', new NoSpacesInFilename]
             ]);
             $equipo->nombreCorto = $request->input('nameEquipoCorto');
             $equipo->nombreCompleto = $request->input('nameEquipoLargo');
@@ -145,7 +145,7 @@ class EquipoController extends Controller
             $equipo->cantidadTitulos = $request->input('cantidadTitulos');
             $equipo->participa = $request->has('participa');
             $equipo->save();
-            
+
             // Manejar la imagen de escudo si se proporciona
             if ($request->hasFile('imgEscudo') && $request->file('imgEscudo')->isValid()) {
                 if ($equipo->idEscudo == null) {
@@ -179,7 +179,7 @@ class EquipoController extends Controller
                 $equipo->idEscudo = null;
                 $equipo->save();
             }
-            
+
             //Manejar la imagen de cancha si se proporciona
             if ($request->hasFile('imgCancha') && $request->file('imgCancha')->isValid()) {
                 if ($equipo->imgCancha == null) {
@@ -220,5 +220,11 @@ class EquipoController extends Controller
             Log::error('Error al actualizar equipo: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
+    }
+
+    public function listadoEquipos()
+    {
+        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(3);
+        return view('equipos.listadoEquipos', compact('equipos'));
     }
 }

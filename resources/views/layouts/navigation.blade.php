@@ -23,7 +23,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button"> <img
+                    <a class="nav-link" href="{{route('equipos.guest')}}" role="button"> <img
                             src="/Images/club-de-futbol.png" alt="Icono">
                         Clubes
                     </a>
