@@ -199,6 +199,8 @@ class EdicionController extends Controller
         $edicion = Edicion::findOrFail($idEdicion);
         $campeonato = Campeonato::findOrFail($edicion->idCampeonato);
         $equiposParticipantes = $edicion->equiposParticipantes();
-        return view('ediciones.edit', compact('edicion', 'equiposParticipantes', 'campeonato'));
+        $partidosOrdenados = $edicion->getPartidosOrdenados();
+        $partidosPorJornada = $partidosOrdenados->groupBy('nroJornada');
+        return view('ediciones.edit', compact('edicion', 'equiposParticipantes', 'campeonato', 'partidosPorJornada'));
     }
 }

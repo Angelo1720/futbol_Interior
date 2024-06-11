@@ -52,5 +52,18 @@ class Edicion extends Model
         return $equiposParticipantes;
         
     }
+
+    public function partidos() {
+        return $this->hasMany(Partido::class, 'idEdicion');      
+         
+    }
+
+    public function getPartidosOrdenados() {
+        return $this->partidos()
+        ->where('nombreJornada', 'Fecha')
+        ->orderBy('nroJornada')
+        ->get();
+    }
+
 }
 
