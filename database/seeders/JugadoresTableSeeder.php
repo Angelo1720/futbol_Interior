@@ -88,5 +88,68 @@ class JugadoresTableSeeder extends Seeder
             'partidosJugados' => '35',
             'idEquipo' => '2'
         ]);
+        Jugador::create([
+            'nombre' => 'Gaston',
+            'apellido' => 'Z',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DC,
+            'goles' => '6',
+            'partidosJugados' => '35',
+            'idEquipo' => '2'
+        ]);
+        Jugador::create([
+            'nombre' => 'Martin',
+            'apellido' => 'D',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::ARQ,
+            'goles' => '0',
+            'partidosJugados' => '35',
+            'idEquipo' => '3'
+        ]);
+        Jugador::create([
+            'nombre' => 'Juan',
+            'apellido' => 'H',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::MC,
+            'goles' => '6',
+            'partidosJugados' => '35',
+            'idEquipo' => '3'
+        ]);
+        Jugador::create([
+            'nombre' => 'Pedro',
+            'apellido' => 'G',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DC,
+            'goles' => '6',
+            'partidosJugados' => '40',
+            'idEquipo' => '3'
+        ]);
+        Jugador::create([
+            'nombre' => 'Ramiro',
+            'apellido' => 'P',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::ARQ,
+            'goles' => '6',
+            'partidosJugados' => '40',
+            'idEquipo' => '4'
+        ]);
+        Jugador::create([
+            'nombre' => 'Genaro',
+            'apellido' => 'D',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DC,
+            'goles' => '6',
+            'partidosJugados' => '40',
+            'idEquipo' => '4'
+        ]);
+        Jugador::create([
+            'nombre' => 'Bernardo',
+            'apellido' => 'F',
+            'fechaNacimiento' => '2003-10-24',
+            'posicion' => Posiciones::DFC,
+            'goles' => '13',
+            'partidosJugados' => '45',
+            'idEquipo' => '4'
+        ]);
     }
 }

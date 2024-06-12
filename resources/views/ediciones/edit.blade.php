@@ -46,7 +46,7 @@
 
             </div>
             <div class="d-flex justify-content-between mt-4">
-                <div name="clubesParticipantes" class="w-50 mx-4">
+                <div name="clubesParticipantes" class="w-50 h-50 mx-4">
                     <div class="d-flex justify-content-center w-100">
                         <h2>Clubes participantes</h2>
                     </div>
@@ -78,11 +78,11 @@
                     </div>
 
                 </div>
-                <div id="partidosSiguientes" class="w-50 mx-4">
+                <div  class="w-50 mx-4">
                     <div class="d-flex justify-content-center w-100">
                         <h2>Partidos</h2>
                     </div>
-                    <div class="d-flex flex-column h-50">
+                    <div id="partidosSiguientes" class="d-flex flex-column p-3">
                         <div class="accordion" id="accordionExample">
                             @foreach ($partidosPorJornada as $nroJornada => $partidos)
                                 <div class="card">
