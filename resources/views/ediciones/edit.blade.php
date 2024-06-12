@@ -8,18 +8,14 @@
     <body>
         @role('admin_Liga')
             <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-1">
-                <div class="d-flex align-content-start row pb-0">
+                <div class="d-flex row pb-0">
                     <h1 class="p-0 m-0 ms-2">{{ $campeonato->nombre }} - {{ $edicion->nombre }} <span
                             name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
-                    <div class="mt-5 p-0">
-                        <button type="submit" class="btn btn-primary mx-2">
+                    <div class="mt-5 p-0 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary mx-2" disabled>
                             <a class="dropdown-item text-white"
                                 href="{{ route('ediciones.index', ['idCampeonato' => $edicion->idCampeonato]) }}">Editar
                                 información
-                            </a>
-                        </button>
-                        <button type="submit" class="btn btn-primary mx-2">
-                            <a class="dropdown-item text-white" href="#">Añadir equipo
                             </a>
                         </button>
                         <button type="submit" class="btn btn-primary mx-2">
@@ -27,12 +23,23 @@
                                 href="{{ route('partidos.create', ['idEdicion' => $edicion->id]) }}">Crear Partido
                             </a>
                         </button>
+                        <form method="POST" action="{{ route('ediciones.setEdicionEquipo', $edicion->id) }}" class="d-inline-block ms-5 ">
+                            @csrf
+                                <label for="edicion-equipo" class="form-label label-custom">
+                                    {{ __('Añadir equipo a edición') }}
+                                </label>
+                                <select type="text" name="edicion-equipo[]" id="edicion-equipo" 
+                                class="js-select2 form-control input-custom"></select>
+                            <button type="submit" class="btn btn-primary ml-2">
+                                Añadir equipo
+                            </button>
+                        </form>
 
                     </div>
                 </div>
-                <div class="border border-3 p-3 rounded-3 mt-0 pb-0 pt-2">
-                    <p class="display-6 fw-semibold">Duración de campeonato</p>
-                    <p class="display-6 mx-3 my-0">{{ Carbon::parse($edicion->fechaInicio)->format('d/m') }}
+                <div class="border border-3 p-3 rounded-3 d-flex flex-column justify-content-center text-center w-25">
+                    <p class="fs-3 fw-bold">Duración de campeonato</p>
+                    <p class="fs-2 m-0">{{ Carbon::parse($edicion->fechaInicio)->format('d/m') }}
                         - {{ Carbon::parse($edicion->fechaFinal)->format('d/m') }}</p>
                 </div>
 
@@ -50,10 +57,17 @@
                         <div class="row d-flex justify-content-center w-100 m-0 p-0">
                             @endif
                             <div class="col-md-4 p-2 m-2 border rounded-2 d-flex">
+                                @if ($equipo->traerEscudo() != null)
                                 <div>
                                     <img id="imgEquipo" src="data:image/jpg;base64, {{ $equipo->traerEscudo()->base64 }}"
                                         alt="Imágen escudo">
                                 </div>
+                                @else
+                                <div>
+                                    <img class="img-fluid rounded-start" src="{{ asset('Images/escudo.png') }}"
+                                    alt="No posee escudo" id="imgEquipo">
+                                </div>
+                                @endif
                                 <div id="nombreEquipo" class="w-100 d-flex align-self-sm-center justify-content-center">
                                     <p class="m-0">{{ $equipo->nombreCorto }}</p>
                                 </div>
@@ -63,12 +77,12 @@
                     </div>
 
                 </div>
-                <div name="partidosSiguientes" class="w-50 mx-4">
+                <div id="partidosSiguientes" class="w-50 mx-4">
                     <div class="d-flex justify-content-center w-100">
                         <h2>Partidos</h2>
                     </div>
-                    <div class="row">
-                        <<div class="accordion" id="accordionExample">
+                    <div class="d-flex flex-column h-50">
+                        <div class="accordion" id="accordionExample">
                             @foreach ($partidosPorJornada as $nroJornada => $partidos)
                                 <div class="card">
                                     <div class="card-header row" id="heading{{ $nroJornada }}">
@@ -96,9 +110,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         @endrole
         @if (session('success'))
@@ -159,4 +173,26 @@
             </script>
         @endif
     </body>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        // Datos de los equipos que no participan (pasados desde el controlador)
+        var equiposNOparticipantes = @json($equiposNOparticipantes);
+
+        // Convertir los datos de equipos en el formato esperado por select2
+        var equipoOptions = equiposNOparticipantes.map(function(equipo) {
+            return {
+                id: equipo.id, // El valor que quieres enviar al backend
+                text: equipo.nombreCorto // El texto que se mostrará en el select
+            };
+        });
+
+        // Inicializar select2
+        $('#edicion-equipo').select2({
+            data: equipoOptions,
+            multiple: true,
+            placeholder: 'Seleccione un club',
+            allowClear: true
+        });
+    });
+    </script>
 </x-app-layout>

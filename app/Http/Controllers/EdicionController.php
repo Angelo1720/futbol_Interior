@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
 use App\Models\Edicion;
+use App\Models\Edicion_Equipo;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -199,8 +200,34 @@ class EdicionController extends Controller
         $edicion = Edicion::findOrFail($idEdicion);
         $campeonato = Campeonato::findOrFail($edicion->idCampeonato);
         $equiposParticipantes = $edicion->equiposParticipantes();
+        $equiposNOparticipantes = $edicion->equiposNOparticipantes();
         $partidosOrdenados = $edicion->getPartidosOrdenados();
         $partidosPorJornada = $partidosOrdenados->groupBy('nroJornada');
-        return view('ediciones.edit', compact('edicion', 'equiposParticipantes', 'campeonato', 'partidosPorJornada'));
+        return view('ediciones.edit', compact('edicion', 'equiposParticipantes', 'equiposNOparticipantes', 'campeonato', 'partidosPorJornada'));
+    }
+
+    public function setEdicion_Equipo(Request $request, $idEdicion) 
+    {
+        try {
+            $request->validate([
+                'edicion-equipo' => ['required']
+            ]);
+            $edicionEquipos = $request->input('edicion-equipo', []);
+
+            if(!empty($edicionEquipos)) {
+                foreach ($edicionEquipos as $equipoId) {
+                    Edicion_Equipo::create([
+                        'idEdicion' => $idEdicion,
+                        'idEquipo' => $equipoId,	
+                    ]);
+                }
+            }
+            if (Auth::user()) {
+                return redirect()->route('ediciones.edit', ['id' => $idEdicion])->with('success', 'Equipo/s añadidos correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al agregar equipo: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 }
