@@ -45,9 +45,9 @@
                 <h2>Clubes</h2>
             </div>
             <div class="sectionDescriptions">
-                <h2>¡Echa un vistazo a todos los clubes afiliados existentes en el futbol de la
-                    Region!</h2>
-                <a href="#" class="btn btn-primary">Ver más</a>
+                <h2>¡Echa un vistazo a todos los clubes afiliados existentes en el fútbol de la
+                    Región!</h2>
+                <a href="{{route('equipos.guest')}}"  class="btn btn-primary">Ver más</a>
             </div>
         </div>
     </section>

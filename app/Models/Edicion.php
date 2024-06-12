@@ -50,7 +50,27 @@ class Edicion extends Model
             $equiposParticipantes[] = Equipo::findOrFail($equipoEdicion->idEquipo);   
         }
         return $equiposParticipantes;
-        
     }
+
+    public function equiposNOparticipantes() {
+        return Equipo::whereNotIn('id', function($query) {
+            $query->select('idEquipo')
+                  ->from('edicion_equipo')
+                  ->where('idEdicion', $this->id);
+        })->get();
+    }
+
+    public function partidos() {
+        return $this->hasMany(Partido::class, 'idEdicion');      
+         
+    }
+
+    public function getPartidosOrdenados() {
+        return $this->partidos()
+        ->where('nombreJornada', 'Fecha')
+        ->orderBy('nroJornada')
+        ->get();
+    }
+
 }
 

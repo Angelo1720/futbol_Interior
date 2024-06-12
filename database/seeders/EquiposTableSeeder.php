@@ -33,12 +33,30 @@ class EquiposTableSeeder extends Seeder
                 'nomCancha' => 'Parque Agustín Rivaben',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '50'
+            ],
+            [
+                'nombreCorto' => 'Bella Vista',
+                'nombreCompleto' => 'Atlético Bella Vista',
+                'fechaFundacion' => '1939-01-11',
+                'nomCancha' => 'Parque Don Bosco',
+                'divisional' => Divisionales::DivA,
+                'cantidadTitulos' => '60'
+            ],
+            [
+                'nombreCorto' => 'Estudiantil',
+                'nombreCompleto' => 'Estudiantil Sanducero Fútbol Club',
+                'fechaFundacion' => '1930-03-05',
+                'nomCancha' => 'NO',
+                'divisional' => Divisionales::DivA,
+                'cantidadTitulos' => '60'
             ]
         ];
 
         $imagenes = [
             file_get_contents(public_path("Images/Juventud_Unida.png")),
             file_get_contents(public_path("Images/Litoral.png")),
+            file_get_contents(public_path("Images/Bella_Vista.png")),
+            file_get_contents(public_path("Images/Estudiantil.png")),
         ];
 
         $i = 0;
