@@ -13,6 +13,7 @@
                             name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
                     <div class="mt-5 p-0 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary mx-2" disabled>
+
                             <a class="dropdown-item text-white"
                                 href="{{ route('ediciones.index', ['idCampeonato' => $edicion->idCampeonato]) }}">Editar
                                 información
