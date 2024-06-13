@@ -12,14 +12,14 @@
                             alt="Icono"> Comunidad</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button"> <img src="/Images/copa-de-futbol.png"
+                    <a class="nav-link" href="{{route('campeonatos.guest')}}" role="button"> <img src="/Images/copa-de-futbol.png"
                             alt="Icono">
                         Campeonatos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Divisional "A"</a></li>
-                        <li><a class="dropdown-item" href="#">Divisional "B"</a></li>
-                        <li><a class="dropdown-item" href="#">Divisional "C"</a></li>
+                        <li><a class="dropdown-item" href="{{route('div-A.guest')}}">Divisional "A"</a></li>
+                        <li><a class="dropdown-item" href="{{route('div-B.guest')}}">Divisional "B"</a></li>
+                        <li><a class="dropdown-item" href="{{route('div-C.guest')}}">Divisional "C"</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

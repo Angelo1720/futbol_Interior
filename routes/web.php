@@ -71,5 +71,9 @@ Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])-
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
 
 Route::get('/listadoEquipos', [EquipoController::class, 'listadoEquipos'])->name('equipos.guest');
+Route::get('/listadoCampeonatos', [CampeonatoController::class, 'listadoCampeonatos'])->name('campeonatos.guest');
+Route::get('/campeonatosDivision-A', [CampeonatoController::class, 'divisionA'])->name('div-A.guest');
+Route::get('/campeonatosDivision-B', [CampeonatoController::class, 'divisionB'])->name('div-B.guest');
+Route::get('/campeonatosDivision-C', [CampeonatoController::class, 'divisionC'])->name('div-C.guest');
 
 require __DIR__ . '/auth.php';
