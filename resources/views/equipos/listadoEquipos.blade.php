@@ -1,5 +1,9 @@
 <x-app-layout>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Clubes') }}
+        </h2>
+    </x-slot>
     <body>
         <div id="listadoGeneral" class="container mt-5">
             @foreach ($equipos as $equipo)

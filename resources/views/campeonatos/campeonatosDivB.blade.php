@@ -1,17 +1,24 @@
 <x-app-layout>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Segunda División') }}
+        </h2>
+    </x-slot>
     <body>
         @if ($campeonatosDivB->isNotEmpty())
             <div id="listadoGeneral" class="container mt-5 d-flex justify-content-between">
                 @foreach ($campeonatosDivB as $campeonatoDivB)
-                    <div class="card">
+                    <div class="card" id="cartasCampeonato">
+                        <div>
+                            <img src="{{ asset('Images/portadaCampeonatos.jpg') }}" width="auto" height="150">
+                        </div>
                         <div class="row g-0 m-3">
-                            <div class="m-3">
-                                <h2>{{ $campeonatoDivB->nombre }}</h2>
+                            <div class="m-3 text-center">
+                                <h1>{{ $campeonatoDivB->nombre }}</h1>
                                 @if ($campeonatoDivB->tipoCampeonato == true)
-                                    <h2>Especial</h2>
+                                <span class="badge bg-primary">Especial</span>
                                 @else
-                                    <h2>Liga</h2>
+                                <span class="badge bg-success">Liga</span>
                                 @endif
 
                             </div>

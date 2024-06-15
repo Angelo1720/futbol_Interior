@@ -1,26 +1,33 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Tercera División') }}
+        </h2>
+    </x-slot>
     <body>
-        @if($campeonatosDivC->isNotEmpty())
-        <div id="listadoGeneral" class="container mt-5 d-flex justify-content-between">
-            @foreach ($campeonatosDivC as $campeonatoDivC)
-            <div class="card">
-                <div class="row g-0 m-3">
-                    <div class="m-3">
-                            <h2>{{$campeonatoDivC->nombre}}</h2>
-                            @if($campeonatoDivC->tipoCampeonato == true)
-                                <h2>Especial</h2>
-                            @else
-                                <h2>Liga</h2>
-                            @endif
-                  
+        @if ($campeonatosDivC->isNotEmpty())
+            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-between">
+                @foreach ($campeonatosDivC as $campeonatoDivC)
+                    <div class="card" id="cartasCampeonato">
+                        <div>
+                            <img src="{{ asset('Images/portadaCampeonatos.jpg') }}" width="auto" height="150">
+                        </div>
+                        <div class="row g-0 m-3">
+                            <div class="m-3 text-center">
+                                <h1>{{ $campeonatoDivC->nombre }}</h1>
+                                @if ($campeonatoDivC->tipoCampeonato == true)
+                                <span class="badge bg-primary">Especial</span>
+                                @else
+                                <span class="badge bg-success">Liga</span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
-        <div class="container mt-5">
-            {{ $campeonatosDivC->links()}}
-        </div>
+            <div class="container mt-5">
+                {{ $campeonatosDivC->links() }}
+            </div>
         @else
             <div class="position-relative">
                 <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
