@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EquipoController;
+use App\Models\ClientToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/generateToken', function (Request $request) {
+    $clientToken = ClientToken::create([
+        'tokenable_id' => null, // Set to null for client tokens
+        'name' => 'client-token',
+        'token' => 'your-client-token', // Generate a unique token for each client
+    ]);
+    return $clientToken;
 });
+
+Route::get('/listadoEquipos', [EquipoController::class, 'apiListadoEquipos']);
