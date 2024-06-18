@@ -29,4 +29,9 @@ class Jugador extends Model
     {
         return $this->belongsTo(Equipo::class, 'idEquipo');
     }
+
+    public static function jugadoresNotInEquipo($idEquipo)
+    {
+        return self::whereNotIn('idEquipo', [$idEquipo])->get();
+    }
 }
