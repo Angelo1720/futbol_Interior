@@ -2,22 +2,50 @@
 
     <body>
         @role('admin_Liga')
-        <div id="divBotonCrear" class="m-5">
-            <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white" 
-                href="{{ route('equipos.create') }}">Crear Equipo</a></button>
-        </div>
+            <div class="d-inline-flex w-100 justify-content-between mt-5">
+                <div class="ms-5 d-inline-flex align-middle w-50">
+                    @if ($equipo->traerEscudo() != null)
+                        <img id="imgEquipo" class="m-0 align-self-center"
+                            src="data:image/jpg;base64, {{ $equipo->traerEscudo()->base64 }}" alt="Imagen de escudo">
+                    @else
+                        <img class="img-fluid rounded-start" src="{{ asset('Images/escudo.png') }}"
+                            alt="Imagen de escudo por defecto" id="imgAlternativaJugaodores">
+                    @endif
 
-        <div class="m-5 text-center" style="overflow-x:auto;">
-            <table id='equipoTable' width='98%' class="table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Divisional</td>
-                        <td class="w-25">Acciones</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+                    <h1 class="m-0 ms-2 align-self-center">{{ $equipo->nombreCorto }}</h1>
+                </div>
+                <div class="me-5 w-50 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary m-2 h-50"><a class="dropdown-item text-white" disabled
+                            href="{{ route('jugadores.create', ['idEquipo' => $equipo->id]) }}">Añadir jugadores</a>
+                    </button>
+                </div>
+            </div>
+            <div class="m-5">
+                <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
+                        href="{{ route('jugadores.create', ['idEquipo' => $equipo->id]) }}">Crear jugador</a></button>
+
+
+            </div>
+            @if ($jugadores->isNotEmpty())
+                <div class="m-5 text-center" style="overflow-x:auto;">
+                    <table id='jugadoresTable' width='98%' class="table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Nombre</td>
+                                <td class="tdPosicionJugadores">Posicion</td>
+                                <td class="tdFechaJugadores">Fecha de nacimiento</td>
+                                <td class="tdAccionesJugadores">Acciones</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            @else
+                <div class="d-flex justify-content-center w-100 text-center">
+                    <div class="sinJugadores">
+                        <h2>Equipo sin jugadores</h2>
+                    </div>
+                </div>
+            @endif
         @endrole
         @if (session('success'))
             <!-- Modal -->
@@ -80,38 +108,59 @@
         <!-- Script -->
         <script type="text/javascript">
             $(document).ready(function() {
+                // Datos de los equipos que no participan (pasados desde el controlador)
+                var jugadoresNotInEquipo = @json($jugadoresNotInEquipo);
 
+                // Convertir los datos de equipos en el formato esperado por select2
+                var jugadoresOption = jugadoresNotInEquipo.map(function(jugador) {
+                    return {
+                        id: jugador.id, // El valor que quieres enviar al backend
+                        text: jugador.nombre . ' ' . jugador.apellido // El texto que se mostrará en el select
+                    };
+                });
+
+                // Inicializar select2
+                $('#jugadores').select2({
+                    data: equipoOptions,
+                    multiple: true,
+                    placeholder: 'Seleccione un club',
+                    allowClear: true
+                });
+                
                 // DataTable
-                $('#equipoTable').DataTable({
+                $('#jugadoresTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('equipos.getEquipos') }}",
-                    columns: [
-                        {
-                            data: 'nombreCorto'
+                    ajax: "{{ route('jugadores.getJugadores', $equipo->id) }}",
+                    columns: [{
+                            data: 'nombre'
                         },
                         {
-                            data: 'divisional'  
+                            data: 'posicion'
                         },
                         {
+                            data: 'fechaNacimiento'
+                        },
+                        {
+                            "orderable": false,
+                            targets: 0,
                             "data": null,
                             "render": function(data, type, row) {
-                                var editarUrl = "{{ route('equipos.edit', ':id') }}";
+                                var editarUrl = "{{ route('jugadores.edit', ':id') }}";
                                 editarUrl = editarUrl.replace(':id', row.id);
-                                var adminJugadoresUrl = "{{ route('jugadores.index', ':id') }}";
-                                adminJugadoresUrl = adminJugadoresUrl.replace(':id', row.id);
-                                return '<div id="divAcciones"><form id="formEditarEquipo_' + row.id +
-                                    '" method="POST" action="' + editarUrl +
-                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
+                                var eliminarUrl = "{{ route('jugadores.index', ':id') }}";
+                                eliminarUrl = eliminarUrl.replace(':id', row.id);
+                                return '<div id="divAcciones"><form id="formEditarJugador_' + row.id +
+                                    '" method="POST" action="' + editarUrl + '">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                     '</form>' +
-                                    '<form id="formAdminJugadores_' + row.id +
-                                    '" method="POST" action="' + adminJugadoresUrl + '">' +
-                                    '<input type="hidden" name="_method" value="GET">' +
-                                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-primary m-2">Admin. jugadores</button>' +
+                                    '<form id="formEliminarJugador_' + row.id +
+                                    '" method="POST" action="' + eliminarUrl + '">' +
+                                    '<input type="hidden" name="_method" value="POST">' +
+                                    '<input type="hidden" name "_token" value="{{ csrf_token() }}">' +
+                                    '<button type="submit" class="btn btn-outline-danger m-2">Quitar jugador</button>' +
                                     '</form></div>';
                             }
                         }
