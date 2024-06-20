@@ -7,13 +7,13 @@
 
     <body>
         @if ($campeonatosDivA->isNotEmpty())
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-between text-center">
+            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
                 @foreach ($campeonatosDivA as $index => $campeonatoDivA)
                     @if ($index % 2 == 0 && $index != 0)
             </div>
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-between text-center">
+            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
         @endif
-        <div class="card" id="cartasCampeonato">
+        <div class="card mx-5" id="cartasCampeonato">
             <div>
                 <img src="{{ asset('Images/portadaCampeonatos.jpg') }}" width="auto" height="150">
             </div>
