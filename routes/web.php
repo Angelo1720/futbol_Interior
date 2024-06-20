@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
 use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\JugadorHistoricoController;
 use App\Http\Controllers\PartidoController;
 
 /*
@@ -65,6 +66,11 @@ Route::get('/ediciones/admin/editar/{id}', [EdicionController::class, 'edit'])->
 Route::get('/ediciones/listado/{idCampeonato}', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 Route::get('/ediciones/campeon/{idCampeonato}', [EdicionController::class, 'getEdicionesConCampeon'])->middleware('auth')->name('ediciones.getEdicionesConCampeon');
 Route::post('/ediciones/setEdicionEquipo/{idEdicion}', [EdicionController::class, 'setEdicion_Equipo'])->middleware('auth')->name('ediciones.setEdicionEquipo');
+
+Route::get('/historicos', [JugadorHistoricoController::class, 'index'])->middleware('auth')->name('historicos');
+Route::get('/historicos/admin/listado', [JugadorHistoricoController::class, 'getHistoricos'])->middleware('auth')->name('historicos.getHistoricos');
+Route::get('/historicos/crear', [JugadorHistoricoController::class, 'create'])->middleware('auth')->name('historicos.create');
+Route::post('/historicos/guardar', [JugadorHistoricoController::class, 'store'])->middleware('auth')->name('historicos.store');
 
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
