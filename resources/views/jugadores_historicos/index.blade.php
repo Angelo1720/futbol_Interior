@@ -96,29 +96,29 @@
                         {
                             data: 'fechaNacimiento',
                         },
-                        /*{
+                        {
                             "data": null,
                             "render": function(data, type, row) {
-                                var editarUrl = "{{ route('campeonatos.edit', ':id') }}";
+                                var eliminarUrl = "{{ route('historicos.eliminar', ':id') }}";
+                                eliminarUrl = eliminarUrl.replace(':id', row.id);
+                                var editarUrl = "{{ route('historicos.edit', ':id') }}";
                                 editarUrl = editarUrl.replace(':id', row.id);
-                                var verEdicionesUrl = "{{ route('ediciones.index', ':id') }}";
-                                verEdicionesUrl = verEdicionesUrl.replace(':id', row.id);
-                                return '<div id="divAcciones"><form id="formEditarCampeonato_' + row
-                                    .id +
+                                return '<div id="divAcciones"><form id="formEditarHistorico_' + row.id +
                                     '" method="POST" action="' + editarUrl +
-                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este campeonato?\')">' +
+                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este jugador?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
                                     '</form>' +
-                                    '<form id="formVerEdiciones_' + row.id +
-                                    '" method="POST" action="' + verEdicionesUrl + '">' +
-                                    '<input type="hidden" name="_method" value="GET">' +
+                                    '<form id="formEliminarHistorico_' + row.id +
+                                    '" method="POST" action="' + eliminarUrl +
+                                    '" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este jugador?\')">' +
+                                    '<input type="hidden" name="_method" value="DELETE">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-primary m-2">Ediciones</button>' +
+                                    '<button type="submit" class="btn btn-danger m-2">Eliminar</button>' +
                                     '</form></div>';
                             }
-                        }*/
+                        }
                     ],
                     language: {
                         "decimal": "",

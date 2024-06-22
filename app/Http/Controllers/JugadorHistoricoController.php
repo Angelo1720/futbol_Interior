@@ -88,7 +88,7 @@ class JugadorHistoricoController extends Controller
                 'nombre' => ['required', 'string', 'max:40'],
                 'apellido' => ['required', 'string', 'max:40'],
                 'fechaNacimiento' => ['required', 'string', 'max:40'],
-                'historia' => ['required', 'string', 'max:40'],
+                'historia' => ['required', 'string', 'max:400'],
                 'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
             ]);
             $jugadorNuevo = Jugador_Historico::create([
@@ -96,7 +96,7 @@ class JugadorHistoricoController extends Controller
                 'apellido' => $request['apellido'],
                 'fechaNacimiento' => $request['fechaNacimiento'],
                 'historia' => $request['historia'],
-                
+
             ]);
 
             if ($request->hasFile('imgJugador') && $request->file('imgJugador')->isValid()) {
@@ -120,6 +120,83 @@ class JugadorHistoricoController extends Controller
         } catch (ValidationException $e) {
             Log::error('Error al crear jugador: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+    }
+
+    public function edit($id)
+    {
+        $historico = Jugador_Historico::findOrFail($id);
+        return view('jugadores_historicos.edit', compact('historico'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $historico = Jugador_Historico::findOrFail($id);
+        try {
+            $request->validate([
+                'nombre' => ['required', 'string', 'max:40'],
+                'apellido' => ['required', 'string', 'max:40'],
+                'fechaNacimiento' => ['required', 'string', 'max:40'],
+                'historia' => ['required', 'string', 'max:400'],
+                'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
+            ]);
+            $historico->nombre = $request->input('nombre');
+            $historico->apellido = $request->input('apellido');
+            $historico->fechaNacimiento = $request->input('fechaNacimiento');
+            $historico->historia = $request->input('historia');
+            $historico->save();
+
+            if ($request->hasFile('imgJugador') && $request->file('imgJugador')->isValid()) {
+                if ($historico->idPortada == null) {
+                    try {
+                        $image = base64_encode(file_get_contents($request->file('imgJugador')->getRealPath()));
+                        $imagen = Imagen::Create([
+                            'nombreImg' => "Historico_" . $request->file('imgJugador')->getClientOriginalName(),
+                            'equipo_id' => null,
+                            'base64' => $image
+                        ]);
+                        $historico->idPortada = $imagen->id;
+                        $historico->save();
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                } else {
+                    $image = base64_encode(file_get_contents($request->file('imgJugador')->getRealPath()));
+                    $imagen = Imagen::findOrFail($historico->idPortada);
+                    $imagen->nombreImg = "Historico_ " . $request->file('imgJugador')->getClientOriginalName();
+                    $imagen->base64 = $image;
+                    $imagen->save();
+                    $historico->save();
+                }
+            }
+            if (Auth::user()) {
+                return redirect()->route('historicos')->with('success', 'Jugador histórico actualizado correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al actualizar jugador: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($id != null && $id > 0) {
+            $historico = Jugador_Historico::findOrFail($id);
+            if (!$historico) {
+                return redirect()->route('historicos')->with('error', 'Jugador histórico no encontrado.');
+            }
+            if ($historico->idPortada != null && $historico->idPortada > 0) {
+                $idImagenABorrar = $historico->idPortada;
+                $historico->idPortada = null;
+                $historico->save();
+                
+                $imagen = Imagen::findOrFail($idImagenABorrar);
+                $imagen->delete();
+            }
+            $historico->delete();
+        }
+        if (Auth::user()) {
+            return redirect()->route('historicos')->with('success', 'Jugador histórico eliminado correctamente.');
         }
     }
 }
