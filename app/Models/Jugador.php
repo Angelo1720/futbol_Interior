@@ -32,6 +32,9 @@ class Jugador extends Model
 
     public static function jugadoresNotInEquipo($idEquipo)
     {
-        return self::whereNotIn('idEquipo', [$idEquipo])->get();
+        return self::whereNotIn('idEquipo', [$idEquipo])
+            ->orWhereNull('idEquipo')
+            ->orderBy('apellido')
+            ->get();
     }
 }
