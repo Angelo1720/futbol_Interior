@@ -66,7 +66,8 @@ Route::get('/ediciones/admin/editar/{id}', [EdicionController::class, 'edit'])->
 Route::get('/ediciones/listado/{idCampeonato}', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 Route::get('/ediciones/campeon/{idCampeonato}', [EdicionController::class, 'getEdicionesConCampeon'])->middleware('auth')->name('ediciones.getEdicionesConCampeon');
 Route::post('/ediciones/setEdicionEquipo/{idEdicion}', [EdicionController::class, 'setEdicion_Equipo'])->middleware('auth')->name('ediciones.setEdicionEquipo');
-
+Route::get('/ediciones/admin/editarInfo/{id}', [EdicionController::class, 'editInfo'])->middleware('auth')->name('ediciones.editInfo');
+Route::put('/ediciones/{id}', [EdicionController::class, 'update'])->name('ediciones.update');
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
