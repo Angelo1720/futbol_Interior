@@ -7,15 +7,15 @@
 
     <body>
         @role('admin_Liga')
-            <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-1">
+            <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-5">
                 <div class="d-flex row pb-0">
                     <h1 class="p-0 m-0 ms-2">{{ $campeonato->nombre }} - {{ $edicion->nombre }} <span
                             name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
                     <div class="mt-5 p-0 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary mx-2" disabled>
+                        <button type="submit" class="btn btn-primary mx-2">
 
                             <a class="dropdown-item text-white"
-                                href="{{ route('ediciones.index', ['idCampeonato' => $edicion->idCampeonato]) }}">Editar
+                                href="{{ route('ediciones.editInfo', ['id' => $edicion->id]) }}">Editar
                                 información
                             </a>
                         </button>

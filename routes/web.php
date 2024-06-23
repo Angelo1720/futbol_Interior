@@ -75,6 +75,8 @@ Route::post('/historicos/guardar', [JugadorHistoricoController::class, 'store'])
 Route::get('/historicos/admin/editar/{id}', [JugadorHistoricoController::class, 'edit'])->middleware('auth')->name('historicos.edit');
 Route::put('/historicos/{id}', [JugadorHistoricoController::class, 'update'])->name('historicos.update');
 Route::delete('/historicos/{id}', [JugadorHistoricoController::class, 'delete'])->middleware('auth')->name('historicos.eliminar');
+Route::get('/ediciones/admin/editarInfo/{id}', [EdicionController::class, 'editInfo'])->middleware('auth')->name('ediciones.editInfo');
+Route::put('/ediciones/{id}', [EdicionController::class, 'update'])->name('ediciones.update');
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
