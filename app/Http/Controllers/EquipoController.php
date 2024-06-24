@@ -227,4 +227,13 @@ class EquipoController extends Controller
         $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(4);
         return view('equipos.listadoEquipos', compact('equipos'));
     }
+
+    public function apiListadoEquipos()
+    {
+        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->get();
+        foreach ($equipos as $equipo) {
+            $equipo['idEscudo'] = $equipo->traerEscudo()->base64; 
+        }
+        return response()->json($equipos, 200);
+    }
 }
