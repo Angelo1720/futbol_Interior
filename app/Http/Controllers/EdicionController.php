@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
 use App\Models\Edicion;
 use App\Models\Edicion_Equipo;
+use App\Models\Equipo;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -231,7 +232,15 @@ class EdicionController extends Controller
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
-
+    
+    public function deleteEdicion_Equipo(Request $request, $idEdicion)
+    {
+        try {
+            Edicion_Equipo::where('idEquipo', $request->idEquipo)->where('idEdicion', $idEdicion)->delete();
+        } catch (ValidationException $e) {
+            Log::error('Error al eliminar equipo: ' . $e->getMessage());
+        }
+    }
     public function editInfo($idEdicion)
     {   
         $edicion = Edicion::findOrFail($idEdicion);
