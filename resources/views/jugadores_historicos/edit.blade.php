@@ -49,27 +49,42 @@
                             @enderror
                         </div>
 
-
                         <!-- Imagen del Jugador actual -->
-                        
-                            @if ($historico->traerPortada() != null)
-                                <div class="text-center editHistoricoImg">
-                                    <label for="imageJugador"
-                                        class="label-custom">{{ __('👇Imágen utilizada actualmente👇') }}</label>
+                        @if ($historico->traerPortada() != null)
+                            <label for="imageJugador"
+                                class="label-custom">{{ __('👇Imágen utilizada actualmente👇') }}</label>
+                            <div class="text-center editHistoricoImg">
+                                <span class="imagenEditEquipo">
+                                    <svg onclick="borrarImagenJHistorico('Historico_{{ $historico->traerPortada()->id }}');"
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path
+                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                    </svg>
                                     <img id="imageJugador" class="img-thumbnail"
                                         src="data:image/jpg;base64, 
                                     {{ $historico->traerPortada()->base64 }}"
                                         alt="Imagen de jugador histórico">
-                                    <input id="imgJugador" class="form-control input-custom mt-3" type="file"
-                                        name="imgJugador" autofocus />
-                                    @error('imgJugador')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            @endif
-                            <div class="d-flex justify-content-end align-items-center mt-3">
-                                <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
+                                </span>
+
+                                <input type="hidden" id="Historico_{{ $historico->traerPortada()->id }}"
+                                    name="NOborrarImgPortada" value="{{ $historico->traerPortada()->id }}">
                             </div>
+                        @endif
+                        <!-- Portada -->
+                        <div class="mb-3">
+                            <label for="imgJugador" class="form-label label-custom">{{ __('Portada') }}</label>
+                            <input id="imgJugador" class="form-control input-custom mt-3" type="file"
+                                name="imgJugador" autofocus />
+                            @error('imgJugador')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-3">
+                            <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>

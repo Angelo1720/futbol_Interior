@@ -169,6 +169,14 @@ class JugadorHistoricoController extends Controller
                     $historico->save();
                 }
             }
+
+            if ($request->has('BORRARimgPortada')) {
+                $imagen = Imagen::findOrFail($request->input('BORRARimgPortada'));
+                $historico->idPortada = null;
+                $historico->save();
+                $imagen->delete();
+            }
+
             if (Auth::user()) {
                 return redirect()->route('historicos')->with('success', 'Jugador histórico actualizado correctamente.');
             }
@@ -189,7 +197,6 @@ class JugadorHistoricoController extends Controller
                 $idImagenABorrar = $historico->idPortada;
                 $historico->idPortada = null;
                 $historico->save();
-                
                 $imagen = Imagen::findOrFail($idImagenABorrar);
                 $imagen->delete();
             }
