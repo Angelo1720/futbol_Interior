@@ -177,6 +177,10 @@ return [
         'alineacionVISITANTE' => '"Alineacion"',
         'suplentesLOCAL' => '"Suplentes"',
         'suplentesVISITANTE' => '"Suplentes"',
+        //Attr de jugador
+        'nameJugador' => '"Nombre"',
+        'apellidoJugador' => '"Apellido"',
+        'fechaNacimiento' => '"Fecha de nacimiento"',
+        'posicion' => '"Posicion"',
     ],
-
 ];

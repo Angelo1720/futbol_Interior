@@ -7,6 +7,7 @@ use App\Http\Controllers\ControladorUsuario;
 use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\JugadorHistoricoController;
+use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\PartidoController;
 
 /*
@@ -77,6 +78,16 @@ Route::delete('/historicos/{id}', [JugadorHistoricoController::class, 'delete'])
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
+
+Route::get('/jugadores/crear/{idEquipo}', [JugadorController::class, 'create'])->middleware('auth')->name('jugadores.create');
+Route::post('/jugadores/guardar/{idEquipo}', [JugadorController::class, 'store'])->middleware('auth')->name('jugadores.store');
+Route::get('/jugadores/{id}', [JugadorController::class, 'index'])->middleware('auth')->name('jugadores.index');
+Route::get('/jugadores/admin/listado{idEquipo}', [JugadorController::class, 'getJugadores'])->middleware('auth')->name('jugadores.getJugadores');
+Route::get('/jugadores/admin/editar/{id}', [JugadorController::class, 'edit'])->middleware('auth')->name('jugadores.edit');
+Route::post('/jugadores/setJugadorEquipo/{idEquipo}', [JugadorController::class, 'setJugador_Equipo'])->middleware('auth')->name('jugadores.setJugadorEquipo');
+Route::delete('/jugadores/deleteJugadorEquipo/{id}', [JugadorController::class, 'deleteJugador_Equipo'])->middleware('auth')->name('jugadores.deleteJugadorEquipo');
+Route::get('/jugadores/admin/editar/{id}', [JugadorController::class, 'edit'])->middleware('auth')->name('jugadores.edit');
+Route::put('/jugadores/{id}', [JugadorController::class, 'update'])->name('jugadores.update');
 
 Route::get('/listadoEquipos', [EquipoController::class, 'listadoEquipos'])->name('equipos.guest');
 Route::get('/listadoCampeonatos', [CampeonatoController::class, 'listadoCampeonatos'])->name('campeonatos.guest');

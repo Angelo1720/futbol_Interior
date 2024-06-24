@@ -13,7 +13,7 @@
                     <tr>
                         <td>Nombre</td>
                         <td>Divisional</td>
-                        <td>Acciones</td>
+                        <td class="w-25">Acciones</td>
                     </tr>
                 </thead>
             </table>
@@ -98,13 +98,21 @@
                             "render": function(data, type, row) {
                                 var editarUrl = "{{ route('equipos.edit', ':id') }}";
                                 editarUrl = editarUrl.replace(':id', row.id);
+                                var adminJugadoresUrl = "{{ route('jugadores.index', ':id') }}";
+                                adminJugadoresUrl = adminJugadoresUrl.replace(':id', row.id);
                                 return '<div id="divAcciones"><form id="formEditarEquipo_' + row.id +
                                     '" method="POST" action="' + editarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                                     '<button class="btn btn-outline-secondary m-2">Editar</button>' +
-                                    '</form>'
+                                    '</form>' +
+                                    '<form id="formAdminJugadores_' + row.id +
+                                    '" method="POST" action="' + adminJugadoresUrl + '">' +
+                                    '<input type="hidden" name="_method" value="GET">' +
+                                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                                    '<button type="submit" class="btn btn-primary m-2">Admin. jugadores</button>' +
+                                    '</form></div>';
                             }
                         }
                     ],

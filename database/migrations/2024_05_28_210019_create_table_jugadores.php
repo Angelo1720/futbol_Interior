@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('jugadores', function (Blueprint $table) {
             $table->id();
-            $table->integer('idEquipo');
+            $table->integer('idEquipo')->nullable();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('fechaNacimiento');

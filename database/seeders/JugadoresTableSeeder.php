@@ -89,8 +89,8 @@ class JugadoresTableSeeder extends Seeder
             'idEquipo' => '2'
         ]);
         Jugador::create([
-            'nombre' => 'Gaston',
-            'apellido' => 'Z',
+            'nombre' => 'Rodrigo',
+            'apellido' => 'C',
             'fechaNacimiento' => '2003-10-24',
             'posicion' => Posiciones::DC,
             'goles' => '6',
