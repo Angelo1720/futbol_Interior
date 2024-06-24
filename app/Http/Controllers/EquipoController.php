@@ -231,7 +231,6 @@ class EquipoController extends Controller
     public function apiListadoEquipos()
     {
         $equipos = Equipo::orderBy('nombreCompleto', 'asc')->get();
-        $equiposNew = array();
         foreach ($equipos as $equipo) {
             $equipo['idEscudo'] = $equipo->traerEscudo()->base64; 
         }
