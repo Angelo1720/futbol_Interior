@@ -237,6 +237,7 @@ class EdicionController extends Controller
     {
         try {
             Edicion_Equipo::where('idEquipo', $request->idEquipo)->where('idEdicion', $idEdicion)->delete();
+            return response()->json(['success' => true]);
         } catch (ValidationException $e) {
             Log::error('Error al eliminar equipo: ' . $e->getMessage());
         }
