@@ -16,7 +16,7 @@ class PartidoController extends Controller
     {
         $edicion = Edicion::find($idEdicion);
         $equiposParticipantes = $edicion->equiposParticipantes();
-        $equiposJugadores = Equipo::traerJugadores();
+        $equiposJugadores = Equipo::traerJugadores($edicion->id);
         return view('partidos.create', compact('edicion', 'equiposParticipantes', 'equiposJugadores'));
     }
 

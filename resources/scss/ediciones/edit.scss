@@ -19,3 +19,15 @@
 #edicion-equipo {
     width: 15vw;
 }
+
+#anchorEquipo:hover {
+    background-color: rgba(103, 103, 103, 0.364);
+}
+
+.svgEliminarEquipo {
+    position: absolute;
+    top: 10px;
+    right: 6px;
+    cursor: pointer;
+    
+}

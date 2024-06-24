@@ -54,12 +54,15 @@ class Equipo extends Model
     {
         return $this->hasMany(Jugador::class, 'idEquipo');
     }
-    public static function traerJugadores() 
+    public static function traerJugadores($idEdicion) 
     {
         $jugadoresPorEquipo = [];
 
-        // Obtener todos los equipos con sus jugadores
-        $equipos = self::with('jugadores')->get();
+        // Obtener los equipos de la edición específica
+        $listEdicion_Equipos = Edicion_Equipo::where('idEdicion', $idEdicion)->pluck('idEquipo')->toArray();
+    
+        // Obtener los equipos con sus jugadores filtrados por los equipos de la edición
+        $equipos = Equipo::with('jugadores')->whereIn('id', $listEdicion_Equipos)->get();
         
         foreach ($equipos as $equipo) {
             $jugadoresPorEquipo[$equipo->nombreCorto] = [
