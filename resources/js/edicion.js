@@ -1,11 +1,11 @@
-window.quitarEquipoEdicion = function(idEquipo, idEdicion, index) {
-    const url = '/ediciones/${idEdicion}';
-    const spanElement = document.getElementById(index);
+window.quitarEquipoEdicion = async function(idEquipo, idEdicion) {
+    const url = `/ediciones/${idEdicion}`;
+    let csrfToken = $('meta[name="csrf-token"]').attr('content');
     fetch(url, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            'X-CSRF-TOKEN': csrfToken
         },
         body: JSON.stringify({
             idEquipo: idEquipo
@@ -14,7 +14,7 @@ window.quitarEquipoEdicion = function(idEquipo, idEdicion, index) {
     .then(response => response.json())
     .then(data => {
          if (data.success) {
-            spanElement.remove();
+            location.reload();
          } else {
             alert('Error al eliminar equipo.')
          }
