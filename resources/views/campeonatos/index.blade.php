@@ -1,5 +1,9 @@
 <x-app-layout>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Administrar campeonatos') }}
+        </h2>
+    </x-slot>
     <body>
         @role('admin_Liga')
             <div id="divBotonCrear" class="m-5">

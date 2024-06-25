@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Crear jugador') }}
+        </h2>
+    </x-slot>
     <div class="mt-5">
         <div class="row justify-content-center m-0">
             <div class="col-md-4">
