@@ -11,28 +11,30 @@
                 <div class="d-flex row pb-0">
                     <h1 class="p-0 m-0 ms-2">{{ $campeonato->nombre }} - {{ $edicion->nombre }} <span
                             name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
-                    <div class="mt-5 p-0 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary mx-2">
+                    <div class="mt-5 p-0 d-flex align-items-start">
+                        <button type="submit" class="btn btn-primary mx-2 bttEditEdicion">
 
                             <a class="dropdown-item text-white"
                                 href="{{ route('ediciones.editInfo', ['id' => $edicion->id]) }}">Editar
                                 información
                             </a>
                         </button>
-                        <button type="submit" class="btn btn-primary mx-2" {{ count($equiposParticipantes) < 2 ? 'disabled' : '' }}>
+                        <button type="submit" class="btn btn-primary mx-2 bttEditEdicion" {{ count($equiposParticipantes) < 2 ? 'disabled' : '' }}>
                             <a class="dropdown-item text-white"
                                 href="{{ route('partidos.create', ['idEdicion' => $edicion->id]) }}">Crear Partido
                             </a>
                         </button>
                         <form method="POST" action="{{ route('ediciones.setEdicionEquipo', $edicion->id) }}"
-                            class="d-inline-block ms-5 ">
+                            class="d-flex flex-row ms-5 col-5">
                             @csrf
+                            <div class="d-flex flex-column w-75">
                             <label for="edicion-equipo" class="form-label label-custom">
                                 {{ __('Añadir equipo a edición') }}
                             </label>
                             <select type="text" name="edicion-equipo[]" id="edicion-equipo"
-                                class="js-select2 form-control input-custom position-absolute" required></select>
-                            <button type="submit" class="btn btn-primary ml-2">
+                                class="js-select2 form-control input-custom w-100" required></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary ml-2 h-50 bttEditEdicion">
                                 Añadir equipo
                             </button>
                         </form>
