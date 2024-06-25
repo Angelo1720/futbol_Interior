@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('imagenes', function (Blueprint $table) {
             $table->id();
             $table->string('nombreImg')->nullable();
-            $table->foreignId('equipo_id')->constrained();
+            $table->integer('equipo_id')->nullable();
+            $table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
             $table->text('base64'); 
         });

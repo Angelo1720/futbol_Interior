@@ -54,7 +54,7 @@
                                 <li><a class="dropdown-item" href="{{ route('equipos') }}">Equipos</a></li>
                                 <li><a class="dropdown-item" href="{{ route('campeonatos') }}">Campeonatos</a></li>
                                 <li><a class="dropdown-item" href="#">Documentos</a></li>
-                                <li><a class="dropdown-item" href="#">Jugadores Históricos</a></li>
+                                <li><a class="dropdown-item" href="{{route('historicos')}}">Jugadores Históricos</a></li>
                                 <li><a class="dropdown-item" href="#">Institución</a></li>
                             </ul>
                         </li>
