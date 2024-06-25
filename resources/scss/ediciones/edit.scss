@@ -8,14 +8,30 @@
 
 #clubesParticipantes {
     overflow-y: scroll;
-    height: 40vh;
+    height: 55vh;
 }
 
 #partidosSiguientes {
     overflow-y: scroll;
-    height: 40vh;
+    height: 55vh;
 }
 
 #edicion-equipo {
     width: 15vw;
+}
+
+#anchorEquipo:hover {
+    background-color: rgba(103, 103, 103, 0.364);
+}
+
+.svgEliminarEquipo {
+    position: absolute;
+    top: 10px;
+    right: 6px;
+    cursor: pointer;
+    
+}
+
+.bttEditEdicion {
+    margin-top: 30px;
 }

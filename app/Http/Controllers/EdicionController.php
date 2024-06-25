@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Campeonato;
 use App\Models\Edicion;
 use App\Models\Edicion_Equipo;
+use App\Models\Equipo;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class EdicionController extends Controller
 {
@@ -227,6 +229,52 @@ class EdicionController extends Controller
             }
         } catch (ValidationException $e) {
             Log::error('Error al agregar equipo: ' . $e->getMessage());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+    }
+    
+    public function deleteEdicion_Equipo(Request $request, $idEdicion)
+    {
+        try {
+            Edicion_Equipo::where('idEquipo', $request->idEquipo)->where('idEdicion', $idEdicion)->delete();
+            return response()->json(['success' => true]);
+        } catch (ValidationException $e) {
+            Log::error('Error al eliminar equipo: ' . $e->getMessage());
+        }
+    }
+    public function editInfo($idEdicion)
+    {   
+        $edicion = Edicion::findOrFail($idEdicion);
+        return view('ediciones.editInfo', compact('edicion'));
+    }
+
+    public function update(Request $request, $idEdicion)
+    {
+        $edicion = Edicion::findOrFail($idEdicion);
+        try {
+            $request->validate([
+                'nameEdicion' => ['required', 'string', 'max:80'],
+                'fechaInicio' => ['max:10'],
+                'fechaFinal' => ['max:10'],
+            ]);
+            $fechaInicio = $request->input('fechaInicio');
+            $fechaFinal = $request->input('fechaFinal');
+
+            $carbonFechaInicio = Carbon::parse($fechaInicio);
+            $carbonFechaFinal = Carbon::parse($fechaFinal);
+            if ($carbonFechaInicio->isBefore($carbonFechaFinal)) {
+                $edicion->nombre = $request->input('nameEdicion');
+                $edicion->fechaInicio = $request->input('fechaInicio');
+                $edicion->fechaFinal = $request->input('fechaFinal');
+                $edicion->save();
+            } else {
+                return redirect()->back()->withErrors(['fechaInicio' => 'La fecha de inicio no puede ser menor a la de final.']);
+            }
+            if (Auth::user()) {
+                return redirect()->route('ediciones.edit', ['id' => $idEdicion])->with('success', 'Edición editada correctamente.');
+            }
+        } catch (ValidationException $e) {
+            Log::error('Error al editar edicion: ' . $e->getMessage());
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }

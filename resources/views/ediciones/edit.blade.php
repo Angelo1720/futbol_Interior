@@ -7,31 +7,34 @@
 
     <body>
         @role('admin_Liga')
-            <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-1">
+            <div id="infoEdicion" class="d-flex justify-content-between mx-5 mt-5 mb-5">
                 <div class="d-flex row pb-0">
                     <h1 class="p-0 m-0 ms-2">{{ $campeonato->nombre }} - {{ $edicion->nombre }} <span
                             name="fechaEdicion">{{ Carbon::parse($edicion->fechaInicio)->format('Y') }}</span></h1>
-                    <div class="mt-5 p-0 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary mx-2" disabled>
+                    <div class="mt-5 p-0 d-flex align-items-start">
+                        <button type="submit" class="btn btn-primary mx-2 bttEditEdicion">
 
                             <a class="dropdown-item text-white"
-                                href="{{ route('ediciones.index', ['idCampeonato' => $edicion->idCampeonato]) }}">Editar
+                                href="{{ route('ediciones.editInfo', ['id' => $edicion->id]) }}">Editar
                                 información
                             </a>
                         </button>
-                        <button type="submit" class="btn btn-primary mx-2">
+                        <button type="submit" class="btn btn-primary mx-2 bttEditEdicion" {{ count($equiposParticipantes) < 2 ? 'disabled' : '' }}>
                             <a class="dropdown-item text-white"
                                 href="{{ route('partidos.create', ['idEdicion' => $edicion->id]) }}">Crear Partido
                             </a>
                         </button>
-                        <form method="POST" action="{{ route('ediciones.setEdicionEquipo', $edicion->id) }}" class="d-inline-block ms-5 ">
+                        <form method="POST" action="{{ route('ediciones.setEdicionEquipo', $edicion->id) }}"
+                            class="d-flex flex-row ms-5 col-5">
                             @csrf
-                                <label for="edicion-equipo" class="form-label label-custom">
-                                    {{ __('Añadir equipo a edición') }}
-                                </label>
-                                <select type="text" name="edicion-equipo[]" id="edicion-equipo" 
-                                class="js-select2 form-control input-custom"></select>
-                            <button type="submit" class="btn btn-primary ml-2">
+                            <div class="d-flex flex-column w-75">
+                            <label for="edicion-equipo" class="form-label label-custom">
+                                {{ __('Añadir equipo a edición') }}
+                            </label>
+                            <select type="text" name="edicion-equipo[]" id="edicion-equipo"
+                                class="js-select2 form-control input-custom w-100" required></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary ml-2 h-50 bttEditEdicion">
                                 Añadir equipo
                             </button>
                         </form>
@@ -57,28 +60,38 @@
                         </div>
                         <div class="row d-flex justify-content-center w-100 m-0 p-0">
                             @endif
-                            <div class="col-md-4 p-2 m-2 border rounded-2 d-flex">
-                                @if ($equipo->traerEscudo() != null)
-                                <div>
-                                    <img id="imgEquipo" src="data:image/jpg;base64, {{ $equipo->traerEscudo()->base64 }}"
-                                        alt="Imágen escudo">
-                                </div>
-                                @else
-                                <div>
-                                    <img class="img-fluid rounded-start" src="{{ asset('Images/escudo.png') }}"
-                                    alt="No posee escudo" id="imgEquipo">
-                                </div>
-                                @endif
-                                <div id="nombreEquipo" class="w-100 d-flex align-self-sm-center justify-content-center">
-                                    <p class="m-0">{{ $equipo->nombreCorto }}</p>
-                                </div>
-                            </div>
+                            <span class="position-relative col-md-5" id="spanNro_{{$index}}">
+                                <svg class="svgEliminarEquipo" onclick="quitarEquipoEdicion('{{($equipo->id)}}', '{{($edicion->id)}}');" xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                  </svg>
+                                <a href="#" x class="text-decoration-none text-black w-100">
+                                    <div id="anchorEquipo" class="w-100 p-2 m-2 border rounded-2 d-flex">
+                                        @if ($equipo->traerEscudo() != null)
+                                            <div>
+                                                <img id="imgEquipo"
+                                                    src="data:image/jpg;base64, {{ $equipo->traerEscudo()->base64 }}"
+                                                    alt="Imágen escudo">
+                                            </div>
+                                        @else
+                                            <div>
+                                                <img class="img-fluid rounded-start" src="{{ asset('Images/escudo.png') }}"
+                                                    alt="No posee escudo" id="imgEquipo">
+                                            </div>
+                                        @endif
+                                        <div id="nombreEquipo"
+                                            class="w-100 d-flex align-self-sm-center justify-content-center">
+                                            <p class="m-0">{{ $equipo->nombreCorto }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </span>
                             @endforeach
                         </div>
                     </div>
 
                 </div>
-                <div  class="w-50 mx-4">
+                <div class="w-50 mx-4">
                     <div class="d-flex justify-content-center w-100">
                         <h2>Partidos</h2>
                     </div>
@@ -176,24 +189,24 @@
     </body>
     <script type="text/javascript">
         $(document).ready(function() {
-        // Datos de los equipos que no participan (pasados desde el controlador)
-        var equiposNOparticipantes = @json($equiposNOparticipantes);
+            // Datos de los equipos que no participan (pasados desde el controlador)
+            var equiposNOparticipantes = @json($equiposNOparticipantes);
 
-        // Convertir los datos de equipos en el formato esperado por select2
-        var equipoOptions = equiposNOparticipantes.map(function(equipo) {
-            return {
-                id: equipo.id, // El valor que quieres enviar al backend
-                text: equipo.nombreCorto // El texto que se mostrará en el select
-            };
-        });
+            // Convertir los datos de equipos en el formato esperado por select2
+            var equipoOptions = equiposNOparticipantes.map(function(equipo) {
+                return {
+                    id: equipo.id, // El valor que quieres enviar al backend
+                    text: equipo.nombreCorto // El texto que se mostrará en el select
+                };
+            });
 
-        // Inicializar select2
-        $('#edicion-equipo').select2({
-            data: equipoOptions,
-            multiple: true,
-            placeholder: 'Seleccione un club',
-            allowClear: true
+            // Inicializar select2
+            $('#edicion-equipo').select2({
+                data: equipoOptions,
+                multiple: true,
+                placeholder: 'Seleccione un club',
+                allowClear: true
+            });
         });
-    });
     </script>
 </x-app-layout>

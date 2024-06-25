@@ -67,6 +67,9 @@ Route::get('/ediciones/admin/editar/{id}', [EdicionController::class, 'edit'])->
 Route::get('/ediciones/listado/{idCampeonato}', [EdicionController::class, 'getEdiciones'])->middleware('auth')->name('ediciones.getEdiciones');
 Route::get('/ediciones/campeon/{idCampeonato}', [EdicionController::class, 'getEdicionesConCampeon'])->middleware('auth')->name('ediciones.getEdicionesConCampeon');
 Route::post('/ediciones/setEdicionEquipo/{idEdicion}', [EdicionController::class, 'setEdicion_Equipo'])->middleware('auth')->name('ediciones.setEdicionEquipo');
+Route::get('/ediciones/admin/editarInfo/{id}', [EdicionController::class, 'editInfo'])->middleware('auth')->name('ediciones.editInfo');
+Route::put('/ediciones/{id}', [EdicionController::class, 'update'])->name('ediciones.update');
+Route::delete('/ediciones/{id}', [EdicionController::class, 'deleteEdicion_Equipo'])->middleware('auth')->name('ediciones.deleteEdicionEquipo');
 
 Route::get('/historicos', [JugadorHistoricoController::class, 'index'])->middleware('auth')->name('historicos');
 Route::get('/historicos/admin/listado', [JugadorHistoricoController::class, 'getHistoricos'])->middleware('auth')->name('historicos.getHistoricos');
@@ -75,6 +78,9 @@ Route::post('/historicos/guardar', [JugadorHistoricoController::class, 'store'])
 Route::get('/historicos/admin/editar/{id}', [JugadorHistoricoController::class, 'edit'])->middleware('auth')->name('historicos.edit');
 Route::put('/historicos/{id}', [JugadorHistoricoController::class, 'update'])->name('historicos.update');
 Route::delete('/historicos/{id}', [JugadorHistoricoController::class, 'delete'])->middleware('auth')->name('historicos.eliminar');
+Route::get('/ediciones/admin/editarInfo/{id}', [EdicionController::class, 'editInfo'])->middleware('auth')->name('ediciones.editInfo');
+Route::put('/ediciones/{id}', [EdicionController::class, 'update'])->name('ediciones.update');
+Route::delete('/ediciones/{id}', [EdicionController::class, 'deleteEdicion_Equipo'])->middleware('auth')->name('ediciones.deleteEdicionEquipo');
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');
