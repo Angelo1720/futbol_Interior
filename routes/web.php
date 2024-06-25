@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorUsuario;
 use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\JugadorHistoricoController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\PartidoController;
 
@@ -69,6 +70,14 @@ Route::post('/ediciones/setEdicionEquipo/{idEdicion}', [EdicionController::class
 Route::get('/ediciones/admin/editarInfo/{id}', [EdicionController::class, 'editInfo'])->middleware('auth')->name('ediciones.editInfo');
 Route::put('/ediciones/{id}', [EdicionController::class, 'update'])->name('ediciones.update');
 Route::delete('/ediciones/{id}', [EdicionController::class, 'deleteEdicion_Equipo'])->middleware('auth')->name('ediciones.deleteEdicionEquipo');
+
+Route::get('/historicos', [JugadorHistoricoController::class, 'index'])->middleware('auth')->name('historicos');
+Route::get('/historicos/admin/listado', [JugadorHistoricoController::class, 'getHistoricos'])->middleware('auth')->name('historicos.getHistoricos');
+Route::get('/historicos/crear', [JugadorHistoricoController::class, 'create'])->middleware('auth')->name('historicos.create');
+Route::post('/historicos/guardar', [JugadorHistoricoController::class, 'store'])->middleware('auth')->name('historicos.store');
+Route::get('/historicos/admin/editar/{id}', [JugadorHistoricoController::class, 'edit'])->middleware('auth')->name('historicos.edit');
+Route::put('/historicos/{id}', [JugadorHistoricoController::class, 'update'])->name('historicos.update');
+Route::delete('/historicos/{id}', [JugadorHistoricoController::class, 'delete'])->middleware('auth')->name('historicos.eliminar');
 
 Route::get('/partidos/crear/{idEdicion}', [PartidoController::class, 'create'])->middleware('auth')->name('partidos.create');
 Route::post('/partidos/guardar/{idEdicion}', [PartidoController::class, 'store'])->middleware('auth')->name('partidos.store');

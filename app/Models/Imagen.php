@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\JugadorHistoricoController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,5 +32,10 @@ class Imagen extends Model
     public function edicion_historia()
     {
         return $this->hasMany(Edicion_historia::class);
+    }
+
+    public function jugadoresHistoricos()
+    {
+        return $this->hasMany(Jugador_Historico::class);
     }
 }
