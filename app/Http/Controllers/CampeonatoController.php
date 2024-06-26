@@ -25,7 +25,7 @@ class CampeonatoController extends Controller
     }
     public function getCampeonatos(Request $request)
     {
-        ## Read value
+        // Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length"); // Rows display per page
@@ -42,11 +42,13 @@ class CampeonatoController extends Controller
 
         // Total records
         $totalRecords = Campeonato::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Campeonato::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->where('division', 'like', '%' . $searchValue . '%')->where('tipoCampeonato', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Campeonato::select('count(*) as allcount')
+            ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($searchValue) . '%'])
+            ->count();
 
         // Fetch records
         $records = Campeonato::orderBy($columnName, $columnSortOrder)
-            ->where('nombre', 'like', '%' . $searchValue . '%')->where('division', 'like', '%' . $searchValue . '%')->where('tipoCampeonato', 'like', '%' . $searchValue . '%')
+            ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($searchValue) . '%'])
             ->select('campeonatos.*')
             ->skip($start)
             ->take($rowperpage)
@@ -74,10 +76,11 @@ class CampeonatoController extends Controller
             "iTotalDisplayRecords" => $totalRecordswithFilter,
             "aaData" => $data_arr
         );
-
+        
         echo json_encode($response);
         exit;
     }
+
 
     public function store(Request $request)
     {
@@ -157,24 +160,27 @@ class CampeonatoController extends Controller
         return $equipoDiv;
     }
 
-    public function listadoCampeonatos(){
+    public function listadoCampeonatos()
+    {
         $campeonatos = Campeonato::orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.listadoCampeonatos', compact('campeonatos'));
     }
-    
-    public function divisionA(){
+
+    public function divisionA()
+    {
         $campeonatosDivA = Campeonato::where('division', 'Primera "A"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivA', compact('campeonatosDivA'));
     }
 
-    public function divisionB(){
+    public function divisionB()
+    {
         $campeonatosDivB = Campeonato::where('division', 'Segunda "B"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivB', compact('campeonatosDivB'));
     }
 
-    public function divisionC(){
+    public function divisionC()
+    {
         $campeonatosDivC = Campeonato::where('division', 'Tercera "C"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivC', compact('campeonatosDivC'));
     }
-   
 }

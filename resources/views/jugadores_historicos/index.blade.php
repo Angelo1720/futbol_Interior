@@ -4,11 +4,12 @@
             {{ __('Administrar jugadores históricos') }}
         </h2>
     </x-slot>
+
     <body>
         @role('admin_Liga')
             <div id="divBotonCrear" class="m-5">
                 <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
-                        href="{{route('historicos.create')}}">Crear Jugador Histórico</a></button>
+                        href="{{ route('historicos.create') }}">Crear Jugador Histórico</a></button>
             </div>
 
             <div class="m-5 text-center" style="overflow-x:auto;">
@@ -126,6 +127,9 @@
                             }
                         }
                     ],
+                    lengthMenu: [10, 25, 50], // Opciones de número de registros por página
+                    pageLength: 10, // Número de registros por página por defecto
+                    pagingType: "simple_numbers", // Estilo de paginación
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",

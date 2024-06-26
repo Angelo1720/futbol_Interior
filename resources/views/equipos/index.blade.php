@@ -4,24 +4,25 @@
             {{ __('Administrar equipos') }}
         </h2>
     </x-slot>
+
     <body>
         @role('admin_Liga')
-        <div id="divBotonCrear" class="m-5">
-            <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white" 
-                href="{{ route('equipos.create') }}">Crear Equipo</a></button>
-        </div>
+            <div id="divBotonCrear" class="m-5">
+                <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
+                        href="{{ route('equipos.create') }}">Crear Equipo</a></button>
+            </div>
 
-        <div class="m-5 text-center" style="overflow-x:auto;">
-            <table id='equipoTable' width='98%' class="table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <td>Nombre</td>
-                        <td class="tdDivisionalEquipo">Divisional</td>
-                        <td class="tdAccionesEquipo">Acciones</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+            <div class="m-5 text-center" style="overflow-x:auto;">
+                <table id='equipoTable' width='98%' class="table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <td>Nombre</td>
+                            <td class="tdDivisionalEquipo">Divisional</td>
+                            <td class="tdAccionesEquipo">Acciones</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         @endrole
         @if (session('success'))
             <!-- Modal -->
@@ -89,13 +90,19 @@
                 $('#equipoTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('equipos.getEquipos') }}",
-                    columns: [
-                        {
+                    ajax: {
+                        url: "{{ route('equipos.getEquipos') }}",
+                        type: 'GET',
+                        error: function(xhr, error, thrown) {
+                            console.log(xhr.responseText);
+                            alert('Ocurrió un error al cargar los datos');
+                        }
+                    },
+                    columns: [{
                             data: 'nombreCorto'
                         },
                         {
-                            data: 'divisional'  
+                            data: 'divisional'
                         },
                         {
                             "orderable": false,
@@ -122,6 +129,9 @@
                             }
                         }
                     ],
+                    lengthMenu: [10, 25, 50], // Opciones de número de registros por página
+                    pageLength: 10, // Número de registros por página por defecto
+                    pagingType: "simple_numbers", // Estilo de paginación
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",
