@@ -17,8 +17,8 @@
                         <tr>
                             <td>Nombre</td>
                             <td>Apellido</td>
-                            <td>Fecha de Nacimiento</td>
-                            <td>Acciones</td>
+                            <td class="tdFechaNacJHistoricos">Fecha de Nacimiento</td>
+                            <td class="tdAccionesJHistoricos">Acciones</td>
                         </tr>
                     </thead>
                 </table>
@@ -101,6 +101,8 @@
                             data: 'fechaNacimiento',
                         },
                         {
+                            "orderable": false,
+                            targets: 0,
                             "data": null,
                             "render": function(data, type, row) {
                                 var eliminarUrl = "{{ route('historicos.eliminar', ':id') }}";
@@ -112,14 +114,14 @@
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este jugador?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button class="btn btn-outline-secondary m-2">Editar</button>' +
+                                    '<button class="btn btn-outline-primary m-2">Editar</button>' +
                                     '</form>' +
                                     '<form id="formEliminarHistorico_' + row.id +
                                     '" method="POST" action="' + eliminarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este jugador?\')">' +
                                     '<input type="hidden" name="_method" value="DELETE">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-danger m-2">Eliminar</button>' +
+                                    '<button type="submit" class="btn btn-outline-danger m-2">Eliminar</button>' +
                                     '</form></div>';
                             }
                         }

@@ -16,8 +16,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <td>Nombre</td>
-                        <td>Divisional</td>
-                        <td class="w-25">Acciones</td>
+                        <td class="tdDivisionalEquipo">Divisional</td>
+                        <td class="tdAccionesEquipo">Acciones</td>
                     </tr>
                 </thead>
             </table>
@@ -98,6 +98,8 @@
                             data: 'divisional'  
                         },
                         {
+                            "orderable": false,
+                            targets: 0,
                             "data": null,
                             "render": function(data, type, row) {
                                 var editarUrl = "{{ route('equipos.edit', ':id') }}";
@@ -109,13 +111,13 @@
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este equipo?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button class="btn btn-outline-secondary m-2">Editar</button>' +
+                                    '<button class="btn btn-outline-primary m-2">Editar</button>' +
                                     '</form>' +
                                     '<form id="formAdminJugadores_' + row.id +
                                     '" method="POST" action="' + adminJugadoresUrl + '">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-primary m-2">Admin. jugadores</button>' +
+                                    '<button type="submit" class="btn btn-outline-secondary m-2">Admin. jugadores</button>' +
                                     '</form></div>';
                             }
                         }

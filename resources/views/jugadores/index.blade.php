@@ -169,7 +169,7 @@
                                     '" method="POST" action="' + editarUrl + '">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button class="btn btn-outline-secondary m-2">Editar</button>' +
+                                    '<button class="btn btn-outline-primary m-2">Editar</button>' +
                                     '</form>' +
                                     '<form id="formEliminarJugador_' + row.id +
                                     '" method="POST" action="' + quitarUrl +
