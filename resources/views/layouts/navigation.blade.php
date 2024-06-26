@@ -37,7 +37,7 @@
                         <img src="/Images/uruguay.png" alt="Icono"> Departamento
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Jugadores Históricos</a></li>
+                        <li><a class="dropdown-item" href="{{route('historicos.guest')}}">Jugadores Históricos</a></li>
                         <li><a class="dropdown-item" href="#">Palmarés</a></li>
                         <li><a class="dropdown-item" href="#">Campeonatos Interinos</a></li>
                     </ul>

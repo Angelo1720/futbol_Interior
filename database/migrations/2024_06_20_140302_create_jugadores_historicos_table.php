@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('fechaNacimiento');
-            $table->string('historia');
+            $table->text('historia');
             $table->integer('idPortada')->nullable();
 
             $table->foreign('idPortada')->references('id')->on('imagenes');
