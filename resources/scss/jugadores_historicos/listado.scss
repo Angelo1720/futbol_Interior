@@ -6,10 +6,10 @@
     border-radius: 10px;
     margin: 30px;
     max-height: 300px;
-    background-image: url("https://img.freepik.com/vector-gratis/fondo-lujo-diseno-moderno-abstracto-oscuro_343694-2197.jpg?t=st=1719377695~exp=1719381295~hmac=afbd2c3ee82c57c68365aacd7762ee189b335399fd350d59351f6eb59ab3fc8c&w=1380");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #282726;
     color: gold;
+    font-weight: bold;
+    
 }
 
 .divInfoJugador{
@@ -27,6 +27,7 @@ max-height: 100%;
     width: 100%;
     flex-direction: column;
     padding: 6px;
+    box-shadow: 4px 0px 8px rgba(255, 215, 0, 0.7), 0px 4px 8px rgba(255, 215, 0, 0.7), 0px -4px 8px rgba(255, 215, 0, 0.7);
 }
 
 #listadoGeneral{
