@@ -1,5 +1,9 @@
 <x-app-layout>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Administrar usuarios') }}
+        </h2>
+    </x-slot>
     <body>
         <div id="divBotonCrear" class="m-5">
             <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
