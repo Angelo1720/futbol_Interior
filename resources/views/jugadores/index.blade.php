@@ -4,6 +4,7 @@
             {{ __('Administrar jugadores') }}
         </h2>
     </x-slot>
+
     <body>
         @role('admin_Liga')
             <div class="d-inline-flex w-100 justify-content-between mt-5">
@@ -19,15 +20,16 @@
                     <h1 class="m-0 ms-2 align-self-center">{{ $equipo->nombreCorto }}</h1>
                 </div>
                 <div class="me-5 w-50 d-flex justify-content-end">
-                    <form method="POST" action="{{ route('jugadores.setJugadorEquipo', $equipo->id) }}" class="d-inline-block ms-5 w-75">
+                    <form method="POST" action="{{ route('jugadores.setJugadorEquipo', $equipo->id) }}"
+                        class="d-inline-block ms-5 w-75">
                         @csrf
-                            <label for="jugador-equipo" class="form-label label-custom">
-                                {{ __('Añadir jugador a equipo') }}
-                            </label>
-                            <select type="text" name="jugador-equipo[]" id="jugador-equipo" 
+                        <label for="jugador-equipo" class="form-label label-custom">
+                            {{ __('Añadir jugador a equipo') }}
+                        </label>
+                        <select type="text" name="jugador-equipo[]" id="jugador-equipo"
                             class="js-select2 form-control input-custom w-75 custom-select2"></select>
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Añadir jugador/es')}}
+                            {{ __('Añadir jugador/es') }}
                         </button>
                     </form>
                 </div>
@@ -56,7 +58,7 @@
                     <div class="sinJugadores">
                         <h2>Equipo sin jugadores</h2>
                     </div>
-                </div> 
+                </div>
             @endif
         @endrole
         @if (session('success'))
@@ -122,7 +124,7 @@
             $(document).ready(function() {
                 // Datos de los jugadores que no participan (pasados desde el controlador)
                 var jugadoresNotInEquipo = @json($jugadoresNotInEquipo);
-        
+
                 // Convertir los datos de jugadores en el formato esperado por select2
                 var jugadores = jugadoresNotInEquipo.map(function(jugador) {
                     return {
@@ -130,7 +132,7 @@
                         text: jugador.nombre + ' ' + jugador.apellido // El texto que se mostrará en el select
                     };
                 });
-        
+
                 // Inicializar select2
                 $('#jugador-equipo').select2({
                     data: jugadores,
@@ -141,7 +143,7 @@
             });
         </script>
         <script type="text/javascript">
-            $(document).ready(function() {                
+            $(document).ready(function() {
                 // DataTable
                 $('#jugadoresTable').DataTable({
                     processing: true,
@@ -181,6 +183,9 @@
                             }
                         }
                     ],
+                    lengthMenu: [10, 25, 50], // Opciones de número de registros por página
+                    pageLength: 10, // Número de registros por página por defecto
+                    pagingType: "simple_numbers", // Estilo de paginación
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",
@@ -204,7 +209,7 @@
                 });
             });
         </script>
-        
+
 
     </body>
 </x-app-layout>

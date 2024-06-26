@@ -4,6 +4,7 @@
             {{ __('Administrar usuarios') }}
         </h2>
     </x-slot>
+
     <body>
         <div id="divBotonCrear" class="m-5">
             <button type="submit" class="btn btn-primary m-2"><a class="dropdown-item text-white"
@@ -127,6 +128,9 @@
                             }
                         }
                     ],
+                    lengthMenu: [10, 25, 50], // Opciones de número de registros por página
+                    pageLength: 10, // Número de registros por página por defecto
+                    pagingType: "simple_numbers", // Estilo de paginación
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",

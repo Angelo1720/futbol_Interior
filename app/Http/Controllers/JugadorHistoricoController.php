@@ -40,15 +40,22 @@ class JugadorHistoricoController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = Jugador_Historico::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Jugador_Historico::select('count(*) as allcount')->where('nombre', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Jugador_Historico::where(function ($query) use ($searchValue) {
+            $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+        })
+            ->count();
 
         // Fetch records
         $records = Jugador_Historico::orderBy($columnName, $columnSortOrder)
-            ->where('nombre', 'like', '%' . $searchValue . '%')
+            ->where(function ($query) use ($searchValue) {
+                $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
+                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+            })
             ->select('jugadores_historicos.*')
             ->skip($start)
             ->take($rowperpage)
@@ -77,9 +84,9 @@ class JugadorHistoricoController extends Controller
             "aaData" => $data_arr
         );
 
-        echo json_encode($response);
-        exit;
+        return response()->json($response);
     }
+
 
     public function store(Request $request)
     {
