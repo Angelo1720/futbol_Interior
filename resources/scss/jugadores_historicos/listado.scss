@@ -6,10 +6,8 @@
     border-radius: 10px;
     margin: 30px;
     max-height: 300px;
-    background-color: #282726;
-    color: gold;
     font-weight: bold;
-    
+    width: 60%;
 }
 
 .divInfoJugador{
@@ -27,9 +25,6 @@ max-height: 100%;
     width: 100%;
     flex-direction: column;
     padding: 6px;
+    padding-left: 10px;
     box-shadow: 4px 0px 8px rgba(255, 215, 0, 0.7), 0px 4px 8px rgba(255, 215, 0, 0.7), 0px -4px 8px rgba(255, 215, 0, 0.7);
-}
-
-#listadoGeneral{
-    flex-direction: column-reverse;
 }

@@ -11,8 +11,9 @@
     </x-slot>
     <body>
         @if ($historicos->isNotEmpty())
-            <div id="listadoGeneral" class="d-flex justify-content-center text-center">
+            <div>
                 @foreach ($historicos as $index => $historico)
+                <div class="row justify-content-center">
                     <div class="cartasJugadoresHistoricos">
                         @if ($historico->traerPortada() != null)
                             <img class="imageJugador rounded"
@@ -32,6 +33,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
             <div class="container mt-5">
