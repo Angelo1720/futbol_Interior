@@ -88,7 +88,7 @@ class JugadorHistoricoController extends Controller
                 'nombre' => ['required', 'string', 'max:40'],
                 'apellido' => ['required', 'string', 'max:40'],
                 'fechaNacimiento' => ['required', 'string', 'max:40'],
-                'historia' => ['required', 'string', 'max:400'],
+                'historia' => ['required', 'string', 'max:255'],
                 'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
             ]);
             $jugadorNuevo = Jugador_Historico::create([
@@ -137,7 +137,7 @@ class JugadorHistoricoController extends Controller
                 'nombre' => ['required', 'string', 'max:40'],
                 'apellido' => ['required', 'string', 'max:40'],
                 'fechaNacimiento' => ['required', 'string', 'max:40'],
-                'historia' => ['required', 'string', 'max:400'],
+                'historia' => ['required', 'string', 'max:255'],
                 'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
             ]);
             $historico->nombre = $request->input('nombre');
@@ -205,5 +205,10 @@ class JugadorHistoricoController extends Controller
         if (Auth::user()) {
             return redirect()->route('historicos')->with('success', 'Jugador histórico eliminado correctamente.');
         }
+    }
+
+    public function listadoHistoricos(){
+        $historicos = Jugador_Historico::orderBy('nombre', 'asc')->paginate(4);
+        return view('jugadores_historicos.listadoHistoricos', compact('historicos'));
     }
 }
