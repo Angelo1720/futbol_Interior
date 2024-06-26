@@ -22,11 +22,11 @@
                         <thead class="thead-dark">
                             <tr>
                                 <td>Nombre</td>
-                                <td>Fecha de Inicio</td>
-                                <td>Fecha de finalización</td>
-                                <td>Liguilla</td>
-                                <td>Campeón</td>
-                                <td>Acciones</td>
+                                <td class="tdFechaInicioEdiciones">Fecha de Inicio</td>
+                                <td class="tdFechaFinalEdiciones">Fecha de finalización</td>
+                                <td class="tdLiguillaEdiciones">Liguilla</td>
+                                <td class="tdCampeonEdiciones">Campeón</td>
+                                <td class="tdAccionesEdiciones">Acciones</td>
                             </tr>
                         </thead>
                     </table>
@@ -106,6 +106,8 @@
                             }
                         },
                         {
+                            "orderable": false,
+                            targets: 0,
                             "data": null,
                             "render": function(data, type, row) {
                                 var editarUrl = "{{ route('ediciones.edit', ':id') }}";

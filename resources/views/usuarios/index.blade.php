@@ -13,11 +13,11 @@
             <table id='userTable' width='98%' class="table-bordered table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <td>ID</td>
-                        <td>Nombre</td>
+                        <td class="tdIdUsuario">ID</td>
+                        <td class="tdNombreUsuario">Nombre</td>
                         <td>Correo</td>
-                        <td>Usuario</td>
-                        <td>Acciones</td>
+                        <td class="tdUsuarioUsuario">Usuario</td>
+                        <td class="tdAccionesUsuario">Acciones</td>
                     </tr>
                 </thead>
             </table>
@@ -102,6 +102,8 @@
                             data: 'roles'
                         },
                         {
+                            "orderable": false,
+                            targets: 0,
                             "data": null,
                             "render": function(data, type, row) {
                                 var eliminarUrl = "{{ route('usuarios.eliminar', ':id') }}";
@@ -113,14 +115,14 @@
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas editar este usuario?\')">' +
                                     '<input type="hidden" name="_method" value="GET">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button class="btn btn-outline-secondary m-2">Editar</button>' +
+                                    '<button class="btn btn-outline-primary m-2">Editar</button>' +
                                     '</form>' +
                                     '<form id="formEliminarUsuario_' + row.id +
                                     '" method="POST" action="' + eliminarUrl +
                                     '" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este usuario?\')">' +
                                     '<input type="hidden" name="_method" value="DELETE">' +
                                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
-                                    '<button type="submit" class="btn btn-danger m-2">Eliminar</button>' +
+                                    '<button type="submit" class="btn btn-outline-danger m-2">Eliminar</button>' +
                                     '</form></div>';
                             }
                         }
