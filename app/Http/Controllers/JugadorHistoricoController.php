@@ -88,7 +88,7 @@ class JugadorHistoricoController extends Controller
                 'nombre' => ['required', 'string', 'max:40'],
                 'apellido' => ['required', 'string', 'max:40'],
                 'fechaNacimiento' => ['required', 'string', 'max:40'],
-                'historia' => ['required', 'string', 'max:255'],
+                'historia' => ['required', 'string', 'max:1000'],
                 'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
             ]);
             $jugadorNuevo = Jugador_Historico::create([
@@ -137,7 +137,7 @@ class JugadorHistoricoController extends Controller
                 'nombre' => ['required', 'string', 'max:40'],
                 'apellido' => ['required', 'string', 'max:40'],
                 'fechaNacimiento' => ['required', 'string', 'max:40'],
-                'historia' => ['required', 'string', 'max:255'],
+                'historia' => ['required', 'string', 'max:1000'],
                 'imgJugador' => ['file', 'mimes:jpeg,png,jpg', 'max:2048', new NoSpacesInFilename]
             ]);
             $historico->nombre = $request->input('nombre');
