@@ -224,7 +224,7 @@ class EquipoController extends Controller
 
     public function listadoEquipos()
     {
-        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(4);
+        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
         return view('equipos.listadoEquipos', compact('equipos'));
     }
 

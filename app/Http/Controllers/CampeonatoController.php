@@ -158,22 +158,22 @@ class CampeonatoController extends Controller
     }
 
     public function listadoCampeonatos(){
-        $campeonatos = Campeonato::orderBy('nombre', 'asc')->paginate(4);
+        $campeonatos = Campeonato::orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.listadoCampeonatos', compact('campeonatos'));
     }
     
     public function divisionA(){
-        $campeonatosDivA = Campeonato::where('division', 'Primera "A"')->orderBy('nombre', 'asc')->paginate(4);
+        $campeonatosDivA = Campeonato::where('division', 'Primera "A"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivA', compact('campeonatosDivA'));
     }
 
     public function divisionB(){
-        $campeonatosDivB = Campeonato::where('division', 'Segunda "B"')->orderBy('nombre', 'asc')->paginate(4);
+        $campeonatosDivB = Campeonato::where('division', 'Segunda "B"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivB', compact('campeonatosDivB'));
     }
 
     public function divisionC(){
-        $campeonatosDivC = Campeonato::where('division', 'Tercera "C"')->orderBy('nombre', 'asc')->paginate(4);
+        $campeonatosDivC = Campeonato::where('division', 'Tercera "C"')->orderBy('nombre', 'asc')->paginate(8);
         return view('campeonatos.campeonatosDivC', compact('campeonatosDivC'));
     }
    
