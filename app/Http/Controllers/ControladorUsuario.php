@@ -70,16 +70,16 @@ class ControladorUsuario extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = User::select('count(*) as allcount')->count();
         $totalRecordswithFilter = User::select('count(*) as allcount')
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
-            ->where('users.name', 'like', '%' . $searchValue . '%')
-            ->orWhere('users.email', 'like', '%' . $searchValue . '%')
-            ->orWhere('roles.name', 'like', '%' . $searchValue . '%')
+            ->whereRaw('LOWER(users.name) LIKE ?', ['%' . $searchValue . '%'])
+            ->orWhereRaw('LOWER(users.email) LIKE ?', ['%' . $searchValue . '%'])
+            ->orWhereRaw('LOWER(roles.name) LIKE ?', ['%' . $searchValue . '%'])
             ->distinct()
             ->count();
 
@@ -88,9 +88,9 @@ class ControladorUsuario extends Controller
         $records = User::orderBy($columnName, $columnSortOrder)
             ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
-            ->where('users.name', 'like', '%' . $searchValue . '%')
-            ->orWhere('users.email', 'like', '%' . $searchValue . '%')
-            ->orWhere('roles.name', 'like', '%' . $searchValue . '%')
+            ->whereRaw('LOWER(users.name) LIKE ?', ['%' . $searchValue . '%'])
+            ->orWhereRaw('LOWER(users.email) LIKE ?', ['%' . $searchValue . '%'])
+            ->orWhereRaw('LOWER(roles.name) LIKE ?', ['%' . $searchValue . '%'])
             ->select('users.*')
             ->distinct()
             ->skip($start)

@@ -7,11 +7,11 @@
 
     <body>
         @if ($campeonatos->isNotEmpty())
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+            <div class="container mt-5 d-flex justify-content-center text-center">
                 @foreach ($campeonatos as $index => $campeonato)
                     @if ($index % 2 == 0 && $index != 0)
             </div>
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+            <div class="container mt-5 d-flex justify-content-center text-center">
         @endif
         <div>
             <div class="card mx-5" id="cartasCampeonato">

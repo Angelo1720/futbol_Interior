@@ -84,11 +84,12 @@ class EquipoController extends Controller
 
         // Total records
         $totalRecords = Equipo::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombreCorto', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Equipo::select('count(*) as allcount')->where('nombreCorto', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = Equipo::orderBy($columnName, $columnSortOrder)
-            ->where('nombreCorto', 'like', '%' . $searchValue . '%')->where('divisional', 'like', '%' . $searchValue . '%')
+            ->where('nombreCorto', 'like', '%' . $searchValue . '%')
+            //->whereRaw('LOWER(nombreCorto) LIKE ?', ['%' . strtolower($searchValue) . '%'])
             ->select('equipos.*')
             ->skip($start)
             ->take($rowperpage)
@@ -224,7 +225,7 @@ class EquipoController extends Controller
 
     public function listadoEquipos()
     {
-        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(4);
+        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
         return view('equipos.listadoEquipos', compact('equipos'));
     }
 

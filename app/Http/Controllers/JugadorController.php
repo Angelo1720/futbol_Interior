@@ -57,59 +57,68 @@ class JugadorController extends Controller
     }
 
     public function getJugadores(Request $request, $idEquipo)
-    {
-        $draw = $request->get('draw');
-        $start = $request->get("start");
-        $rowperpage = $request->get("length"); // Rows display per page
+{
+    $draw = $request->get('draw');
+    $start = $request->get("start");
+    $rowperpage = $request->get("length"); // Rows display per page
 
-        $columnIndex_arr = $request->get('order');
-        $columnName_arr = $request->get('columns');
-        $order_arr = $request->get('order');
-        $search_arr = $request->get('search');
+    $columnIndex_arr = $request->get('order');
+    $columnName_arr = $request->get('columns');
+    $order_arr = $request->get('order');
+    $search_arr = $request->get('search');
 
-        $columnIndex = $columnIndex_arr[0]['column']; // Column index
-        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
-        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $idEquipo; // Search value
+    $columnIndex = $columnIndex_arr[0]['column']; // Column index
+    $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+    $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+    $searchValue = strtolower($search_arr['value']); // Search value
 
-        // Total records
-        $totalRecords = Jugador::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Jugador::select('count(*) as allcount')->where('idEquipo', $searchValue)->count();
+    // Total records
+    $totalRecords = Jugador::where('idEquipo', $idEquipo)->count();
+    $totalRecordswithFilter = Jugador::where('idEquipo', $idEquipo)
+        ->where(function($query) use ($searchValue) {
+            $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+        })
+        ->count();
 
-        // Fetch records
-        $records = Jugador::orderBy($columnName, $columnSortOrder)
-            ->where('idEquipo', $searchValue)
-            ->select('jugadores.*')
-            ->skip($start)
-            ->take($rowperpage)
-            ->get();
+    // Fetch records
+    $records = Jugador::where('idEquipo', $idEquipo)
+        ->where(function($query) use ($searchValue) {
+            $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+        })
+        ->orderBy($columnName, $columnSortOrder)
+        ->select('jugadores.*')
+        ->skip($start)
+        ->take($rowperpage)
+        ->get();
 
-        $data_arr = array();
+    $data_arr = array();
 
-        foreach ($records as $record) {
-            $id = $record->id;
-            $nombre = $record->nombre . " " . $record->apellido;
-            $fechaNacimiento = $record->fechaNacimiento;
-            $posicion = $record->posicion;
+    foreach ($records as $record) {
+        $id = $record->id;
+        $nombre = $record->nombre . " " . $record->apellido;
+        $fechaNacimiento = $record->fechaNacimiento;
+        $posicion = $record->posicion;
 
-            $data_arr[] = array(
-                "id" => $id,
-                "nombre" => $nombre,
-                "posicion" => $posicion,
-                "fechaNacimiento" => $fechaNacimiento
-            );
-        }
-
-        $response = array(
-            "draw" => intval($draw),
-            "iTotalRecords" => $totalRecords,
-            "iTotalDisplayRecords" => $totalRecordswithFilter,
-            "aaData" => $data_arr
+        $data_arr[] = array(
+            "id" => $id,
+            "nombre" => $nombre,
+            "posicion" => $posicion,
+            "fechaNacimiento" => $fechaNacimiento
         );
-
-        echo json_encode($response);
-        exit;
     }
+
+    $response = array(
+        "draw" => intval($draw),
+        "iTotalRecords" => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecordswithFilter,
+        "aaData" => $data_arr
+    );
+
+    return response()->json($response);
+}
+
 
     public function edit($idJugador)
     {
