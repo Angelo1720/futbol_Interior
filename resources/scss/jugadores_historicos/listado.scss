@@ -15,7 +15,9 @@
 }
 
 .imageJugador{
-max-height: 100%;
+max-height: auto;
+max-width: 200px;
+align-content: center;
 }
 
 .cuerpoCarta{
@@ -27,4 +29,6 @@ max-height: 100%;
     padding: 6px;
     padding-left: 10px;
     box-shadow: 4px 0px 8px rgba(255, 215, 0, 0.7), 0px 4px 8px rgba(255, 215, 0, 0.7), 0px -4px 8px rgba(255, 215, 0, 0.7);
+    margin-left: 10px;
+    background-color: rgba($color: #E6E0DC, $alpha: 0.2);
 }
