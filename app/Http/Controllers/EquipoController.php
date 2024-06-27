@@ -235,6 +235,7 @@ class EquipoController extends Controller
         foreach ($equipos as $equipo) {
             $equipo['idEscudo'] = $equipo->traerEscudo()->base64; 
         }
-        return response()->json($equipos, 200);
+        $r = ['Search'=> $equipos];
+        return response()->json($r, 200);
     }
 }
