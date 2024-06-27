@@ -233,9 +233,14 @@ class EquipoController extends Controller
     {
         $equipos = Equipo::orderBy('nombreCompleto', 'asc')->get();
         foreach ($equipos as $equipo) {
-            $equipo['idEscudo'] = $equipo->traerEscudo()->base64; 
+
+            if ($equipo->idEscudo) {
+                $equipo['idEscudo'] = $equipo->traerEscudo()->base64;
+            }else{
+                $equipo['idEscudo'] = null;
+            }
         }
-        $r = ['Search'=> $equipos];
+        $r = ['Search' => $equipos];
         return response()->json($r, 200);
     }
 }
