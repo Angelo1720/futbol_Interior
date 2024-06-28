@@ -80,7 +80,7 @@ class EquipoController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = Equipo::select('count(*) as allcount')->count();
@@ -88,8 +88,7 @@ class EquipoController extends Controller
 
         // Fetch records
         $records = Equipo::orderBy($columnName, $columnSortOrder)
-            ->where('nombreCorto', 'like', '%' . $searchValue . '%')
-            //->whereRaw('LOWER(nombreCorto) LIKE ?', ['%' . strtolower($searchValue) . '%'])
+            ->whereRaw('LOWER("nombreCorto") LIKE ?', ['%' . $searchValue . '%'])
             ->select('equipos.*')
             ->skip($start)
             ->take($rowperpage)

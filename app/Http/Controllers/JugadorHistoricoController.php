@@ -46,7 +46,8 @@ class JugadorHistoricoController extends Controller
         $totalRecords = Jugador_Historico::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Jugador_Historico::where(function ($query) use ($searchValue) {
             $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
         })
             ->count();
 
@@ -54,7 +55,8 @@ class JugadorHistoricoController extends Controller
         $records = Jugador_Historico::orderBy($columnName, $columnSortOrder)
             ->where(function ($query) use ($searchValue) {
                 $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%'])
+                    ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
             })
             ->select('jugadores_historicos.*')
             ->skip($start)
