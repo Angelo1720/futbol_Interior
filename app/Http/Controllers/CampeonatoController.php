@@ -76,7 +76,7 @@ class CampeonatoController extends Controller
             "iTotalDisplayRecords" => $totalRecordswithFilter,
             "aaData" => $data_arr
         );
-        
+
         echo json_encode($response);
         exit;
     }
@@ -160,27 +160,72 @@ class CampeonatoController extends Controller
         return $equipoDiv;
     }
 
-    public function listadoCampeonatos()
+    public function listadoCampeonatos(Request $request)
     {
-        $campeonatos = Campeonato::orderBy('nombre', 'asc')->paginate(8);
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $campeonatos = Campeonato::whereRaw('LOWER("nombre") LIKE ?', ['%' . $search . '%'])->orderBy('nombre', 'asc')->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
+            $campeonatos = Campeonato::orderBy('nombre', 'asc')->paginate(8);
+        }
         return view('campeonatos.listadoCampeonatos', compact('campeonatos'));
     }
 
-    public function divisionA()
+    public function divisionA(Request $request)
     {
-        $campeonatosDivA = Campeonato::where('division', 'Primera "A"')->orderBy('nombre', 'asc')->paginate(8);
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $campeonatosDivA = Campeonato::whereRaw('LOWER("nombre") LIKE ?', ['%' . $search . '%'])
+                    ->where('division', 'Primera "A"')
+                    ->orderBy('nombre', 'asc')
+                    ->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
+            $campeonatosDivA = Campeonato::where('division', 'Primera "A"')->orderBy('nombre', 'asc')->paginate(8);
+        }
         return view('campeonatos.campeonatosDivA', compact('campeonatosDivA'));
     }
 
-    public function divisionB()
+    public function divisionB(Request $request)
     {
-        $campeonatosDivB = Campeonato::where('division', 'Segunda "B"')->orderBy('nombre', 'asc')->paginate(8);
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $campeonatosDivB = Campeonato::whereRaw('LOWER("nombre") LIKE ?', ['%' . $search . '%'])
+                    ->where('division', 'Segunda "B"')
+                    ->orderBy('nombre', 'asc')
+                    ->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
+            $campeonatosDivB = Campeonato::where('division', 'Segunda "B"')->orderBy('nombre', 'asc')->paginate(8);
+        }
         return view('campeonatos.campeonatosDivB', compact('campeonatosDivB'));
     }
 
-    public function divisionC()
+    public function divisionC(Request $request)
     {
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $campeonatosDivC = Campeonato::whereRaw('LOWER("nombre") LIKE ?', ['%' . $search . '%'])
+                    ->where('division', 'Tercera "C"')
+                    ->orderBy('nombre', 'asc')
+                    ->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
         $campeonatosDivC = Campeonato::where('division', 'Tercera "C"')->orderBy('nombre', 'asc')->paginate(8);
+        } 
         return view('campeonatos.campeonatosDivC', compact('campeonatosDivC'));
     }
 }

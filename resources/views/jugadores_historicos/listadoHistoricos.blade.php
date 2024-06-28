@@ -11,6 +11,13 @@
     </x-slot>
     <body>
         @if ($historicos->isNotEmpty())
+        <form action="{{ route('historicos.guest') }}" method="GET" class="d-flex justify-content-center column-gap-2 mt-3">
+            @csrf   
+            <input type="text" name="buscador" id="buscador" class="form-input input-custom"
+            placeholder="Busca un jugador..." autofocus value="{{request('buscador')}}"
+            onclick="this.value='';">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
             <div id="listadoGeneral" class="d-flex justify-content-center text-center">
                 @foreach ($historicos as $index => $historico)
                     <div class="cartasJugadoresHistoricos">

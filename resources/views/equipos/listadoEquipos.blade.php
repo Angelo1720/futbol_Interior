@@ -5,7 +5,15 @@
         </h2>
     </x-slot>
     <body>
-        <div id="listadoGeneral" class="container mt-5">
+        <form action="{{ route('equipos.guest') }}" method="GET" class="d-flex justify-content-center column-gap-2 mt-3">
+            @csrf   
+            <input type="text" name="buscador" id="buscador" class="form-input input-custom"
+            placeholder="Busca un equipo..." autofocus value="{{request('buscador')}}"
+            onclick="this.value='';">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        
+        <div id="listadoGeneral" class="container mt-3">
             @foreach ($equipos as $equipo)
                 <div class="card mb-3">
                     <div class="row g-0">

@@ -6,6 +6,7 @@ use App\Models\Equipo;
 use App\Enum\Divisionales;
 use App\Models\Imagen;
 use App\Rules\NoSpacesInFilename;
+use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -223,9 +224,18 @@ class EquipoController extends Controller
         }
     }
 
-    public function listadoEquipos()
+    public function listadoEquipos(Request $request)
     {
-        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $equipos = Equipo::whereRaw('LOWER("nombreCorto") LIKE ?', ['%'. $search . '%'])->orderBy('nombreCompleto', 'asc')->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
+            $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
+        }
         return view('equipos.listadoEquipos', compact('equipos'));
     }
 

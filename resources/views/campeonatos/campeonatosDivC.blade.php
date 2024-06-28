@@ -7,11 +7,18 @@
 
     <body>
         @if ($campeonatosDivC->isNotEmpty())
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+        <form action="{{ route('div-C.guest') }}" method="GET" class="d-flex justify-content-center column-gap-2 mt-3">
+            @csrf   
+            <input type="text" name="buscador" id="buscador" class="form-input input-custom"
+            placeholder="Busca un campeonato..." autofocus value="{{request('buscador')}}"
+            onclick="this.value='';">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+            <div class="container mt-5 d-flex justify-content-center text-center">
                 @foreach ($campeonatosDivC as $index => $campeonatoDivC)
                     @if ($index % 2 == 0 && $index != 0)
             </div>
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+            <div class="container mt-5 d-flex justify-content-center text-center">
         @endif
         <div class="card mx-5" id="cartasCampeonato">
             <div>
