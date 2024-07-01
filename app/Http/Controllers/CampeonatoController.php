@@ -38,17 +38,17 @@ class CampeonatoController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = Campeonato::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Campeonato::select('count(*) as allcount')
-            ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($searchValue) . '%'])
+            ->whereRaw('LOWER("nombre") LIKE ?', ['%' . $searchValue . '%'])
             ->count();
 
         // Fetch records
         $records = Campeonato::orderBy($columnName, $columnSortOrder)
-            ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($searchValue) . '%'])
+            ->whereRaw('LOWER("nombre") LIKE ?', ['%' . $searchValue . '%'])
             ->select('campeonatos.*')
             ->skip($start)
             ->take($rowperpage)

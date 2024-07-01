@@ -76,8 +76,9 @@ class JugadorController extends Controller
     $totalRecords = Jugador::where('idEquipo', $idEquipo)->count();
     $totalRecordswithFilter = Jugador::where('idEquipo', $idEquipo)
         ->where(function($query) use ($searchValue) {
-            $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+            $query->whereRaw('LOWER("nombre") LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER("apellido") LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
         })
         ->count();
 
@@ -85,7 +86,8 @@ class JugadorController extends Controller
     $records = Jugador::where('idEquipo', $idEquipo)
         ->where(function($query) use ($searchValue) {
             $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
         })
         ->orderBy($columnName, $columnSortOrder)
         ->select('jugadores.*')
