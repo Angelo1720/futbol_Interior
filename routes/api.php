@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/listadoEquipos', [EquipoController::class, 'apiListadoEquipos']);
-Route::get('/listadoJugadoresHistoricos', [JugadorHistoricoController::class, 'apiListadoJugadoresHistoricos']);
+Route::get('/listadoJugadoresHistoricos', [JugadorHistoricoController::class, 'apiListadoHistoricos']);
