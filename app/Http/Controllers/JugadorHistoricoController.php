@@ -46,7 +46,8 @@ class JugadorHistoricoController extends Controller
         $totalRecords = Jugador_Historico::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Jugador_Historico::where(function ($query) use ($searchValue) {
             $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+                ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%'])
+                ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
         })
             ->count();
 
@@ -54,7 +55,8 @@ class JugadorHistoricoController extends Controller
         $records = Jugador_Historico::orderBy($columnName, $columnSortOrder)
             ->where(function ($query) use ($searchValue) {
                 $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . $searchValue . '%'])
-                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%']);
+                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchValue . '%'])
+                    ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $searchValue . '%']);
             })
             ->select('jugadores_historicos.*')
             ->skip($start)
@@ -214,9 +216,21 @@ class JugadorHistoricoController extends Controller
         }
     }
 
-    public function listadoHistoricos()
-    {
-        $historicos = Jugador_Historico::orderBy('nombre', 'asc')->paginate(4);
+    public function listadoHistoricos(Request $request) {
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $historicos = Jugador_Historico::whereRaw('LOWER("nombre") LIKE ?', ['%'. $search. '%'])
+                    ->orWhereRaw('LOWER("apellido") LIKE ?', ['%'. $search. '%'])
+                    ->orWhereRaw('LOWER(CONCAT("nombre", \' \', "apellido")) LIKE ?', ['%' . $search . '%'])
+                    ->orderBy('nombre', 'asc')
+                    ->paginate(5);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {    
+            $historicos = Jugador_Historico::orderBy('nombre', 'asc')->paginate(5);
+        }
         return view('jugadores_historicos.listadoHistoricos', compact('historicos'));
     }
 

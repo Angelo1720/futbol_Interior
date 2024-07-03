@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampeonatoController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\JugadorHistoricoController;
 use Illuminate\Http\Request;
@@ -18,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/listadoEquipos', [EquipoController::class, 'apiListadoEquipos']);
 Route::get('/listadoJugadoresHistoricos', [JugadorHistoricoController::class, 'apiListadoHistoricos']);
+Route::get('/listadoCampeonatos', [CampeonatoController::class, 'apiListadoCampeonatos']);

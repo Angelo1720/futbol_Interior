@@ -10,9 +10,17 @@
         </h2>
     </x-slot>
     <body>
+        <form action="{{ route('historicos.guest') }}" method="GET" class="d-flex justify-content-center column-gap-2 mt-3">
+            @csrf   
+            <input type="text" name="buscador" id="buscador" class="form-input input-custom w-25"
+            placeholder="Busca un jugador..." autofocus value="{{request('buscador')}}"
+            onclick="this.value='';">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
         @if ($historicos->isNotEmpty())
-            <div id="listadoGeneral" class="d-flex justify-content-center text-center">
+            <div>
                 @foreach ($historicos as $index => $historico)
+                <div class="row justify-content-center">
                     <div class="cartasJugadoresHistoricos">
                         @if ($historico->traerPortada() != null)
                             <img class="imageJugador rounded"
@@ -32,14 +40,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
             <div class="container mt-5">
                 {{ $historicos->links() }}
             </div>
         @else
-            <div class="position-relative">
-                <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
+            <div class="d-flex justify-content-center">
+                <div id="sinEdiciones" class="m-5 text-center">
                     Sistema sin jugadores históricos
                 </div>
             </div>

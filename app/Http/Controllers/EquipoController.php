@@ -6,6 +6,7 @@ use App\Models\Equipo;
 use App\Enum\Divisionales;
 use App\Models\Imagen;
 use App\Rules\NoSpacesInFilename;
+use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,7 +81,7 @@ class EquipoController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = Equipo::select('count(*) as allcount')->count();
@@ -88,8 +89,7 @@ class EquipoController extends Controller
 
         // Fetch records
         $records = Equipo::orderBy($columnName, $columnSortOrder)
-            ->where('nombreCorto', 'like', '%' . $searchValue . '%')
-            //->whereRaw('LOWER(nombreCorto) LIKE ?', ['%' . strtolower($searchValue) . '%'])
+            ->whereRaw('LOWER("nombreCorto") LIKE ?', ['%' . $searchValue . '%'])
             ->select('equipos.*')
             ->skip($start)
             ->take($rowperpage)
@@ -223,9 +223,18 @@ class EquipoController extends Controller
         }
     }
 
-    public function listadoEquipos()
+    public function listadoEquipos(Request $request)
     {
-        $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
+        if ($request->anyFilled('buscador')) {
+            $search = strtolower($request->input('buscador'));
+            try {
+                $equipos = Equipo::whereRaw('LOWER("nombreCorto") LIKE ?', ['%'. $search . '%'])->orderBy('nombreCompleto', 'asc')->paginate(8);
+            } catch (ValidationException $th) {
+                return redirect()->back()->withErrors($th->errors());
+            }
+        } else {
+            $equipos = Equipo::orderBy('nombreCompleto', 'asc')->paginate(8);
+        }
         return view('equipos.listadoEquipos', compact('equipos'));
     }
 

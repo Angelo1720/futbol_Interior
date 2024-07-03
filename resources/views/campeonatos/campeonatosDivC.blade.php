@@ -6,12 +6,19 @@
     </x-slot>
 
     <body>
+        <form action="{{ route('div-C.guest') }}" method="GET" class="d-flex justify-content-center column-gap-2 mt-3">
+            @csrf
+            <input type="text" name="buscador" id="buscador" class="form-input input-custom w-25"
+                placeholder="Busca un campeonato..." autofocus value="{{ request('buscador') }}"
+                onclick="this.value='';">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
         @if ($campeonatosDivC->isNotEmpty())
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+            <div class="container mt-5 d-flex justify-content-center text-center">
                 @foreach ($campeonatosDivC as $index => $campeonatoDivC)
                     @if ($index % 2 == 0 && $index != 0)
             </div>
-            <div id="listadoGeneral" class="container mt-5 d-flex justify-content-center text-center">
+            <div class="container mt-5 d-flex justify-content-center text-center">
         @endif
         <div class="card mx-5" id="cartasCampeonato">
             <div>
@@ -34,9 +41,9 @@
             {{ $campeonatosDivC->links() }}
         </div>
     @else
-        <div class="position-relative">
-            <div id="sinEdiciones" class="m-5 position-absolute top-50 start-50 translate-middle text-center">
-                Liga sin campeonatos de divisional C
+        <div class="d-flex justify-content-center">
+            <div id="sinEdiciones" class="m-5 text-center">
+                Liga sin campeonatos de Divisional C
             </div>
         </div>
         @endif

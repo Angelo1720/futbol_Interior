@@ -141,14 +141,15 @@ class EdicionController extends Controller
         $columnIndex = $columnIndex_arr[0]['column']; // Column index
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $idCampeonato; // Search value
+        $searchValue = strtolower($search_arr['value']); // Search value
 
         // Total records
         $totalRecords = Edicion::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Edicion::select('count(*) as allcount')
             ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
             ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
-            ->where('idCampeonato', $searchValue)
+            ->where('idCampeonato', $idCampeonato)
+            ->whereRaw('LOWER(edicion."nombre") LIKE ?', ['%' . $searchValue . '%'])
             ->distinct()
             ->count();
 
@@ -156,7 +157,8 @@ class EdicionController extends Controller
         $records = Edicion::orderBy($columnName, $columnSortOrder)
             ->leftJoin('campeonatos', 'campeonatos.id', '=', 'edicion.idCampeonato')
             ->leftJoin('equipos', 'equipos.id', '=', 'edicion.idCampeon')
-            ->where('idCampeonato', $searchValue)
+            ->where('idCampeonato', $idCampeonato)
+            ->whereRaw('LOWER(edicion."nombre") LIKE ?', ['%' . $searchValue . '%'])
             ->select('edicion.*', 'equipos.nombreCorto as nombreCampeon')
             ->skip($start)
             ->take($rowperpage)
