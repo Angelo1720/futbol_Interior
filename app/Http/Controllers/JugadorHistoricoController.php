@@ -233,4 +233,18 @@ class JugadorHistoricoController extends Controller
         }
         return view('jugadores_historicos.listadoHistoricos', compact('historicos'));
     }
+
+    public function apiListadoHistoricos()
+    {
+        $historicos = Jugador_Historico::orderBy('nombre', 'asc')->get();
+        foreach ($historicos as $jugadorHistorico) {
+            if ($jugadorHistorico->idPortada != null) {
+                $jugadorHistorico['idPortada'] = $jugadorHistorico->traerPortada()->base64;
+            } else {
+                $jugadorHistorico['idPortada'] = null;
+            }
+        }
+        $response = ['buscarJugador' => $historicos];
+        return response()->json($response, 200);
+    }
 }
