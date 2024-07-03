@@ -1,0 +1,58 @@
+-- Guía de instalación para proyecto Fútbol del Interior --
+
+Requisitos previos:
+- PHP (>= 8.1)
+- Composer
+- Node.js y npm
+- Servidor de base de datos (PGSql o MySql)
+
+---- Repositorio de GitHub: https://github.com/Angelo1720/futbol_Interior ----
+
+Al clonar u obtener el proyecto, abrir consola con la ruta del proyecto y ejecutar lo siguiente:
+1. 'composer install'.
+Composer install sirve para instalar las dependencias de PHP.
+
+2. 'npm install'.
+npm install sirve para instalar las dependencias de Node.js.
+
+Una vez instaladas las dependencias, continuar con lo siguiente:
+3. Configurar el archivo .env.
+Copiar el archivo '.env.example' y renombrarlo a '.env', para copiarlo escribir en consola:
+'cp .env.example .env'.
+
+4. Luego abrir el archivo.env y asegurarse de tener configurado de la siguiente manera:
+
+APP_NAME=Futbol_Interior
+APP_ENV=local
+APP_KEY=base64:...
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=pgsql (o mysql)
+DB_HOST=127.0.0.1
+DB_PORT=5432 (en caso de utilizar mysql, usar puerto 3306)
+DB_DATABASE=futbol-interior
+DB_USERNAME=*tu_usuario_de_baseDeDatos*
+DB_PASSWORD=*tu_contraseña_de_baseDeDatos*
+
+5. Una vez configurado el archivo, se debe generar una clave para la aplicación, para ello se debe escribir en consola lo siguiente:
+'php artisan key:generate'.
+
+6. Una vez generada la clave, ejecutar las migraciones y semillas de base de datos, para ello escribir en consola lo siguiente:
+'php artisan migrate:fresh --seed'.
+
+
+Luego de ejecutar los pasos anteriores, la aplicación ya puede ser utilizada, para ello se debe compilar los archivos de frontend.
+Para realizar esto recomendamos abrir una consola nueva con la ruta de la aplicación, porque la compilación de frontend se da en tiempo de ejecución, 
+por ende este debe ejecutarse todo el tiempo en el que se quiera utilizar la misma. Para comenzar con la compilación, escribir lo siguiente:
+'npm run dev'.
+
+Y por último, para iniciar la aplicación, ejecutar en consola: 'php artisan serve'.
+
+Luego de ejecutarlo, se brindará en consola un link para acceder a la aplicación de manera local.
+
+-- Datos cargados desde semilla --
+Actualmente, al cargar la semilla de datos, se cuenta con 32 equipos. De esos 32, 9 de ellos
+están inscriptos en las ediciones 'Apertura' y 'Clausura' del campeonato 'Primera Divisional'.
+Esos 9 equipos tienen un set de 8 jugadores (2 por posición) cada uno.
+A su vez también se cargan 4 jugadores históricos.

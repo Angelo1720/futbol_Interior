@@ -17,10 +17,18 @@ class EdicionesTableSeeder extends Seeder
     public function run()
     {
         Edicion::create([
-            'id' => '1',
             'nombre' => 'Apertura',
             'fechaInicio' => '2024-01-01',
-            'fechaFinal' => '2024-12-30',
+            'fechaFinal' => '2024-04-30',
+            'idCampeon' => null,
+            'liguilla' => false,
+            'idCampeonato' => '1',
+        ]);
+
+        Edicion::create([
+            'nombre' => 'Clausura',
+            'fechaInicio' => '2024-06-01',
+            'fechaFinal' => '2024-09-30',
             'idCampeon' => null,
             'liguilla' => false,
             'idCampeonato' => '1',
@@ -34,6 +42,86 @@ class EdicionesTableSeeder extends Seeder
         Edicion_Equipo::create([
             'idEquipo' => '2',
             'idEdicion' => '1'
+        ]);
+
+        Edicion_Equipo::create([
+            'idEquipo' => '3',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '4',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '6',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '9',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '13',
+            'idEdicion' => '1'
+        ]);        
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '14',
+            'idEdicion' => '1'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '15',
+            'idEdicion' => '1'
+        ]);
+
+        Edicion_Equipo::create([
+            'idEquipo' => '1',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '2',
+            'idEdicion' => '2'
+        ]);
+
+        Edicion_Equipo::create([
+            'idEquipo' => '3',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '4',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '6',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '9',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '13',
+            'idEdicion' => '2'
+        ]);        
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '14',
+            'idEdicion' => '2'
+        ]);
+        
+        Edicion_Equipo::create([
+            'idEquipo' => '15',
+            'idEdicion' => '2'
         ]);
     }
 }

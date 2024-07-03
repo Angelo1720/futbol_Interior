@@ -16,10 +16,23 @@ class CampeonatosTableSeeder extends Seeder
     public function run()
     {
         Campeonato::create([
-            'id' => '1',
-            'nombre' => 'Campeonato Nacional',
+            'nombre' => 'Primera Divisional',
             'division' => 'Primera "A"',
             'tipoCampeonato' => 'false',
         ]);
+
+        Campeonato::create([
+            'nombre' => 'Segunda Divisional',
+            'division' => 'Segunda "B"',
+            'tipoCampeonato' => 'false',
+        ]);
+
+        Campeonato::create([
+            'nombre' => 'Tercera Divisional',
+            'division' => 'Tercera "C"',
+            'tipoCampeonato' => 'false',
+        ]);
+
+
     }
 }

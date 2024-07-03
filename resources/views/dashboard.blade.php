@@ -18,7 +18,7 @@
             <img src="Images/Deportivo_America.png" alt="Escudo Equipo">
             <img src="Images/Esperanza.png" alt="Escudo Equipo">
             <img src="Images/Estudiantil.png" alt="Escudo Equipo">
-            <img src="Images/Guaviyú.png" alt="Escudo Equipo">
+            <img src="Images/Guaviyu.png" alt="Escudo Equipo">
             <img src="Images/Huracan.png" alt="Escudo Equipo">
             <img src="Images/Independencia.png" alt="Escudo Equipo">
             <img src="Images/Independiente.png" alt="Escudo Equipo">
