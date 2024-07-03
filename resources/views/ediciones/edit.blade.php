@@ -57,6 +57,7 @@
                     <div class="d-flex justify-content-center w-100">
                         <h2>Clubes participantes</h2>
                     </div>
+                    @if(!empty($equiposParticipantes))
                     <div id="clubesParticipantes" class="container m-0 p-0">
                         <div class="row d-flex justify-content-center w-100 m-0 p-0">
                             @foreach ($equiposParticipantes as $index => $equipo)
@@ -93,12 +94,17 @@
                             @endforeach
                         </div>
                     </div>
-
+                    @else
+                    <div class="d-flex justify-content-center">
+                        <p>No hay clubes participantes.</p>
+                    </div>
+                    @endif
                 </div>
                 <div class="w-50 mx-4">
                     <div class="d-flex justify-content-center w-100">
                         <h2>Partidos</h2>
                     </div>
+                    @if($partidosPorJornada->isNotEmpty())
                     <div id="partidosSiguientes" class="d-flex flex-column p-3">
                         <div class="accordion" id="accordionExample">
                             @foreach ($partidosPorJornada as $nroJornada => $partidos)
@@ -130,6 +136,11 @@
                             @endforeach
                         </div>
                     </div>
+                    @else
+                    <div class="d-flex justify-content-center">
+                        <p>No hay partidos disponibles.</p>
+                    </div>
+                    @endif
                 </div>
             </div>
         @endrole

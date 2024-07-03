@@ -18,7 +18,7 @@
             <img src="Images/Deportivo_America.png" alt="Escudo Equipo">
             <img src="Images/Esperanza.png" alt="Escudo Equipo">
             <img src="Images/Estudiantil.png" alt="Escudo Equipo">
-            <img src="Images/Guaviyú.png" alt="Escudo Equipo">
+            <img src="Images/Guaviyu.png" alt="Escudo Equipo">
             <img src="Images/Huracan.png" alt="Escudo Equipo">
             <img src="Images/Independencia.png" alt="Escudo Equipo">
             <img src="Images/Independiente.png" alt="Escudo Equipo">
@@ -90,11 +90,11 @@
         </div>
     </section>
     <section id="ejemplosJugadaoresHistoricos" class="seccionesDashboard mb-5 mt-2">
-        <h2 style="color: gold">Jugadores Históricos</h2>
+        <h2 style="color: gold" class="d-flex justify-content-center pb-2 fw-bold">Jugadores Históricos</h2>
         <div class="divCartas">
             <div class="cartaLegendaria">
                 <div class="card2">
-                    <img src="Images/alzugaray.webp" class="imagenCartaJugador" alt="Jugador">
+                    <img src="Images/alzugaray.png" class="imagenCartaJugador" alt="Jugador">
                 </div>
                 <span>"Pitufo" José Alzugaray</span>
             </div>
@@ -106,7 +106,7 @@
             </div>
             <div class="cartaLegendaria">
                 <div class="card2">
-                    <img src="Images/colita-merentiel.webp" class="imagenCartaJugador" alt="Jugador">
+                    <img src="Images/colita-merentiel.png" class="imagenCartaJugador" alt="Jugador">
                 </div>
                 <span>Julio “Colita” Merentiel</span>
             </div>
