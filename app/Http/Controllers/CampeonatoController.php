@@ -228,4 +228,12 @@ class CampeonatoController extends Controller
         } 
         return view('campeonatos.campeonatosDivC', compact('campeonatosDivC'));
     }
+
+    public function apiListadoCampeonatos()
+    {
+        $campeonatos = Campeonato::orderBy('nombre', 'asc')->get();
+        
+        $r = ['Campeonatos' => $campeonatos];
+        return response()->json($r, 200);
+    }
 }
