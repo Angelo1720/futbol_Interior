@@ -30,7 +30,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Amanecer',
                 'nombreCompleto' => 'Deportivo Amanecer',
                 'fechaFundacion' => '2000-04-11',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Cancha Deportivo Amanecer',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '3'
             ],
@@ -38,7 +38,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Barrio Obrero',
                 'nombreCompleto' => 'Club Atlético Barrio Obrero',
                 'fechaFundacion' => '1960-02-22',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Estadio Barrio Obrero Paysandú',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '42'
             ],
@@ -54,7 +54,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Boca de Sacra',
                 'nombreCompleto' => 'Club Atlético Boca de Sacra',
                 'fechaFundacion' => '1987-09-15',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Complejo Boca de Sacra',
                 'divisional' => Divisionales::DivC,
                 'cantidadTitulos' => '1'
             ],
@@ -62,7 +62,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Bohemios',
                 'nombreCompleto' => 'Bohemios Fútbol Club',
                 'fechaFundacion' => '1975-05-17',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Complejo Luis A. Collares',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '17'
             ],
@@ -70,7 +70,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Boston River',
                 'nombreCompleto' => 'Club Atlético Boston River',
                 'fechaFundacion' => '1916-11-25',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Cancha Club Atlético Boston River',
                 'divisional' => Divisionales::DivB,
                 'cantidadTitulos' => '12'
             ],
@@ -78,7 +78,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Casa Blanca',
                 'nombreCompleto' => 'Club Atlético Casa Blanca',
                 'fechaFundacion' => '1953-08-02',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Casa Blanca Fútbol Club',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '23',
                 'participa' => false
@@ -87,7 +87,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Centenario',
                 'nombreCompleto' => 'Club Atlético Centenario Uruguayo',
                 'fechaFundacion' => '1906-07-04',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Cancha Héctor Passarello',
                 'divisional' => Divisionales::DivA,
                 'cantidadTitulos' => '57'
             ],
@@ -102,7 +102,7 @@ class EquiposTableSeeder extends Seeder
             ],
             [
                 'nombreCorto' => 'Deportivo América',
-                'nombreCompleto' => 'Club Deportivo América',
+                'nombreCompleto' => 'Club Atlético Deportivo América',
                 'fechaFundacion' => '1947-02-12',
                 'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivB,
@@ -168,7 +168,7 @@ class EquiposTableSeeder extends Seeder
                 'nombreCorto' => 'Libertad',
                 'nombreCompleto' => 'Club Atlético Libertad',
                 'fechaFundacion' => '1980-08-25',
-                'nomCancha' => 'NO',
+                'nomCancha' => 'Estadio "Álvaro Pérez"',
                 'divisional' => Divisionales::DivB,
                 'cantidadTitulos' => '7'
             ],
@@ -190,7 +190,7 @@ class EquiposTableSeeder extends Seeder
             ],
             [
                 'nombreCorto' => 'Nuevo Paysandú',
-                'nombreCompleto' => 'Club Nuevo Paysandú',
+                'nombreCompleto' => 'Sportivo Nuevo Paysandú',
                 'fechaFundacion' => '1932-09-27',
                 'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivB,
@@ -198,7 +198,7 @@ class EquiposTableSeeder extends Seeder
             ],
             [
                 'nombreCorto' => 'Olímpico',
-                'nombreCompleto' => 'Olímpico - Paysandú',
+                'nombreCompleto' => 'Club Atlético Olímpico - Paysandú',
                 'fechaFundacion' => '1970-04-25',
                 'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivC,
@@ -223,7 +223,7 @@ class EquiposTableSeeder extends Seeder
             ],
             [
                 'nombreCorto' => 'Queguay',
-                'nombreCompleto' => 'Club Fútbol Club',
+                'nombreCompleto' => 'Queguay Fútbol Club',
                 'fechaFundacion' => '1955-08-19',
                 'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivB,
@@ -247,7 +247,7 @@ class EquiposTableSeeder extends Seeder
             ],
             [
                 'nombreCorto' => 'San Félix',
-                'nombreCompleto' => 'Sporting San Félix',
+                'nombreCompleto' => 'Sporting San Félix Fútbol Club',
                 'fechaFundacion' => '1990-02-23',
                 'nomCancha' => 'NO',
                 'divisional' => Divisionales::DivB,
