@@ -56,3 +56,15 @@ Actualmente, al cargar la semilla de datos, se cuenta con 32 equipos. De esos 32
 están inscriptos en las ediciones 'Apertura' y 'Clausura' del campeonato 'Primera Divisional'.
 Esos 9 equipos tienen un set de 8 jugadores (2 por posición) cada uno.
 A su vez también se cargan 4 jugadores históricos.
+
+Se cuenta con un usuario Administrador de Liga por defecto, las credenciales son:
+Usuario: adminLiga@gmail.com
+Contraseña: admin
+
+Utilización con aplicación de Android:
+
+Para utilizar el proyecto en conjunto con la aplicación web, se deberá instanciar el servidor de forma diferente:
+Teniendo la IP de la computadora, se deberá instanciar el proyecton con el siguiente comando:
+'php -S *ip_de_PC*:*puerto_deseado* -t public'.
+
+Por otro lado, en el proyecto de Android, en la configuración de la API, se deberá colocar la misma IP.
